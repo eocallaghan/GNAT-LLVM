@@ -1,0 +1,35 @@
+# Local GCC tree changes for our "GCC mainline" based builds, an
+# extremely fast moving and potentially very unstable target.
+
+# The goal of this build is to get a continuous idea of our shape
+# on top of the current fsf development tree, so this patch file
+# is expected to remain empty.
+
+-----------------------------------------------------------------
+
+2008-08-18  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* expr.h (STACK_OLD_CHECK_PROTECT): Set to 1 word.
+
+(Not to be submitted - local kludge)
+
+*** gcc/expr.h.0	2008-08-18 22:35:11.000000000 +0200
+--- gcc/expr.h	2008-08-16 20:41:00.000000000 +0200
+*************** do {								\
+*** 236,243 ****
+  #ifdef STACK_CHECK_PROTECT
+  #define STACK_OLD_CHECK_PROTECT STACK_CHECK_PROTECT
+  #else
+! #define STACK_OLD_CHECK_PROTECT \
+!  (USING_SJLJ_EXCEPTIONS ? 75 * UNITS_PER_WORD : 8 * 1024)
+  #endif
+  
+  /* Minimum amount of stack required to recover from an anticipated stack
+--- 236,242 ----
+  #ifdef STACK_CHECK_PROTECT
+  #define STACK_OLD_CHECK_PROTECT STACK_CHECK_PROTECT
+  #else
+! #define STACK_OLD_CHECK_PROTECT UNITS_PER_WORD
+  #endif
+  
+  /* Minimum amount of stack required to recover from an anticipated stack

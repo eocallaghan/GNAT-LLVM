@@ -1,0 +1,20 @@
+GNATMAKE=gnatmake
+GNATBIND=gnatbind
+GNATLINK=gnatlink
+
+GNATBIND_FLAGS= -static -x
+ADDR2LINE_SYMLIB= -laddr2line -lbfd -liberty 
+
+CC=gcc
+CFLAGS=-O2
+ADAFLAGS= -W -Wall -gnatpg $(CFLAGS)
+
+all: gnatmem
+
+gmem.o: gmem.c
+	$(CC) $(CFLAGS) -c gmem.c
+
+gnatmem: gmem.o
+	$(GNATMAKE) -c $(ADA_INCLUDES) gnatmem $(ADAFLAGS)
+	$(GNATBIND) $(GNATBIND_FLAGS) gnatmem
+	$(GNATLINK) -v gnatmem -o $@ gmem.o $(ADDR2LINE_SYMLIB)

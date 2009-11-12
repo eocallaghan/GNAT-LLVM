@@ -1,0 +1,55 @@
+# Make-lang.hie for GNU Ada Compiler (GNAT).
+#   Copyright (C) 2003-2005, Free Software Foundation, Inc.
+
+#This file is part of GCC.
+
+#GCC is free software; you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation; either version 2, or (at your option)
+#any later version.
+
+#GCC is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+
+#You should have received a copy of the GNU General Public License
+#along with GCC; see the file COPYING.  If not, write to
+#the Free Software Foundation, 59 Temple Place - Suite 330,
+#Boston, MA 02111-1307, USA.
+
+
+rts-zfp: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) \
+	GNATLIBCFLAGS="$(GNATLIBCFLAGS)" \
+	GNATMAKE=../gnatmake-cross rts-zfp
+
+install-rts-zfp: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) install-rts RTS_NAME=zfp
+
+rts-ravenscar: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) GNATMAKE=../gnatmake-cross rts-ravenscar
+
+install-rts-ravenscar: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) install-rts RTS_NAME=ravenscar
+
+rts-hi: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) GNATMAKE=../gnatmake-cross rts-hi
+
+install-rts-hi: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) install-rts RTS_NAME=hi
+
+rts-cert: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) \
+	   GNATLIBCFLAGS="$(GNATLIBCFLAGS)" \
+	   TARGET_LIBGCC2_CFLAGS="$(TARGET_LIBGCC2_CFLAGS)" \
+           GNATMAKE=../gnatmake-cross rts-cert RTS_NAME=cert
+
+install-rts-cert: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) install-rts RTS_NAME=cert
+
+rts-full: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) GNATMAKE=../gnatmake-cross rts-full
+
+install-rts-full: force
+	$(MAKE) -C ada  $(FLAGS_TO_PASS) install-rts RTS_NAME=full

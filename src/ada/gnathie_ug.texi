@@ -1,0 +1,4424 @@
+\input texinfo   @c -*-texinfo-*-
+@input texiplus
+
+@c %**start of header
+
+@c oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+@c                                                                            o
+@c                            GNAT DOCUMENTATION                              o
+@c                                                                            o
+@c                            G N A T H I E _ U G                             o
+@c                                                                            o
+@c                     Copyright (C) 1992-2009, AdaCore                       o
+@c                                                                            o
+@c  GNAT is free software;  you can  redistribute it  and/or modify it under  o
+@c  terms of the  GNU General Public License as published  by the Free Soft-  o
+@c  ware  Foundation;  either version 2,  or (at your option) any later ver-  o
+@c  sion.  GNAT is distributed in the hope that it will be useful, but WITH-  o
+@c  OUT ANY WARRANTY;  without even the  implied warranty of MERCHANTABILITY  o
+@c  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License  o
+@c  for  more details.  You should have  received  a copy of the GNU General  o
+@c  Public License  distributed with GNAT;  see file COPYING.  If not, write  o
+@c  to  the Free Software Foundation,  59 Temple Place - Suite 330,  Boston,  o
+@c  MA 02111-1307, USA.                                                       o
+@c                                                                            o
+@c  GNAT is maintained by Ada Core Technologies Inc (http://www.gnat.com).    o
+@c                                                                            o
+@c oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+@setfilename gnathie_ug.info
+@include version.texi
+@c version.texi contains a command that sets the gnat_version flag
+
+@include edition.texi
+@c edition.texi contains commands that set exactly one of the flags
+@c FSFEDITION, PROEDITION, GPLEDITION
+@c and that clear the other two
+
+@set DEFAULTLANGUAGEVERSION Ada 95
+@c Change this if/when the default becomes Ada 2005
+
+@settitle GNAT Pro User's Guide Supplement for High-Integrity Edition Platforms
+@setchapternewpage odd
+@syncodeindex fn cp
+
+@titlepage
+
+@title GNAT Pro User's Guide
+@c @center @titlefont{User's Guide}
+@sp 1
+
+@flushright
+@titlefont{@i{Supplement for@*High-Integrity Edition Platforms}}
+@end flushright
+@sp 2
+
+
+@ifset FSFEDITION
+@subtitle GNAT, The GNU Ada Compiler
+@subtitle GNAT Version @value{gnat_version}
+@end ifset
+@c ----------
+@ifset PROEDITION
+@subtitle The GNAT Pro Ada Compiler
+@subtitle GNAT Pro Version @value{gnat_version}
+@end ifset
+@c ----------
+@ifset GPLEDITION
+@subtitle The GNAT Ada Compiler
+@subtitle GNAT GPL Edition, Version @value{gnat_version}
+@end ifset
+
+@c ----------
+@subtitle Document revision level $Revision: 147861 $
+@subtitle Date: $Date: 2009-04-21 12:40:02 -0400 (Tue, 21 Apr 2009) $
+@author AdaCore
+
+@page
+@vskip 0pt plus 1filll
+
+
+@copyright{} Copyright 1998-2008, AdaCore
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with the Invariant Sections being ``GNU Free Documentation License'', with the
+Front-Cover Texts being
+``GNAT Pro User's Guide Supplement for High-Integrity Edition Platforms'',
+and with no Back-Cover Texts.
+A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+
+@end titlepage
+
+@ifnottex
+@c ******************* N O D E *******************
+@node Top, About This Guide, (dir), (dir)
+@top GNAT Pro User's Guide Supplement for High-Integrity Edition Platforms
+
+@noindent
+GNAT Pro User's Guide@*
+Supplement for High-Integrity Edition Platforms
+
+@noindent
+@ifset FSFEDITION
+GNAT, The GNU Ada Compiler@*
+GNAT Version @value{gnat_version}@*
+@end ifset
+@c ----------
+@ifset PROEDITION
+The GNAT Pro Ada Compiler@*
+GNAT Pro Version @value{gnat_version}@*
+@end ifset
+@c ----------
+@ifset GPLEDITION
+The GNAT Ada Compiler@*
+GNAT GPL Edition, Version @value{gnat_version}@*
+@end ifset
+@c ----------
+@noindent
+Document revision level $Revision: 147861 $@*
+Date: $Date: 2009-04-21 12:40:02 -0400 (Tue, 21 Apr 2009) $
+
+@noindent
+AdaCore
+
+@noindent
+@copyright{} Copyright 1998-2009, AdaCore
+
+@noindent
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with the Invariant Sections being ``GNU Free Documentation License'', with the
+Front-Cover Texts being
+``GNAT Pro User's Guide Supplement for High-Integrity Edition Platforms'',
+and with no Back-Cover Texts.
+A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+
+@menu
+* About This Guide ::
+* The High Integrity Philosophy ::
+* Using GNAT Pro Features Relevant to High-Integrity ::
+* The Predefined Profiles ::
+* The GNAT Configurable Run Time Facility ::
+* Target-Specific Topics ::
+* GNU Free Documentation License::
+* Index ::
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+About This Guide
+
+* What This Guide Contains::
+* What You Should Know Before Reading This Guide::
+* Related Information::
+* Conventions::
+
+The High Integrity Philosophy
+
+Using GNAT Pro Features Relevant to High-Integrity Mode
+
+* Exceptions and the High-Integrity Profiles ::
+* Allocators and the High-Integrity Profiles ::
+* Array and Record Assignments and the High-Integrity Profiles ::
+* Object-Oriented Programming and the High-Integrity Profiles ::
+* Functions Returning Unconstrained Objects ::
+* Controlling Implicit Conditionals and Loops ::
+* Controlling Use of Conditional Operators ::
+* Avoiding Elaboration Code::
+* Removal of Deactivated Code::
+* Traceability from Source Code to Object Code::
+* Optimization issues::
+* Other useful features::
+* Compilation options for the GNAT Pro High-Integrity Tool Chain::
+
+The Predefined Profiles
+* Choosing a Predefined Profile::
+* The Zero Footprint Profile::
+* The Cert Profile::
+* The Ravenscar Profiles::
+
+The GNAT Configurable Run Time Facility
+
+* Standard Run-Time Mode::
+* The Configurable Run Time::
+* Run-Time Libraries and Objects::
+* How Object Dependencies are Generated::
+* How the Run Time Is Configured::
+* Naming the Run-Time Library::
+* Configuring a Special Purpose Library::
+
+Target-Specific Topics
+
+* VxWorks 653 Topics::
+* VxWorks/Cert Topics::
+
+@end detailmenu
+@end menu
+@end ifnottex
+
+
+
+@c ************************************************
+@c *                                              *
+@c *          About This Guide                    *
+@c *                                              *
+@c ************************************************
+@node About This Guide
+@unnumbered About This Guide
+
+@noindent
+This guide describes the GNAT Pro High-Integrity Edition,
+an Ada tool suite designed especially for applications that need to be
+certified for compliance with safety standards such as DO-178B.
+
+GNAT Pro implements Ada 95 and Ada 2005, and it may also be invoked in
+Ada 83 compatibility mode.
+By default, GNAT Pro assumes @value{DEFAULTLANGUAGEVERSION},
+but you can override with a compiler switch
+to explicitly specify the language version.
+(Please refer to the section ``Compiling Different Versions of Ada'', in
+@cite{GNAT Pro User's Guide}, for details on these switches.)
+Throughout this manual, references to ``Ada'' without a year suffix
+apply to both the Ada 95 and Ada 2005 versions of the language.
+
+A major feature of the GNAT Pro High-Integrity Edition is the support for both
+predefined and user-specified @emph{profiles}.
+@cindex Profile
+A profile is a compiler-enforced Ada language subset with a
+corresponding (possibly empty) run-time library.
+Thus selecting a profile has two effects:
+@itemize @bullet
+@item
+The compiler will reject any source file that uses features
+outside the chosen subset.
+
+@item
+The run-time library (if any) bound with the program
+will contain support only for
+the features in the chosen subset
+@end itemize
+
+@noindent
+The profiles predefined by the GNAT Pro High-Integrity Edition,
+depending on the target, are as follows:
+
+@itemize @bullet
+@item
+The @emph{Zero Footprint Profile},
+an Ada subset requiring no run-time support;
+@cindex Zero Footprint Profile
+
+@item
+The @emph{Cert Profile},
+comprising the features in the Zero Footprint profile
+together with a restricted set of thread-safe features,
+in particular exception propagation;
+@cindex Cert Profile
+
+@item
+The @emph{Ravenscar Profiles},
+comprising the features in the Zero Footprint profile (Ravenscar SFP) or the
+Cert profile (Ravenscar Cert)
+together with a restricted set of tasking features;
+@cindex Ravenscar Profiles
+
+@item
+The @emph{Full-Runtime Profile},
+comprising the complete Ada language.
+@cindex Full-Runtime Profile
+@end itemize
+
+@noindent
+The Zero Footprint Profile, the Cert Profile and the Ravenscar Profiles
+are collectively known as the @emph{High-Integrity Profiles}, since
+they are designed to be used in applications that need to be certified
+for safety-critical use.  A @emph{High-Integrity Profile program} is a
+program built with one of the High-Integrity Profiles.
+@cindex High-Integrity Profiles
+@cindex High-Integrity Profile program
+
+These profiles are applications of a general technology implemented by
+the GNAT Pro High-Integrity Edition: user-defined profiles.
+The programmer can select a particular subset of language features and
+obtain compiler enforcement of this subset, with a corresponding
+specially configured
+run-time library containing only what is required for the chosen features.
+This provides additional flexibility and control,
+beyond the predefined profiles.
+
+This guide explains the various GNAT Pro features and tool options
+that may be useful for high-integrity applications,
+defines the High-Integrity Profiles and the run-time configurability
+mechanism, and presents some target specific topics.
+
+@menu
+* What This Guide Contains::
+* What You Should Know Before Reading This Guide::
+* Related Information::
+* Conventions::
+@end menu
+
+@c ******************* N O D E *******************
+@node What This Guide Contains
+@unnumberedsec What This Guide Contains
+
+@noindent
+This guide contains the following chapters:
+
+@itemize @bullet
+@item
+@ref{The High Integrity Philosophy}, gives an overview of the product.
+
+@item
+@ref{Using GNAT Pro Features Relevant to High-Integrity}, describes
+how to take advantage of some features of this product in an
+High-Integrity context.
+
+@item
+@ref{The Predefined Profiles}, presents the different profiles that you
+may encounter using the GNAT Pro High-Integrity Edition, depending on
+the system you are targeting.
+
+@item
+@ref{The GNAT Configurable Run Time Facility}, explains how to
+configure the GNAT run-time library / define a specific Ada feature profile
+based on specific application requirements.
+
+@item
+@ref{Target-Specific Topics}, lists the features available for a given
+target and introduces how to build programs with the GNAT Pro
+High-Integrity Edition for this target.
+
+@end itemize
+
+
+@c ******************* N O D E *******************
+@node What You Should Know Before Reading This Guide
+@unnumberedsec What You Should Know Before Reading This Guide
+@cindex What you should know before reading this guide
+
+@noindent
+This guide assumes a basic understanding of the Ada 95 language and
+familiarity with the @cite{GNAT Pro User's Guide}, in particular the
+material related to cross-compilation environments.
+@cindex @cite{GNAT Pro User's Guide}
+It does not require knowledge of the new features introduced by Ada 2005,
+(officially known as ISO/IEC 8652:1995 with Technical Corrigendum 1
+and Amendment 1).
+Both Ada reference manuals are included in the GNAT Pro documentation
+package.
+
+
+@c ******************* N O D E *******************
+@node Related Information
+@unnumberedsec Related Information
+
+@noindent
+For further information about GNAT and Ada, please refer to the following
+documents:
+
+@itemize @bullet
+@item
+@cite{GNAT Pro User's Guide}, which provides information on how to use
+the GNAT Pro toolset on native platforms.
+@cindex @cite{GNAT Pro User's Guide}
+
+@item
+@cite{GNAT Pro User's Guide Supplement for Cross Platforms}, which provides
+information on how to use GNAT Pro on cross-compilation platforms.
+@cindex @cite{GNAT Pro User's Guide Supplement for Cross Platforms}
+
+@item @cite{GNAT Pro Reference Manual}, which contains reference
+material for the GNAT Pro implementation of Ada.
+@cindex @cite{GNAT Pro Reference Manual}
+
+@item
+@cite{Ada 95 Reference Manual}, which defines the Ada 95 language standard.
+@cindex @cite{Ada 95 Reference Manual}
+
+@item
+@cite{Ada 2005 Reference Manual}, which defines the Ada 2005 language standard.
+@cindex @cite{Ada 2005 Reference Manual}
+@end itemize
+
+
+
+@c ******************* N O D E *******************
+@node Conventions
+@unnumberedsec Conventions
+@cindex Conventions
+@cindex Typographical conventions
+
+@noindent
+Following are examples of the typographical and graphic conventions used
+in this guide:
+
+@itemize @bullet
+@item
+@code{Subprogram names} and @code{package names}.
+
+@item
+@samp{Option flags}.
+
+@item
+@file{File Names}.
+
+@item
+@var{Variable names} and @var{field names}.
+
+@item
+@emph{Emphasis}.
+
+@item
+[optional information or parameters]
+
+@item
+Examples are described by text
+@smallexample
+and then shown this way.
+@end smallexample
+
+@end itemize
+
+@noindent
+Commands that are entered by the user are preceded in this manual by
+the characters ``@b{@code{$ }}'' (dollar sign followed by space). If
+your system uses this sequence as a prompt, then the commands will
+appear exactly as you see them in the manual. If your system uses some
+other prompt, then the command will appear with the ``@b{@code{$ }}''
+replaced by the relevant prompt string.
+
+@c **********************************
+@c *                                *
+@c *  The High Integrity Philosophy *
+@c *                                *
+@c **********************************
+
+@node The High Integrity Philosophy
+@chapter The High Integrity Philosophy
+
+@noindent
+The High-Integrity Edition of GNAT Pro is intended to
+reduce costs and risks in meeting safety certification standards
+such as DO-178B for applications written in Ada.
+@cindex DO-178B
+
+The main way this goal is met is through the use of language
+profiles: either one of the High-Integrity profiles supplied with the product,
+or an appropriately constrained Ada subset selected by the programmer.
+This will restrict Ada construct usage so that either no
+run-time library, or else a simple certifiable library, is used by a
+conforming application.  In the first case (the Zero Footprint
+Profile)
+@cindex Zero Footprint Profile
+there is no need to certify any object code outside of the
+application code. Note that there still are some run-time source
+files, which provide definitions used by the compiler, but these
+files do not generate any object code. Depending on the certification
+protocol, it may still be necessary to include tests for correct
+access to these definitions in these run-time files.
+
+In the second case (simple certifiable library, either for a predefined
+High-Integrity profile or for a user-defined configuration), the library is
+designed to expedite the certification process for an application that
+needs to use its features (e.g. concurrency,
+exception propagation...)  For example, it may be simpler and less
+expensive to certify a concurrent program built on the Ravenscar
+Profile than to certify a sequential program with no run-time library
+(should concurrency need to be simulated in application code).
+@cindex Zero Footprint Profile
+@cindex Ravenscar Profile
+
+Although limited in terms of dynamic Ada semantics,
+all High-Integrity profiles fully support static Ada constructs
+such as generic templates and child units. These profiles also allow the use
+of tagged types (at library level) and other Object-Oriented Programming
+features, but you can prohibit the general use of dynamic dispatching
+at the application level through @code{pragma Restrictions}.
+@cindex High-Integrity Profiles
+@cindex Generic templates (permitted in High-Integrity Profiles)
+@cindex Child units (permitted in High-Integrity Profiles)
+@cindex Tagged types at library level (permitted in High-Integrity Profiles)
+@cindex Object-Oriented Programming (and the High-Integrity Profiles)
+@cindex @code{pragma Restrictions}
+
+In addition to the High-Integrity Profiles, the GNAT Pro
+High-Integrity Edition may also support a Full-Runtime Profile thus
+allowing usage of the complete Ada language. However, the availability
+of this profile is target dependent, and certification materials for
+the full run-time profile are not available.
+
+A traditional problem with predefined profiles is their inflexibility:
+if you need to use a feature that is outside a given profile, then it
+is your responsibility to address the certification issues deriving
+from its use.
+The GNAT Pro High-Integrity Edition accommodates this need by allowing you
+to define a profile for the specific set of features you will use.
+Typically this will be for features with run-time libraries that require
+associated certification materials.
+Thus your program will have a tailored run-time library supporting only
+those features that you have specified.
+Indeed, the High-Integrity profiles themselves are implemented in this
+manner, using the product's run-time configurability mechanism.
+
+
+@c *******************************************************
+@c *                                                     *
+@c *  Using GNAT Pro Features Relevant to High-Integrity *
+@c *                                                     *
+@c *******************************************************
+@node Using GNAT Pro Features Relevant to High-Integrity
+@chapter Using GNAT Pro Features Relevant to High-Integrity
+
+@noindent
+The GNAT Pro High-Integrity Edition contains a number of features especially
+useful for safety-critical programming:
+
+@itemize @bullet
+@item
+With the @code{-gnatD} or @code{-gnatG}
+options, the compiler generates a low-level version of the source program
+ in an Ada-like format.
+@cindex @code{-gnatD} compiler switch
+@cindex @code{-gnatG} compiler switch
+
+This serves as an intermediate form between the original source
+program and the generated object code, thus supporting traceability
+requirements. This intermediate representation may be used as a
+reference point for verifying that the object code matches the source
+code. This expanded low-level generated code can also be used as the
+reference point for run-time debugging.
+
+@item
+With the @code{-gnatR} option, the
+compiler generates information about the
+choice of data representations.
+@cindex @code{-gnatR} compiler switch
+
+@item
+The compiler produces
+an extensive set of warning messages
+to diagnose situations that are likely to be errors, even though
+they do not correspond to illegalities in Ada Reference Manual terms.
+
+@item
+Two restriction identifiers for @code{pragma Restrictions} prohibit
+constructs that would generate implicit loops
+(@code{No_Implicit_Loops}) or implicit conditionals
+(@code{No_Implicit_Conditionals}).
+@cindex @code{pragma Restrictions}
+@cindex @code{No_Implicit_Loops} restriction
+@cindex @code{No_Implicit_Conditionals} restriction
+If these restrictions are specified, then either alternative code is
+generated without the implicit code, or the construct in question is
+rejected, forcing the programmer to make the loop or conditional
+explicit in the source. This is desirable in ensuring full testing of
+conditionals.  See @ref{Controlling Implicit Conditionals and Loops}.
+
+@item
+A restriction identifier for @code{pragma Restrictions} can be used
+to restrict the form of explicit conditionals. Using the
+restriction identifier @code{No_Direct_Boolean_Operators}
+prohibits the use of @code{and} and @code{or} operators,
+forcing instead the use of @code{and then} and @code{or else}.
+This can be useful in some certification
+procedures in order to reduce the number of test cases needed to
+fully exercise compound conditions.
+
+@item
+With the @code{-gnaty@i{x}} options, the compiler performs various
+style checks that can be used to enforce rigorous coding standards,
+easing the verification process by ensuring that the source is
+formatted in a uniform manner.
+@cindex @code{-gnaty@i{x}} compiler switches
+
+@item
+Annex H of the @cite{Ada Reference Manual} is fully implemented,
+and all implementation-dependent characteristics of the GNAT Pro
+implementation are defined in the @cite{GNAT Pro Reference Manual},
+further supporting the goal of reviewable object code.
+@cindex Reviewable object code
+@cindex @cite{GNAT Pro Reference Manual}
+@cindex Annex H support
+
+@end itemize
+
+@menu
+* Exceptions and the High-Integrity Profiles::
+* Allocators and the High-Integrity Profiles::
+* Array and Record Assignments and the High-Integrity Profiles::
+* Object-Oriented Programming and the High-Integrity Profiles::
+* Functions Returning Unconstrained Objects::
+* Controlling Implicit Conditionals and Loops::
+* Controlling Use of Conditional Operators::
+* Avoiding Elaboration Code::
+* Removal of Deactivated Code::
+* Traceability from Source Code to Object Code::
+* Optimization issues::
+* Other useful features::
+* Compilation options for the GNAT Pro High-Integrity Tool Chain::
+@end menu
+
+@c ******************* N O D E *******************
+@node Exceptions and the High-Integrity Profiles
+@section Exceptions and the High-Integrity Profiles
+@cindex Exceptions and the High-Integrity Profiles
+
+@noindent
+The predefined profiles implement two different levels of support for
+exception handling.  The ZFP and Ravenscar SFP (Small Footprint) profiles
+implement the scenario where
+@code{pragma Restrictions (No_Exception_Propagation)} is
+implicitly applied to an application (see below).  The Cert and Ravenscar Cert
+profiles implement full Ada 83 exception handling, plus limited use of Ada 95 /
+Ada 2005 exception occurrences.  Both implementations provide a last chance
+handler capability to deal with unhandled exceptions.  Details are described
+in the sections on exceptions in the chapters specific to the individual
+profiles.
+
+The restriction @code{No_Exception_Propagation}, which is the default
+mode for the ZFP and Ravenscar SFP profiles, allows exceptions to be raised
+and handled only if the handler is in the same subprogram (more generally
+in the same scope not counting packages and blocks). This limits the
+handling of exceptions to cases where raising the exception corresponds
+to a simple goto to the exception handler. This is especially useful
+for predefined exceptions. For example, the following is allowed in the
+ZFP or Ravenscar SFP profiles:
+
+@smallexample @c ada
+begin
+   X := Y + Z;
+exception
+   when Constraint_Error =>
+      ... result of addition outside range of X
+end;
+@end smallexample
+
+With this restriction in place, handlers are allowed, but can only be
+entered if the raise is local to the scope with the handler. The handler
+may not have a choice parameter, use of GNAT.Current_Exception is not
+permitted, and use of reraise statements (raise with no operand) is
+not permitted.
+
+Warnings are given if an implicit or explicit exception raise is not
+covered by a local handler, or if an exception handler does not cover
+a case of a local raise. The following example shows these warnings
+in action:
+
+@smallexample @c ada
+     1. pragma Restrictions (No_Exception_Propagation);
+     2. procedure p (C : in out Natural) is
+     3. begin
+     4.    begin
+     5.       C := C - 1;
+     6.    exception
+     7.       when Constraint_Error =>
+     8.          null;
+     9.       when Tasking_Error =>
+              |
+        >>> warning: pragma Restrictions
+            (No_Exception_Propagation) in effect, this
+            handler can never be entered, and has been
+            removed
+
+    10.          null;
+    11.    end;
+    12.
+    13.    begin
+    14.       C := C - 1;
+                     |
+        >>> warning: pragma Restrictions
+            (No_Exception_Propagation) in effect,
+            "Constraint_Error" may call
+            Last_Chance_Handler
+
+    15.    end;
+    16.
+    17.    begin
+    18.       raise Program_Error;
+              |
+        >>> warning: pragma Restrictions
+            (No_Exception_Propagation) in effect,
+            Last_Chance_Handler will be called
+            on exception
+
+    19.    end;
+    20. end p;
+@end smallexample
+
+These warnings may be turned off globally using the switch -gnatw.X, or
+by using pragma Warnings (Off) locally.
+
+As shown by the warnings above, if an exception handler
+If any other exception is raised, it is treated as unhandled, and causes
+the last chance handler to be entered.
+
+In a High-Integrity program, you can forbid exception handling
+entirely, but still allow the raising of exceptions by using:
+
+@smallexample @c ada
+   pragma Restrictions (No_Exception_Handlers);
+@end smallexample
+@cindex @code{No_Exception_Handlers} restriction
+
+@noindent
+No handlers are permitted in a program if this restriction is specified,
+@cindex Exception handlers (permitted under No_Exception_Handlers)
+so exceptions can never be handled in the usual Ada way. If run time
+checking is enabled, then
+it is possible for the predefined exceptions @code{Constraint_Error},
+@code{Program_Error}, or @code{Storage_Error} to be raised at run time.
+@cindex @code{Constraint_Error}
+@cindex @code{Program_Error}
+@cindex @code{Storage_Error}
+
+When such an exception is raised, a call is made to the routine designated
+by the symbol @code{__gnat_last_chance_handler}.  This routine has distinct
+parameters for the ZFP and Ravenscar SFP profiles vs. the Cert and Ravenscar
+Cert profiles, as detailed in the profile-specific sections.
+
+If your program may raise @code{Constraint_Error},
+@code{Program_Error}, or @code{Storage_Error}, then the application must
+include an appropriate ``last chance handler'' to deal with the fatal errors
+represented by these exception occurrences. This handler can be written in C
+or in Ada using the profile-specific parameters. All last chance handler
+implementations must terminate or suspend the thread that executes the handler.
+
+Exception declarations and @code{raise} statements are still permitted under
+this restriction.
+@cindex @code{raise} statement (permitted under No_Exception_Handlers)
+@cindex Exception declaration (permitted under No_Exception_Handlers)
+A @code{raise} statement is compiled into a call of
+@code{__gnat_last_chance_handler}.
+
+To suppress all run-time error checking and generation of implicit
+calls to the last chance handler, and to disallow all @code{raise}
+statements, you may use:
+
+@smallexample @c ada
+   pragma Restrictions (No_Exceptions);
+@end smallexample
+@cindex @code{No_Exceptions} restriction
+
+@noindent
+The following switch is not relevant if the program has
+@code{pragma Restrictions (No_Exception_Handlers)} or
+@code{pragma Restrictions (No_Exception_Propagation)}:
+
+@table @option
+@item -E
+This switch causes traceback information to be stored with exception
+occurrences and is only applicable when there are exception handlers.
+@cindex @option{-E} binder switch
+@end table
+
+@noindent
+The following switches are not relevant if the program has
+@code{pragma Restrictions (No_Exceptions)} or
+@code{pragma Restrictions (No_Exception_Propagation)}:
+
+@table @option
+
+@item -E
+See above.
+
+@item -gnatE
+This switch enables run-time checks for ``Access-Before-Elaboration'' errors.
+@cindex @code{-gnatE} compiler switch
+
+@end table
+
+@c ******************* N O D E *******************
+@node Allocators and the High-Integrity Profiles
+@section Allocators and the High-Integrity Profiles
+@cindex Allocator
+@cindex @code{Unchecked_Deallocation} generic
+@cindex @code{Ada.Unchecked_Deallocation} generic
+
+@noindent
+Allocators and unchecked deallocation are permitted in a
+High-Integrity Profile program.
+Use of these features will generate calls on one of
+the following C convention functions:
+
+@smallexample
+   void *__gnat_malloc (size_t size);
+   void __gnat_free (void *ptr);
+@end smallexample
+@findex @code{__gnat_malloc}
+@findex @code{__gnat_free}
+
+@noindent
+The corresponding Ada subprogram declarations are:
+
+@smallexample @c ada
+   type Pointer is access Character;
+   --  This is really a void pointer type, the result from
+   --  Gnat_Malloc will always be maximally aligned.
+
+   function Gnat_Malloc (size : Interfaces.C.size_t)
+     return Pointer;
+   pragma Export (C, Gnat_Malloc, "__gnat_malloc");
+
+   procedure Gnat_Free (Ptr : Pointer);
+   pragma Export (C, Gnat_Free, "__gnat_free");
+@end smallexample
+@findex Gnat_Malloc
+@findex Gnat_Free
+
+@noindent
+These functions are part of the run-time library for some High Integrity
+Profiles, and must be provided by the user otherwise. If included in the
+run-time library, they appear in the file @file{s-memory.adb}.  To know if
+a given profile provides this feature, see the relevant section in
+@ref{The Predefined Profiles}.
+
+If these functions are not provided, then the user must define
+@code{__gnat_malloc} either in C or in Ada, using the above
+declarations; otherwise the program will fail to bind. Analogously, if
+the program uses @code{Unchecked_Deallocation}, then
+@code{__gnat_free} must be defined.
+
+For example, on VxWorks/Cert 5.x,
+one approach (if no deallocation is to be allowed) is for the user
+to implement @code{Gnat_Malloc} through
+calls on @code{memLib} routines.
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert
+The @code{memNoMoreAllocations} function can be
+invoked to prevent further allocations, for example at the end of package
+elaboration.
+@cindex @code{memLib}
+@findex memNoMoreAllocations
+
+To prohibit the use of allocators or unchecked deallocation, you can use
+@code{pragma Restrictions} with the following restriction identifiers
+(these are defined in the @cite{Ada Reference Manual}):
+
+@table @code
+@item pragma Restrictions (No_Local_Allocators);
+This prohibits the use of allocators except at
+the library level (thus allocations occur only at elaboration
+time, and not after the invocation of the main subprogram).
+@cindex @code{No_Local_Allocators} restriction
+
+@item pragma Restrictions (No_Allocators);
+This prohibits all explicit use of allocators,
+thus preventing allocators both at the local and library level.
+@cindex @code{No_Allocators} restriction
+
+@item pragma Restrictions (No_Implicit_Heap_Allocations);
+This prohibits implicit allocations (for example an array with non-static
+subscript bounds declared at library level).
+@cindex @code{No_Implicit_Heap_Allocators} restriction
+
+@item pragma Restrictions (No_Unchecked_Deallocation);
+This prohibits all use of the generic procedure
+@code{Ada.Unchecked_Deallocation}.
+@cindex @code{No_Unchecked_Deallocation} restriction
+
+@end table
+
+@noindent
+If any or all of these pragmas appear in the @file{gnat.adc} file,
+@cindex @code{gnat.adc} file
+the corresponding construct(s) will be forbidden throughout the
+application. If all four of the above restrictions are in place, then
+no calls to either @code{__gnat_malloc} or @code{__gnat_free} will be
+generated.
+
+@c ******************* N O D E *******************
+@node Array and Record Assignments and the High-Integrity Profiles
+@section Array and Record Assignments and the High-Integrity Profiles
+@cindex Array and record assignments and the High-Integrity Profiles
+@cindex Record and array assignments and the High-Integrity Profiles
+
+@noindent
+The use of assignments of arrays and records is permitted in a
+High-Integrity Profile program. However, on some targets such
+constructs may generate calls on the C library functions @code{memcpy}
+or @code{bcopy}.
+@findex memcpy
+@findex bcopy
+There are two ways to deal with this issue.
+
+First, such assignments can be avoided at the source code level. You
+can replace an array assignment by an explicit loop, and a record
+assignment by a series of assignments to individual components. You can
+encapsulate such statements in a procedure if many such assignments
+occur.
+
+Second, you can reuse or define an appropriate @code{memcpy}
+(and/or @code{bcopy}) routine.
+
+For example, there is a @code{memcpy} function in package @code{strings}
+in the VxWorks/Cert 5.x binding that accompanies the GNAT Pro High-Integrity
+Edition for VxWorks/Cert 5.x,
+@cindex @code{strings} package in VxWorks/Cert 5.x binding
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert 5.x
+@cindex VxWorks/Cert 5.x binding
+or, if certification protocols permit, you can use the @code{memcpy} or
+@code{bcopy} routine(s) from the C library.
+Otherwise, the following Ada procedure will supply
+the needed @code{memcpy} functionality:
+
+@smallexample @c ada
+@group
+with System; use System;
+with Interfaces.C; use Interfaces.C;
+function memcpy (dest, src : Address;
+                 n         : size_t) return Address;
+pragma Export (C, memcpy, "memcpy");
+@end group
+
+@group
+with Ada.Unchecked_Conversion;
+function memcpy (dest, src : Address;
+                 n         : size_t) return Address is
+   subtype mem is char_array (size_t);
+   type memptr is access mem;
+   function to_memptr is
+      new Ada.Unchecked_Conversion (address, memptr);
+   dest_p : constant memptr := to_memptr (dest);
+   src_p  : constant memptr := to_memptr (src);
+@end group
+
+@group
+begin
+  if n > 0 then  -- need to guard against n=0 since size_t is a modular type
+    for J in 0 .. n - 1 loop
+       dest_p (J) := src_p (J);
+    end loop;
+  end if;
+
+  return dest;
+end memcpy;
+@end group
+@end smallexample
+@cindex Example - @code{memcpy} function in Ada
+
+@noindent
+The above @code{memcpy} routine provides the minimal required functionality.
+A more elaborate version that deals with alignments and moves by words
+rather than bytes where possible would improve performance. On some
+targets there may be hardware instructions (e.g. @code{rep movsb} on
+the @code{x86} architecture) that can be used to provide the needed
+functionality.
+
+Note that @code{memcpy} is not required to handle the overlap case, and the
+GNAT Pro compiler ensures that any call to @code{memcpy} meets the requirement
+that the operands do not overlap.
+
+On the other hand, @code{bcopy} is required to handle overlaps and the
+order of the arguments differs from @code{memcpy}. A user-supplied
+version of @code{bcopy} should take into account these differences from
+@code{memcpy}.
+
+
+@c ******************* N O D E *******************
+@node Object-Oriented Programming and the High-Integrity Profiles
+@section Object-Oriented Programming and the High-Integrity Profiles
+@cindex Object-Oriented Programming and the High-Integrity Profiles
+@cindex Object-Oriented Programming and the High-Integrity Profiles
+@noindent
+The High-Integrity Profiles support a large part of Ada's object-oriented
+programming facilities.
+
+Objects of tagged and class-wide types may be declared. Dispatching and
+class-wide subprograms are allowed.
+
+Restrictions are:
+@itemize @bullet
+@item
+Tagged types must be declared at the library level.
+
+@item
+No controlled types.
+
+@item
+@code{Ada.Tags.Internal_Tag} and @code{Ada.Tags.Tag_Error} are not
+available in the default implementations of these profiles.
+@end itemize
+
+Ada 2005 object-operation notation is fully supported under ZFP profile.
+Ada 2005 generic dispatching constructors are not supported under ZFP
+profile, and a subset of Ada 2005 interface types is supported under
+ZFP profile. Restrictions on interfaces are:
+
+@itemize @bullet
+
+@item
+No task interfaces, protected interfaces or synchronized interfaces.
+
+@item
+No dynamic membership test applied to interfaces (only those cases in
+which the evaluation can be performed at compile-time are supported).
+
+@item
+No class-wide interface conversions.
+
+@item
+No declaration of tagged type covering interfaces in which its
+parent type has variable-size components.
+
+@item
+'Address not supported on objects whose visible type is a class-wide
+interface.
+
+@end itemize
+
+@c ******************* N O D E *******************
+@node Functions Returning Unconstrained Objects
+@section Functions Returning Unconstrained Objects
+
+@cindex Functions returning unconstrained objects
+@cindex Unconstrained objects, returned by functions
+@noindent
+By default, the High-Integrity Profiles allow functions returning unconstrained
+objects such as unconstrained arrays or discriminated records without
+default initializations for discriminants.
+To implement this capability, the compiler generates references to a
+secondary stack mechanism that requires run-time support.
+@cindex Secondary stack (for unconstrained objects returned by functions)
+If you need to
+use this capability, you should refer to the relevant section in
+@ref{The Predefined Profiles}, to see if it is already provided in the
+run-time library or if you are responsible for providing an appropriate
+implementation of this unit for a given profile. The specification of the
+secondary stack mechanism is described in the Ada package
+@code{System.Secondary_Stack},
+@cindex @code{System.Secondary_Stack}
+which is in the file @file{s-secsta.ads}.
+@cindex @file{s-secsta.ads} (package spec @code{System.Secondary_Stack})
+
+If you wish to disable this capability, you can use the
+@code{pragma Restrictions (No_Secondary_Stack)};
+@cindex @code{No_Secondary_Stack} restriction
+@cindex @code{pragma Restrictions}
+that will generate an error
+at compile time for each call to a function returning an unconstrained object.
+
+@c ******************* N O D E *******************
+@node Controlling Implicit Conditionals and Loops
+@section Controlling Implicit Conditionals and Loops
+
+@noindent
+Certain complex constructs in Ada result in generated code that
+contains implicit conditionals, or implicit @code{for} loops.
+(``Implicit'' means that the conditionals/loops are not present in the
+Ada source code.)
+For example,
+slice assignments result in both kinds of generated code.
+@cindex Implicit conditionals
+@cindex Implicit loops
+
+In some certification protocols, conditionals and loops require special
+treatment. For example, in the case of a conditional, it may be necessary
+to ensure that the test suite contains cases that branch in both
+directions for a given conditional. A question arises as to whether
+implicit conditionals and loops generated by the compiler are subject
+to the same verification requirements.
+
+To address this issue, the GNAT Pro High-Integrity Edition defines
+two restriction
+identifiers that control whether the compiler is permitted to
+generate implicit conditionals and loops :
+
+@smallexample @c ada
+  pragma Restrictions (No_Implicit_Conditionals);
+  pragma Restrictions (No_Implicit_Loops);
+@end smallexample
+@cindex @code{No_Implicit_Conditionals} restriction
+@cindex @code{No_Implicit_Loops} restriction
+
+@noindent
+These are partition-wide restrictions that ensure that the generated
+code respectively contains no conditionals and no loops.  This is
+achieved in one of two ways. Either the compiler generates alternative
+code to avoid the implicit construct (possibly with some loss of
+efficiency) or, if it cannot find an equivalent code sequence, it
+rejects the program and flags the offending construct.  In the latter
+situation, the programmer will need to revise the source program to
+avoid the implicit conditional or loop.
+
+As an example, consider the slice assignment:
+@cindex Slice assignment and implicit loops and conditionals
+
+@smallexample @c ada
+   Data (J .. K) := Data (R .. S);
+@end smallexample
+
+@noindent
+Ada language semantics requires that a slice assignment of this type be
+performed nondestructively, as though the right hand side were computed
+first into a temporary, with the value then assigned to the left hand side.
+In practice it is more efficient to use a single loop, but the direction of
+the loop needs to depend on the values of @code{J} and @code{R}. If
+@code{J} is less than @code{R} them the move can take place left to right,
+otherwise it needs to be done right to left. The normal code generated by
+GNAT Pro reflects this requirement:
+
+@smallexample @c ada
+   if J < R then
+      for L in J .. K loop
+         Data (L) := Data (L - J + R);
+      end loop;
+   else
+      for L in reverse J .. K loop
+         Data (L) := Data (L - J + R);
+      end loop;
+   end if;
+@end smallexample
+
+@noindent
+This code clearly contains both implicit conditionals and implicit loops.
+If the restriction @code{No_Implicit_Conditionals} is active, then the
+effect is to generate code that uses a temporary:
+
+@smallexample @c ada
+   for L in R .. S loop
+      Temp (L - R) := Data (L);
+   end loop;
+   for L in J .. K loop
+      Data (L) := Temp (L - J);
+   end loop;
+@end smallexample
+
+@noindent
+This code avoids an implicit conditional at the expense of doing twice
+as many moves. If the restriction @code{No_Implicit_Loops} is also
+specified, then the slice assignment above would not be permitted,
+and would be rejected as illegal. This means that the programmer would
+need to modify the source program
+to have an explicit loop (in the appropriate
+direction). This loop could then be treated in whatever manner is
+required by the certification protocols in use.
+
+The following constructs are not permitted in the presence of
+@code{No_Implicit_Conditionals} (note that some are in any event
+excluded from the High-Integrity Profiles):
+@cindex @code{No_Implicit_Conditionals}, features excluded by
+
+@itemize @bullet
+@item Comparison of record or array values
+@item Array concatenation
+@item Controlled types
+@item Protected types
+@item Asynchronous select
+@item Conditional entry call
+@item Delay statement
+@item Selective accept
+@item Timed entry call
+@item Tagged types
+@item Distributed System Annex features (shared passive partitions, etc.)
+@item @code{Width} attribute applied to real type
+@item Absolute value operator if checks are on
+@item @code{rem}, @code{mod}, and division operators if checks are on
+@item @code{Is_Negative} intrinsic function
+@item Dynamic elaboration check
+@end itemize
+
+@noindent
+The following constructs are not permitted in the presence
+of @code{No_Implicit_Loops} (note that entry families are in any event
+excluded from some or all High-Integrity Profiles):
+@cindex @code{No_Implicit_Loops}, features excluded by
+
+@itemize @bullet
+@item Array aggregate with @code{others} clause
+@item Array types with implicit component initialization
+@item Array equality test
+@item Array concatenation
+@item Logical operations on array types
+@item Array assignments
+@item Controlled array types
+@item Entry families
+@item Default array stream attributes
+@end itemize
+
+@c ******************* N O D E *******************
+@node Controlling Use of Conditional Operators
+@section Controlling Use of Conditional Operators
+@cindex conditional operators
+@cindex and/or usage control
+
+@noindent
+Some testing procedures for certification can be more efficient if application
+programs avoid the explicit use of @code{and}/@code{or}
+and instead use @code{and then}/@code{or else}.
+This can facilitate meeting the requirement for MCDC
+(``Modified Condition / Decision Coverage'') testing.  The net effect of
+using the short-circuit versions is a significant reduction in the number
+of test cases needed to demonstrate code and condition coverage.
+
+The GNAT Pro High-Integrity Edition provides an additional restriction
+identifier that addresses this issue by controlling the presence of direct
+boolean conditional operators:
+
+@smallexample @c ada
+  pragma Restrictions (No_Direct_Boolean_Operators);
+@end smallexample
+@cindex @code{No_Direct_Boolean_Operators} restriction
+
+@noindent
+These are partition-wide restrictions that ensure that the source code
+does not contain any instances of the direct boolean operators
+@code{and} or @code{or}. This will alert the programmer to the requirement
+to use @code{and then} or @code{or else} as appropriate
+
+@c ******************* N O D E *******************
+@node Avoiding Elaboration Code
+@section Avoiding Elaboration Code
+@cindex Elaboration code
+@cindex Avoiding elaboration code
+
+@noindent
+Ada allows constructs (e.g., variables with implicit
+initializations) for which so-called @emph{elaboration code} must be generated.
+In a certification context the need to certify elaboration code
+will increase costs, as it will be necessary to address questions such as
+why the compiler implicitly generated the elaboration code,
+which Ada requirement it met, which test cases are needed.
+
+The GNAT Pro High-Integrity Edition provides the
+pragma @code{Restrictions (No_Elaboration_Code)},
+which alerts you to constructs for which elaboration code would be generated
+by the compiler.
+When this pragma is specified
+for a compilation unit, the compiler outputs an error message
+whenever it needs to generate elaboration code. You must then
+revise the program so that no elaboration code is generated.
+As an example consider the following:
+
+@smallexample @c ada
+package List is
+   type Elmt;
+   type Temperature is range 0.0 ... 1_000.0;
+   type Elmt_Ptr is access all Elmt;
+   type Elmt is record
+      T    : Temperature;
+      Next : Elmt_Ptr;
+   end record;
+end List;
+
+pragma Restrictions (No_Elaboration_Code);
+with List;
+procedure Client is
+   The_List : List.Elmt;
+begin
+   null;
+end Client;
+@end smallexample
+
+@noindent
+When compiling unit @code{Client}, the compiler will generate the error
+message:
+
+@smallexample
+  client.adb:4:04: violation of restriction "No_Elaboration_Code" at line 1
+@end smallexample
+
+@noindent
+In this example GNAT Pro needs to generate elaboration code for object
+@code{The_List} because Ada requires access values to be @b{null} initialized
+(unless they have explicit initializations).
+To see the elaboration code that would be generated you can remove the
+@code{No_Elaboration_Code} restriction and use the @option{-gnatG} switch
+@cindex @option{-gnatG}
+to view the low-level version of the Ada code generated by GNAT Pro.
+In this case we obtain:
+
+@smallexample @c ada
+package list is
+   type list__elmt;
+   type list__temperature is new float range 0.0E0 .. (16384000.0*2**(-14));
+   type list__elmt_ptr is access all list__elmt;
+   type list__elmt is record
+      t : list__temperature;
+      next : list__elmt_ptr;
+   end record;
+   freeze list__elmt [
+      procedure list__elmtIP (_init : in out list__elmt) is
+      begin
+         _init.next := null;
+         return;
+      end list__elmtIP;
+   ]
+end list;
+
+with list; use list;
+procedure client is
+   the_list : list.list__elmt;
+   list__elmtIP (the_list);
+begin
+   null;
+   return;
+end client;
+@end smallexample
+
+@noindent
+Elaboration code is generated inside procedure @code{Client}
+to @b{null}-initialize the access value inside @code{The_List} object,
+by calling the initialization procedure for the type, namely @code{elmtIP}.
+
+To avoid generating elaboration code, you can add explicit initialization
+as follows:
+
+@smallexample @c ada
+pragma Restrictions (No_Elaboration_Code);
+with List; use List;
+procedure Client is
+   The_List : List.Elmt := (0.0, null);
+begin
+   null;
+end Client;
+@end smallexample
+
+@noindent
+Since the initialization is now explicit, it becomes part of the requirements
+mapping and application design.
+In a certification context it is preferable to certify
+code that you write explicitly rather than code that gets generated
+implicitly.
+
+@c ******************* N O D E *******************
+@node Removal of Deactivated Code
+@section Removal of Deactivated Code
+@cindex Removal of Deactivated Code
+
+@noindent
+Deactivated code in the executable requires specific treatment with
+standards such ED12/DO-178b (see 6.4.4.3d). This treatment can be
+simplified by diminishing the footprint of deactivated code in the final
+executable. This section summarizes the various features that
+can be used to minimize the footprint of deactivated code in the final
+executable program.
+
+@itemize @bullet
+@item Automatic Removal
+The compiler automatically removes local nested subprograms that are never
+used at all levels of optimization. It also removes unused library-level
+subprograms declared within package bodies at optimization level -O1 or higher.
+
+@item Static Boolean conditionals
+The compiler eliminates automatically all code protected by
+conditionals, if and case statements, that are statically detected
+to be false. For instance, with those declarations:
+@smallexample @c ada
+   type Configs is (config1, config2, config3);
+   ...
+   C : constant Configs := config2;
+@end smallexample
+
+the following code
+
+@smallexample @c ada
+   if C = config1 then
+      some_code0;
+   end if;
+   case C is
+      when config1 => some_code1;
+      when config2 => some_code2;
+      when config3 => some_code3;
+   end case;
+@end smallexample
+
+is transformed into:
+
+@smallexample @c ada
+   some_code2;
+@end smallexample
+
+The elimination done by the compiler can be traced thanks to a compiler
+optional warning enabled with @code{-gnatwt}.
+
+@item Pragma Eliminate
+
+The user can prevent code generation for subprograms that are known to
+be deactivated by placing pragmas eliminate in the configuration
+pragmas file:
+@smallexample @c ada
+pragma Eliminate (Unit, Unused_Subp, Source_Location => "unit.adb:19")
+@end smallexample
+The compiler will issue an error if an attempt is made to call an
+eliminated subprogram. A separate tool, @code{gnatelim} can produce
+automatically the list of pragmas Eliminate that can be used for the
+construction of a given executable.
+
+@item Linker Level Removal
+
+Some configurations support linker level removal of unused subprograms and
+data. The source code needs to be compiled with the options
+@code{-ffunction-sections} and @code{-fdata-sections}  and the linking
+must be performed with option @code{-Wl,--gc-sections}. Traceability of
+the code removal is provided through a chapter called "Discarded
+Input sections" in the map file
+that can be produced by the linker with option @code{-Wl,-M}.
+@end itemize
+
+These methods can be used to reduce the amount of code in the final
+executable corresponding to deactivated source code. The last three offer
+means of tracing the removed code and thus can be used for traceability
+purposes or as documentation of the deactivation mechanism.
+The last method can also remove code added by the
+compiler such as the implicit initialization procedures associated with
+composite types when they are not used. It therefore simplifies the reverse
+traceability from object to source.
+
+
+@c ******************* N O D E *******************
+@node Traceability from Source Code to Object Code
+@section Traceability from Source Code to Object Code
+@cindex Traceability from Source Code to Object Code
+
+@noindent
+During the build process, the GNAT Pro toolchain manipulates several
+program representations, in particular:
+
+@itemize @bullet
+
+@item
+The initial source code;
+
+@item
+The expanded code, which is low level Ada pseudo-code;
+
+
+@item
+Assembler code;
+
+@item
+Object code.
+
+@end itemize
+
+@noindent
+In order to help the traceability process, GNAT Pro gives access to the
+intermediate format, through the following flags:
+
+@table @option
+
+@item -gnatD
+This switch causes a listing of a pseudo-Ada low-level version of the
+compilation unit to be directed to a file.
+@cindex @code{-gnatD} compiler switch
+
+@item -gnatG
+This switch produces a listing of a pseudo-Ada low-level version of the
+compilation unit.
+@cindex @code{-gnatG} compiler switch
+@item -gnatL
+This switch enhances traceability of the expanded code by
+adding the original source code as comments just before the corresponding
+expansion. It has to be used in conjunction with @code{-gnatD}
+or @code{-gnatG}.
+@cindex @code{-gnatL} compiler switch
+@item -S
+This switch causes generation of an assembly language version of the
+compilation unit, instead of an object file.
+@cindex @code{-S} compiler switch
+
+@item -save-temps
+This switch causes the compiler to save temporary files
+(in particular, the @file{.s} file) while still generating @file{.o}
+and @file{ALI} files.
+@cindex @code{-save-temps} compiler switch
+
+@item -fverbose-asm
+This switch causes the compiler to decorate the assembly
+output with comments containing the names of the entities
+(e.g. local variables) being manipulated by the current assembly
+instruction.
+@cindex @code{-fverbose-asm} compiler switch
+
+@item -mregnames
+This switch causes the compiler to emit symbolic names for register in the
+assembly output. This switch is specific to PowerPC and even though it is not
+directly related to traceability, it is worth mentioning because it
+greatly improves assembly code readability.
+@cindex @code{-mregnames} compiler switch
+
+@item -Wa,-adhl
+This switch instructs the GNU assembler to produce a text listing of the
+generated code containing the high-level source and the assembly while
+excluding debugger directives (for readability reasons). The listing goes
+to standard output and can be redirected to a file using the syntax
+@code{-Wa,-adhl=file.lst} which
+save it in the file @code{file.lst}.
+@cindex @code{-Wa,-adhl} compiler switch
+
+@item -gnatR
+This switch causes representation information to be generated for declared
+types and objects.
+@cindex @code{-gnatR} compiler switch
+
+@end table
+These options can be combined in various ways. A fairly complete source
+to object traceability is provided by:
+@smallexample
+$ <target>-gcc -c -gnatDL -Wa,-adhl -fverbose-asm -mregnames prg.adb
+@end smallexample
+@c ******************* N O D E *******************
+@node Optimization issues
+@section Optimization issues
+@cindex Optimization issues
+
+@noindent
+The @option{-O@i{n}} compiler switch sets the optimization level to @i{n},
+where @i{n} is an integer between 0 and 3.
+If @i{n} is omitted, it is set to 1.
+@cindex @option{-O} compiler switch
+
+Generally you should use the @option{-O} switch to enable optimization,
+because this is the level at which you can most easily track
+the correspondence between source code
+and object code.
+Although for safety-critical programs optimizations are often
+regarded with suspicion, the fundamental
+reason for this concern is traceability. At the @option{-O0} level,
+traceability is in fact more difficult due to the large amount of
+naive code that is generated.
+The optimizations performed at level @option{-O1} eliminate
+redundant code, but avoid the kind of code-shuffling transformations
+that can obscure the correspondence between
+source and object code.
+
+If you consider coverage, it can be useful to disable optimizations on
+conditional statements. The option
+@option{-fno-short-circuit-optimize} specifically disables boolean
+operator optimizations (those which transform @code{or else} into
+@code{or} or @code{and then} into @code{and}), and the options
+@option{-fno-if-conversion} and @option{-fno-if-conversion2} disable
+optimization passes that try to remove conditional jumps for if statements and
+use conditional move instead. These switches help to preserve the original
+jump structure implied by the source, thus helping source-to-object
+traceability, and facilitating certification and coverage analysis at
+the object level.
+
+@c ******************* N O D E *******************
+@node Other useful features
+@section Other useful features
+@cindex Other useful features
+
+@noindent
+The @option{-gnaty} compiler switches direct the compiler to enforce style
+consistency checks, which can be useful in ensuring a uniform
+lexical appearance (and easing program readability) across a project.
+@cindex @code{-gnaty@i{x}} compiler switches
+
+Annex H in the @cite{Ada Reference Manual} defines a set of restrictions
+identifiers, many of which are relevant for code that needs to be certified.
+If you provide a @code{pragma Restrictions} with any of these identifiers,
+the compiler will prohibit your program from using the corresponding construct.
+@cindex Annex H restrictions
+@cindex @code{pragma Restrictions}
+
+@c ******************* N O D E *******************
+@node Compilation options for the GNAT Pro High-Integrity Tool Chain
+@section Compilation options for the GNAT Pro High-Integrity Tool Chain
+
+@noindent
+For the most part, you use the GNAT Pro tools in the High-Integrity edition
+in the same way, and with the same set of switches, as in a full Ada
+environment. However, certain switches are not relevant for the
+High-Integrity Profiles.
+This section lists this set of switches;
+a complete description of the compiler switches appears in the
+@cite{GNAT Pro User's Guide}
+and, in the case of general gcc switches, the @cite{Using GNU GCC} manual.
+@cindex @cite{GNAT Pro User's Guide}
+@cindex @cite{Using GNU GCC}
+@cindex High-Integrity Profiles
+
+@menu
+* Compiler Switches::
+* Gnatbind Switches::
+@end menu
+
+
+@c ******************* N O D E *******************
+@node Compiler Switches
+@subsection Compiler Switches
+@cindex Compiler switches
+
+@noindent
+The following switches are not relevant in certain High-Integrity profiles,
+since they are associated with features that are outside these
+profiles:
+@cindex Zero Footprint mode
+@cindex Ravenscar mode
+@cindex Cert mode
+
+@table @option
+
+@item -fstack-check
+This switch enables stack overflow checking, and is allowed for the Cert and
+Ravenscar Cert profiles, but not for ZFP or Ravenscar SFP
+@cindex @code{-fstack-check} compiler switch
+
+@item -gnata
+This switch enables pragma @code{Assert}. This is allowed in the Cert and
+Ravenscar Cert profiles, but not in the ZFP or Ravenscar SFP profiles.
+@cindex @code{-gnata} compiler switch
+
+@item -gnato
+This switch enables run-time checks for integer overflow, but is subject to
+exception propagation and handling restrictions in ZFP and Ravenscar SFP.
+@cindex @code{-gnato} compiler switch
+
+@item -gnatP
+This switch enables polling in a tasking program.
+@cindex @code{-gnatP} compiler switch
+
+@item -gnatT
+This switch sets the timeslice in a tasking program.
+@cindex @code{-gnatT} compiler switch
+
+@item -gnatz
+This switch is used for distributed Ada programs.
+@cindex @code{-gnatz} compiler switch
+
+@end table
+
+
+@c ******************* N O D E *******************
+@node Gnatbind Switches
+@subsection @code{gnatbind} Switches
+@cindex Binder switches
+@cindex @code{gnatbind} switches
+
+@noindent
+The following switches are not relevant in Zero Footprint, Cert or Ravenscar
+modes:
+@cindex Zero Footprint mode
+@cindex Ravenscar mode
+@cindex Cert mode
+
+@table @option
+
+@item -static
+This switch specifies linking with a static GNAT run-time library.
+@cindex @code{-static} binder switch
+
+@item -shared
+This switch specifies linking with a shared GNAT run-time library.
+@cindex @code{-shared} binder switch
+
+@item -T
+This switch sets the timestamp for a tasking program.
+@cindex @code{-T} binder switch
+
+@end table
+
+@noindent
+In addition, the @samp{-t} switch overrides standard Ada unit consistency
+checks and would generally not be used for high-integrity applications.
+@cindex @code{-t} binder switch
+
+The @samp{-f} switch for elaboration order control should
+not be used;
+see the discussion of elaboration order issues in @cite{GNAT Pro User's Guide}.
+@cindex @code{-f} binder switch
+
+
+@c ****************************
+@c *                          *
+@c *  The Predefined Profiles *
+@c *                          *
+@c ****************************
+@node The Predefined Profiles
+@chapter The Predefined Profiles
+
+@noindent
+This chapter describes what is prohibited and what is permitted in the
+different predefined profiles.
+
+@menu
+* Choosing a Predefined Profile ::
+* The Zero Footprint Profile ::
+* The Cert Profile ::
+* The Ravenscar Profiles ::
+@end menu
+
+@c ******************* N O D E *******************
+@node Choosing a Predefined Profile
+@section Choosing a Predefined Profile
+@cindex Choosing a Predefined Profile
+@cindex Modes (of GNAT Pro Configuration)
+
+@noindent
+You choose a particular profile by setting the GNAT Pro configuration mode;
+this is done through the @option{--RTS=} switch.
+@cindex @option{--RTS=} switch
+You need to pass this switch to the compiler, to @command{gnatbind},
+to @command{gnatlink}, to @command{gnatmake}, and in general to any tool
+that needs to be aware of the run-time configuration.
+The values for the switch for the high-integrity profiles are @code{zfp},
+@code{ravenscar-sfp}, @code{cert} and @code{ravenscar-cert}, corresponding to
+the establishment of Zero Footprint, Ravenscar Small Footprint, Cert and
+Ravenscar Cert profiles, respectively. Depending on the targeted environment,
+there may be other supported full Ada alternatives.  These are not described
+here - see @cite{The GNAT Pro User's Guide Supplement for Cross Platforms}.
+The switch settings are not case sensitive.
+@cindex Zero Footprint profile
+@cindex Ravenscar profile
+@cindex Full-Runtime profile
+@cindex Cert profile
+@cindex @code{zfp} (value for @option{--RTS=} switch)
+@cindex @code{ravenscar-sfp} (value for @option{--RTS=} switch)
+@cindex @code{cert} (value for @option{--RTS=} switch)
+@cindex @code{ravenscar-cert} (value for @option{--RTS=} switch)
+
+The set of provided profiles depends on the target.
+
+@table @emph
+
+@item Generic Cross
+Zero Footprint is supported. For LEON and ERC 32 targets, Ravenscar SFP
+is also supported.
+
+@item VxWorks/Cert 5.x
+Zero Footprint, Ravenscar SFP and Full-runtime are supported.
+
+@item VxWorks/Cert 6.x
+Zero Footprint, Ravenscar Cert and Full-runtime are supported.
+
+@item VxWorks 653
+Zero Footprint, Cert, Ravenscar Cert and Full-Runtime are supported.
+
+@end table
+
+@c ******************* N O D E *******************
+@node The Zero Footprint Profile
+@section The Zero Footprint Profile
+@cindex Zero Footprint Profile
+
+@noindent
+With the Zero Footprint Profile
+the generated object modules contain no references to the GNAT run-time
+library. This allows the construction of a standalone program that
+has no code other than that corresponding to the original source code,
+together with the elaboration routine generated by the binder.
+@cindex Elaboration routine (generated by binder)
+The elaboration routine generated by the binder also avoids any reference
+to runtime routines or data.
+
+To enforce the Zero Footprint Profile, you should also use the
+@option{-nostdlib} gnatlink switch.
+@cindex @option{-nostdlib} switch
+This switch removes the run-time libraries from the link path.
+
+@menu
+* Ada Restrictions in the Zero Footprint Profile::
+* Predefined Packages in the Zero Footprint Profile::
+* Thread Registration Issues::
+* Pragmas Automatically Enabled in the Zero Footprint Profile::
+* Exceptions and the Last Chance Handler - ZFP and Ravenscar SFP::
+@end menu
+
+@c ******************* N O D E *******************
+@node Ada Restrictions in the Zero Footprint Profile
+@subsection Ada Restrictions in the Zero Footprint Profile
+@cindex Zero Footprint Profile (excluded features)
+
+@noindent
+The following features are excluded from the Zero Footprint Profile:
+
+@itemize @bullet
+@item
+All constructs defined in Section 9 of the @cite{Ada Reference Manual}
+(i.e., all tasking features)
+@cindex Tasking (excluded from Zero Footprint Profile)
+
+@item
+Exception propagation. See @ref{Exceptions and the High-Integrity Profiles};
+note that @code{raise} statements and local exception handling are permitted.
+@cindex Exception propagation (excluded from Zero Footprint Profile)
+
+@item
+Packed arrays with a component size other than 1, 2, 4, 8 or 16 bits
+@cindex Packed arrays (restrictions in Zero Footprint Profile)
+
+@item
+The exponentiation operator, unless one of the following conditions is met:
+@itemize @bullet
+@item
+The exponentiation expression is a static expression as defined in the
+@cite{Ada Reference Manual}, section 4.9
+
+@item
+The right operand is a static expression as defined in the
+@cite{Ada Reference Manual}, section 4.9, and
+is an integral value in the range @code{0 .. 4}
+@end itemize
+@cindex Exponentiation operator (restrictions on usage in Zero Footprint Profile)
+@cindex ``**'' operator (restrictions on usage in Zero Footprint Profile)
+
+@item
+64-bit integer (the type @code{Long_Long_Integer}) and fixed-point types
+@cindex @code{Long_Long_Integer} (excluded from Zero Footprint profile)
+@cindex 64-bit integer types (excluded from Zero Footprint profile)
+@cindex 64-bit fixed-point types (excluded from Zero Footprint profile)
+
+@item
+Boolean operations on packed arrays (individual elements may be accessed)
+@cindex Boolean operations on packed arrays (excluded from Zero Footprint Profile)
+
+@item
+Equality and comparison operations on arrays
+@cindex Equality and comparison operations on arrays (excluded from Zero Footprint Profile)
+
+@item
+The attributes @code{Image},
+@code{Value}, @code{Body_Version},
+@code{Version}, @code{Width}, and @code{Mantissa}
+@cindex @code{External_Tag} attribute (excluded from Zero Footprint profile)
+@cindex @code{Image} attribute (excluded from Zero Footprint profile)
+@cindex @code{Value} attribute (excluded from Zero Footprint profile)
+@cindex @code{Body_Version} attribute (excluded from Zero Footprint profile)
+@cindex @code{Version} attribute (excluded from Zero Footprint profile)
+@cindex @code{Width} attribute (excluded from Zero Footprint profile)
+@cindex @code{Mantissa} attribute (excluded from Zero Footprint profile)
+
+@item
+Controlled types
+@cindex Controlled types (excluded from Zero Footprint profile)
+
+@item
+The attributes @code{Address}, @code{Access}, @code{Unchecked_Access},
+@code{Unrestricted_Access} when applied to a non library-level subprogram
+
+@item
+Non library-level tagged types
+@cindex Tagged types at nested levels (excluded from High-Integity Profile)
+
+@item
+Annex E features (Distributed Systems)
+@cindex Distributed Systems Annex (excluded from Zero Footprint profile)
+@cindex Annex E (excluded from Zero Footprint profile)
+
+@end itemize
+
+@noindent
+Note that explicit @code{with}s of library units are still permitted but
+the programmer needs to ensure that the GNAT library modules that
+come with the compiler that is being used in Zero Footprint mode satisfy the
+requirements of the target hardware.
+@cindex Zero Footprint mode
+In particular, in an environment
+where the code needs to be certified, the user takes responsibility for
+ensuring that the referenced library unit meets the certification conditions.
+
+
+@c ******************* N O D E *******************
+@node Predefined Packages in the Zero Footprint Profile
+@subsection Predefined Packages in the Zero Footprint Profile
+@cindex Zero Footprint Profile (permitted predefined packages)
+
+@noindent
+In general, the predefined Ada environment (Annex A),
+@cindex Predefined environment, restrictions on
+the interfacing packages (Annex B), and the units in the Specialized Needs
+Annexes may be implemented with the full Ada language and thus will not be
+appropriate in applications that need to adhere to the Zero Footprint Profile.
+The only predefined Ada units that are permitted (i.e., that may be
+@code{with}ed) in a Zero Footprint Profile program are as follows:
+
+@itemize @bullet
+@item
+Package @code{System}
+@cindex @code{System} package (permitted in Zero Footprint profile)
+
+@item
+Package @code{Ada.Tags}
+@cindex @code{Ada.Tags} package (permitted in Zero Footprint profile)
+
+@item
+Generic function @code{Ada.Unchecked_Conversion}
+@cindex @code{Ada.Unchecked_Conversion} generic (permitted in Zero Footprint profile)
+
+@item
+Generic procedure @code{Ada.Unchecked_Deallocation}
+@cindex @code{Ada.Unchecked_Deallocation} generic (permitted in Zero Footprint profile)
+@cindex @code{Unchecked_Deallocation} generic (permitted in Zero Footprint profile)
+
+@item
+Package @code{Interfaces}, except that references to the types @code{Integer_64}
+and @code{Unsigned_64} are prohibited
+@cindex @code{Interfaces} package (permitted in Zero Footprint profile)
+@cindex @code{Interfaces.Integer_64} type (excluded from Zero Footprint profile)
+@cindex @code{Interfaces.Unsigned_64} type (excluded from Zero Footprint profile)
+
+@item
+Package @code{Interfaces.C}
+@cindex @code{Interfaces.C} package (permitted in Zero Footprint profile)
+
+@item
+Package @code{System.Storage_Elements}
+@cindex @code{System.Storage_Elements} package (permitted in Zero Footprint profile)
+
+@item
+Generic package @code{System.Address_To_Access_Conversions}
+@cindex @code{System.Address_To_Access_Conversions} generic (permitted in Zero Footprint profile)
+
+@item
+Package @code{System.Machine_Code}
+@cindex @code{System.Machine_Code} package (permitted in Zero Footprint profile)
+
+@end itemize
+
+@noindent
+Additionally, the following GNAT packages are permitted since
+all their subprograms are either intrinsic or are expanded inline:
+
+@itemize @bullet
+@item
+Package @code{GNAT.Source_Info}
+@cindex @code{GNAT.Source_Info} package (permitted in Zero Footprint profile)
+
+@item
+Package @code{GNAT.IO}, which provides basic input / output capabilities
+@cindex @code{GNAT.IO} package (permitted in Zero Footprint profile)
+@end itemize
+
+@noindent
+A sample implementation of the secondary stack is provided that can be
+used and tailored (in the file @file{s-secsta.adb}).
+@cindex @file{s-secsta.adb} (package body @code{System.Secondary_Stack})
+However, since no certification material is
+provided for this sample implementation, it is your responsibility
+to certify this implementation.
+See @ref{Functions Returning Unconstrained Objects}, for further details.
+
+@file{s-memory.adb} is not provided. If you want to use allocators
+and unchecked deallocation, you will have to define __gnat_malloc
+and __gnat_free. See @ref{Allocators and the High-Integrity Profiles},
+for further details.
+
+@c ******************* N O D E *******************
+@node Thread Registration Issues
+@subsection Thread Registration Issues
+@cindex Thread Registration Issues
+
+@noindent
+The Zero Footprint profile does not provide run-time facilities that require
+per-thread data.  Therefore, thread registration is not relevant to this
+profile.
+
+@c ******************* N O D E *******************
+@node Pragmas Automatically Enabled in the Zero Footprint Profile
+@subsection Pragmas Automatically Enabled in the Zero Footprint Profile
+
+@noindent
+The following pragmas are automatically enabled when the Zero Footprint Profile
+is in effect:
+
+@itemize
+@item
+@code{pragma Restrictions(No_Exception_Handlers)}
+@cindex @code{pragma Restrictions(No_Exception_Handlers)} (automatic in Zero Footprint Profile)
+
+@item
+@code{pragma Discard_Names}
+@cindex @code{pragma Discard_Names} (automatic in Zero Footprint Profile)
+@end itemize
+
+@c ******************* N O D E *******************
+@node Exceptions and the Last Chance Handler - ZFP and Ravenscar SFP
+@subsection Exceptions and the Last Chance Handler - ZFP and Ravenscar SFP
+@cindex Exceptions and the Last Chance Handler - ZFP and Ravenscar SFP
+
+@noindent
+In this profile, all applications are treated as though
+@code{pragma Restrictions (No_Exception_Propagation)} has been applied.
+It is possible to raise the predefined Ada exceptions, as well as user-defined
+exceptions and handle them locally.
+
+When such an exception is raised and not handled locally, a function with
+the following C-convention prototype is called (note that the function
+name begins with two underscore characters):
+
+@smallexample
+   void __gnat_last_chance_handler (char *source_location,
+                                    int line);
+@end smallexample
+@findex @code{__gnat_last_chance_handler}
+
+@noindent
+The corresponding Ada subprogram declaration is:
+
+@smallexample @c ada
+   procedure Last_Chance_Handler
+     (Source_Location : System.Address; Line : Integer);
+   pragma Export (C, Last_Chance_Handler,
+                  "__gnat_last_chance_handler");
+@end smallexample
+@findex @code{Last_Chance_Handler}
+
+@noindent
+The @code{Source_Location} parameter is a C null-terminated string representing
+the source location of the @code{raise} statement, as generated by the
+compiler, or a zero-length string if @code{pragma Suppress_Exception_Locations}
+is used.
+@cindex @code{pragma Suppress_Exception_Locations}
+The @code{Line} parameter (when nonzero) represents the line number
+in the source.
+When @code{Line} is zero, the line number information is provided in
+@code{Source_Location} itself.
+
+If your program may raise @code{Constraint_Error},
+@code{Program_Error}, or @code{Storage_Error}, then you must explicitly
+supply an appropriate last chance handler to deal with the fatal errors
+represented by these exception occurrences. This handler can be written in C
+with the above prototype, or in Ada using the
+corresponding procedure declaration.
+You must write the body of this handler so that it terminates the program.
+
+@c ******************* N O D E *******************
+@node The Cert Profile
+@section The Cert Profile
+@cindex Cert Profile
+
+@noindent
+The Cert profile is a superset of the Zero Footprint Profile, and thus
+@ref{Predefined Packages in the Zero Footprint Profile}, is
+relevant. This section describes the additional capabilities
+provided by the Cert profile.
+
+The Cert profile is based on an implicitly threaded run-time library.
+The current implementation of this profile is for use on Wind River
+Systems VxWorks 653 partitioned OS with APEX processes. Although there are no
+Ada tasks, there are different threads (VxWorks 653 vThreads) executing
+the code and accessing data structures. For example, The following
+data items must be per-thread:
+
+@itemize @bullet
+@item secondary stack,
+@item thread-accessible pointer to jump buffer,
+@item  thread-accessible pointer to secondary stack location.
+@end itemize
+
+@noindent
+By "thread-accessible", we mean that a thread-specific data item is
+needed to implement the behavior defined by the subset.
+
+@menu
+* Exceptions and the Last Chance Handler - Cert and Ravenscar Cert Profiles::
+* Secondary Stack::
+* Thread Registration::
+* Dynamic Allocation::
+* Exponentiation::
+* 64-bit Numeric Types::
+* Utility Routines::
+
+@end menu
+
+@c ******************* N O D E *******************
+@node Exceptions and the Last Chance Handler - Cert and Ravenscar Cert Profiles
+@subsection  Exceptions and the Last Chance Handler - Cert and Ravenscar Cert Profiles
+@cindex Exceptions and the Last Chance Handler - Cert ProfileCert and Ravenscar Cert Profiles
+
+@noindent
+The full semantics of Ada 83 exceptions is supported; limited support for
+Ada 95 / Ada 2005 exception occurrences is included. The run-time library
+supports propagation of exceptions and handlers for multiple threads, provided
+that the threads have been registered with the Ada run-time library:
+see @ref{Thread Registration}, for details.
+
+The run-time libraries provided by these profiles (both available in the GNAT
+Pro for VxWorks 653 High-Integrity Edition, and Ravenscar Cert in VxWorks Cert
+6.x High-Integrity Edition) support limited Ada 95 / Ada 2005
+exception occurrences, @code{Ada.Exceptions.Exception_Name},
+@cindex @code{Ada.Exceptions.Exception_Name}
+and a non-symbolic stack trace capability
+@code{Ada.Exceptions.Exception_Traces}.
+
+As with the zero footprint case, the application developer may provide
+a body for a last chance handler,
+@cindex Last Chance Handler
+to deal with unhandled Ada exceptions.
+The declaration of the last chance handler for these profiles is:
+
+@smallexample @c ada
+@group
+procedure Ada.Exceptions.Last_Chance_Handler (Except : Exception_Occurrence);
+  pragma Export (C,
+                 Last_Chance_Handler,
+                 "__gnat_last_chance_handler");
+  pragma No_Return (Last_Chance_Handler);
+@end group
+@end smallexample
+@cindex @code{Ada.Exceptions.Last_Chance_Handler}
+
+@noindent
+@code{Except} is an Ada 95 / Ada 2005 exception occurrence that can be used to
+identify the exception and the circumstances under which it occurred.
+A default body is  provided in the @file{rts-cert/adainclude} directory of the
+restricted run-time library as file @file{a-elchha.adb}.  Its object module
+@file{a-elchha.o} is archived in @file{rts-cert/adalib/libgnat.a} along
+with a partially linked object module @file{libgnat.o} containing the
+remainder of the Cert profile run-time library.  This example handler generates
+a non-symbolic traceback that can be used on the development host to obtain a
+symbolic traceback via the vxaddr2line utility. It also propagates an event to
+the VxWorks 653 health monitor.
+
+Note that the last chance handler can have any name, and can be written
+in C.  However, it must obey the parameter profile and export the
+symbol @code{__gnat_last_chance_handler} as its entry point.
+
+If you do not supply a last chance handler, the default version will be linked
+into your application.
+
+The last chance handler for the Cert profile on VxWorks 653 is expected to
+suspend the vThread that calls it.
+
+See @ref{Changing the Last Chance Handler} for the details of providing an
+application-specific last chance handler.
+
+
+@c ******************* N O D E *******************
+@node Secondary Stack
+@subsection Secondary Stack
+@cindex Secondary Stack
+
+@noindent
+The secondary stack supports functions returning objects of
+unconstrained types (e.g., unconstrained array types) and of variant
+record types. The default secondary stack size (for the environment task)
+can be set using the gnatbind ``-D'' switch, that specifies the value in
+Kbytes.  For APEX processes, the value defaults to 1/4 the requested primary
+stack size, and is added to the requested allocation from APEX.  The size
+can also be specified in the Apex_Processes.Create_Process routine.
+
+@c ******************* N O D E *******************
+@node Thread Registration
+@subsection Thread Registration
+@cindex Thread Registration
+
+@noindent
+The thread registration mechanism allows applications to use system
+threads with Ada code.  Specifically, the mechanism supports the Ada
+exception semantics outside of an Ada tasking context, so that
+Ada code that uses exceptions can be called by a non-Ada thread.  The
+mechanism is also necessary to support unconstrained function results
+in Ada code called by system threads.
+
+The Ada/APEX bindings provided with GNAT Pro High Integrity Edition for VxWorks
+653 take care of all thread registration issues when using APEX processes. The
+bindings are provided as part of the source and object paths, just like the
+remainder of the Ada run-time library.
+
+Ravenscar Cert does not support the use of foreign threads (eg APEX processes).
+
+@c ******************* N O D E *******************
+@node Dynamic Allocation
+@subsection Dynamic Allocation
+@cindex Dynamic Allocation
+
+@noindent
+A limited dynamic allocation model is supported by this profile.  The
+package @code{System.Memory} is provided, as described in
+@ref{Allocators and the High-Integrity Profiles}. The package provides
+a simple version of function @code{gnat_malloc} that simply calls the
+underlying @code{malloc} routine. Deallocation is prohibited on VxWorks 653 in
+certified partition operating system (POS) application partitions.
+
+Note that in VxWorks 653 partitions that use APEX facilities, dynamic
+allocation is prohibited once the partition has been set into normal mode.
+
+@c ******************* N O D E *******************
+@node  Exponentiation
+@subsection Exponentiation
+@cindex Exponentiation
+
+@noindent
+The cert subset supports all standard Ada forms of exponentiation.
+
+@c ******************* N O D E *******************
+@node 64-bit Numeric Types
+@subsection 64-bit Numeric Types
+@cindex 64-bit Numeric Types
+
+@noindent
+64-bit fixed point and integer types are fully supported.
+
+@c ******************* N O D E *******************
+@node  Utility Routines
+@subsection Utility Routines
+@cindex Utility Routines
+
+The following are provided in addition to the library packages available with
+the Zero Footprint Profile:
+
+@itemize @bullet
+@item
+@code{GNAT.Debug_Utilities} provides formatting routines for use in I/O.
+
+@item
+@code{Ada.Exceptions.Exception_Traces} provides a non-symbolic traceback
+capability that can be used with @file{vxaddr2line} to generate symbolic
+tracebacks. See @cite{The GNAT User's Guide Supplement for Cross Platforms}.
+
+@item
+@code{Pragma Assert} is supported.
+
+@item
+@code{Ada.Numerics}, @code{Ada.Numerics.Generic_Elementary_Functions},
+@code{Ada.Numerics.Elementary_Functions},
+@code{Ada.Numerics.Long_Elementary_Functions}
+and @code{Ada.Numerics.Long_Long_Elementary_Functions} are supported, except
+for the hyperbolic trig functions.
+@end itemize
+
+@noindent
+Although the elementary functions packages are very similar to those defined
+by the Ada standard, they are not intended to fully implement the standard.
+Rather, the intent is to  provide the functionality of the underlying C math
+library to Ada developers in a convenient way. In particular, this package does
+not implement Annex G, Numerics, and thus does not implement strict mode.
+Precision is dependent on the underlying C math library.
+
+One particular implication of the above is that, in contrast to libraries
+adhering to the Ada standard:
+
+@itemize @bullet
+@item
+@code{Sqrt(1.0 - Cos(X) * Cos(X))} might raise an exception, because
+@code{Cos(X)} might be slightly larger than @code{1.0}
+
+@item
+@code{Sin(X}) might be slightly larger than @code{X}
+
+@item
+@code{Sqrt(X}) might be negative for small @code{X}
+@end itemize
+@noindent
+This is not to say that these situations will occur - just that there is no
+requirement that explicitly states that they will not occur.
+
+@c ******************* N O D E *******************
+@node The Ravenscar Profiles
+@section The Ravenscar Profiles
+@cindex Ravenscar Profiles
+
+@noindent
+The Ravenscar Profile, named for the venue of the
+1997 International Real-Time Ada Workshop where it
+was conceived, defines a simple set of tasking features for
+high-performance and high-integrity real-time Ada programs.
+The feature subset is designed to be
+small enough to allow efficient and certifiable run-time support,
+but large enough to permit programming styles needed in practice for
+real-time systems.
+
+The Ravenscar Profile is intended for applications comprising a fixed
+number of tasks
+(the number can be established at elaboration time) where each task
+body is a loop.  The number of loop iterations may be unbounded,
+and there is a single ``invocation event'' at each iteration.
+The invocation event may be either a timeout from a @code{delay until}
+or the execution of a protected entry call.
+Inter-task communication is either through protected objects
+or via accesses to shared data marked with pragmas @code{Atomic}
+or @code{Volatile}. Task entry calls are therefore forbidden.
+
+@menu
+* Ada Restrictions in the Ravenscar Profiles::
+* Ada Features Permitted in the Ravenscar Profiles::
+* Pragmas Automatically Enabled in the Ravenscar Profiles::
+* Non-tasking Predefined Packages in the Ravenscar Profiles::
+* Interrupt Handling in the Ravenscar Profiles::
+@end menu
+
+
+@c ******************* N O D E *******************
+@node Ada Restrictions in the Ravenscar Profiles
+@subsection Ada Restrictions in the Ravenscar Profiles
+@cindex Ravenscar Profiles (excluded features)
+
+@noindent
+The tasking restrictions defined by the Ravenscar Profile are itemized
+in the following list;
+details on the rationale and implications may be found
+in @cite{The Ravenscar Profile for High-Integrity Real-Time Programs}
+by A.@w{ }Burns, B.@w{ }Dobbing and G.@w{ }Romanski, in
+@cite{Reliable Software Technologies @minus{} Ada Europe '98},
+Springer-Verlag Lecture Notes in Computer Science, Number 1411.
+
+@itemize @bullet
+@item
+No locally-declared task objects or task types
+@cindex Locally-declared task objects and types (excluded from Ravenscar Profile)
+@cindex Task objects and types, locally-declared (excluded from Ravenscar Profile)
+
+@item
+No dynamic allocation (and hence no unchecked deallocation) of task objects
+or protected objects
+@cindex Dynamic allocation of protected objects (excluded from Ravenscar profile)
+@cindex Dynamic allocation of tasks (excluded from Ravenscar profile)
+
+@item
+No task termination
+@cindex Task termination (excluded from Ravenscar Profile)
+
+@item
+No locally-declared protected objects or protected types
+@cindex Locally-declared protected objects and types (excluded from Ravenscar Profile)
+@cindex Protected objects and types, locally-declared (excluded from Ravenscar Profile)
+
+@item
+At most one entry for each protected object/type
+@cindex Protected entries (permitted in Ravenscar Profile, with restrictions)
+@cindex Entries, for protected objects and types (permitted in Ravenscar Profile, with restrictions)
+
+@item
+Each entry barrier expression must be a single @code{Boolean} variable
+@cindex Entry barriers (permitted in Ravenscar Profile, with restrictions)
+
+@item
+At most one task at a time may be queued on an entry
+@cindex Entry queue size limit (in Ravenscar Profile)
+
+@item
+No @code{requeue} statements
+@cindex @code{requeue} statements (excluded from Ravenscar Profile)
+
+@item
+No @code{abort} statements or Asynchronous Transfer of Control
+@cindex @code{abort} statements (excluded from Ravenscar Profile)
+@cindex Asynchronous Transfer of Control (excluded from Ravenscar Profile)
+
+@item
+No @code{select} statements
+@cindex @code{select} statements (excluded from Ravenscar Profile)
+
+@item
+No task entries (and thus no @code{accept} statements)
+@cindex Task entries (excluded from Ravenscar Profile)
+@cindex @code{accept} statements (excluded from Ravenscar Profile)
+@cindex Entries, for tasks (excluded from Ravenscar Profile)
+
+@item
+No relative @code{delay} statements
+@cindex Relative @code{delay} statements (excluded from Ravenscar Profile)
+@cindex @code{delay} statements, relative (excluded from Ravenscar Profile)
+
+@item
+No references to package @code{Ada.Calendar}
+@cindex @code{Ada.Calendar} package (excluded from Ravenscar Profile)
+
+@item
+No user-defined task attributes
+@cindex Task attributes, user-defined (excluded from Ravenscar Profile)
+
+@item
+No use of dynamic priorities
+@end itemize
+@cindex Dynamic priorities (excluded from Ravenscar Profile)
+@cindex Priorities, dynamic (excluded from Ravenscar Profile)
+
+
+@c ******************* N O D E *******************
+@node Ada Features Permitted in the Ravenscar Profiles
+@subsection Ada Features Permitted in the Ravenscar Profiles
+@cindex Ravenscar Profiles (permitted features)
+
+@noindent
+The Ravenscar profile allows the following tasking features:
+
+@itemize @bullet
+@item
+Task type and task object declarations in library-level packages
+@cindex Library-level task objects and types (permitted in Ravenscar Profile)
+@cindex Task objects and types, library-level (permitted in Ravenscar Profile)
+
+@item
+Protected type and protected object declarations in library-level packages
+@cindex Library-level protected objects and types (permitted in Ravenscar Profile)
+@cindex Protected objects and types, library-level (permitted in Ravenscar Profile)
+
+@item
+Absolute delay (@code{delay until}) statements
+@cindex Absolute @code{delay} statements (permitted in Ravenscar Profile)
+@cindex @code{delay} statements, absolute (permitted in Ravenscar Profile)
+
+@item
+References to package @code{Ada.Realtime}
+@cindex @code{Ada.Realtime} package (permitted in Ravenscar Profile)
+
+@item
+Pragmas @code{Atomic} and @code{Volatile} for shared data
+@cindex @code{pragma Atomic} (permitted in Ravenscar Profile)
+@cindex @code{pragma Volatile} (permitted in Ravenscar Profile)
+@cindex @code{Atomic} pragma (permitted in Ravenscar Profile)
+@cindex @code{Volatile} pragma (permitted in Ravenscar Profile)
+@cindex Shared data (permitted accesses in Ravenscar Profile)
+
+@item
+@code{Count} attribute (but not in a barrier expression)
+@cindex @code{Count} attribute (permitted in Ravenscar Profile, with restrictions)
+
+@item
+References to package @code{Ada.Task_Identification} (but no @code{Abort_Task}
+or task attribute functions @code{Callable} or @code{Terminated})
+@cindex @code{Ada.Task_Identification} package (permitted in Ravenscar Profile, with restrictions)
+@cindex @code{Abort_Task} procedure (excluded from Ravenscar Profile)
+@cindex Task attribute functions (excluded from Ravenscar Profile)
+
+@item
+Discriminants for protected types and task types
+@cindex Task type discriminants (permitted in Ravenscar Profile)
+@cindex Discriminants, for task types (permitted in Ravenscar Profile)
+@cindex Protected type discriminants (permitted in Ravenscar Profile)
+@cindex Discriminants, for protected types (permitted in Ravenscar Profile)
+
+@item
+Protected procedures as interrupt handlers
+@cindex Protected procedures as interrupt handlers (permitted in Ravenscar Profile)
+
+@item
+@code{FIFO_Within_Priority} dispatching policy
+@cindex @code{FIFO_Within_Priority} dispatching policy (permitted in Ravenscar Profile)
+@cindex Dispatching policy, @code{FIFO_Within_Priority} (permitted in Ravenscar Profile)
+
+@item
+@code{Ceiling_Locking} locking policy
+@cindex @code{Ceiling_Locking} locking policy (permitted in Ravenscar Profile)
+@cindex Locking policy, @code{Ceiling_Locking} (permitted in Ravenscar Profile)
+@end itemize
+
+@noindent
+Implementations may also support non-preemptive or cooperative
+dispatching policies.
+@cindex Dispatching policy, implementation-defined (permitted in Ravenscar Profile)
+
+The original Ravenscar Profile from the 1997 International Real-Time
+Ada Workshop defined only a tasking subset
+and was silent about restrictions on sequential features.
+In the context of the GNAT Pro High-Integrity Edition,
+the term @emph{Ravenscar Profile} means not only the tasking subset
+just presented,
+but also the sequential feature subset defined either by the Zero Footprint
+Profile (Ravenscar SFP) or the Cert Profile (Ravenscar Cert).
+Thus the Ravenscar SFP Profile is a proper superset of the Zero Footprint
+Profile and the Ravenscar Cert Profile is a proper superset of the Cert
+Profile.
+@cindex Ravenscar SFP Profile (superset of Zero Footprint Profile)
+@cindex Ravenscar Cert Profile (superset of Cert Profile)
+@cindex Zero Footprint Profile (included in Ravenscar SFP Profile)
+@cindex Cert Profile (included in Ravenscar Cert Profile)
+@cindex Sequential features in Ravenscar Profiles
+A user specifying @code{ravenscar-sfp}  as the @option{-RTS=} option
+will therefore be able to use the permitted features in the
+Zero Footprint Profile.
+@cindex @option{--RTS=} switch
+@cindex @code{ravenscar-sfp} (value for @option{--RTS=} switch)
+A user specifying @code{ravenscar-cert}  as the @option{-RTS=} option
+will be able to use the permitted features in the
+Cert Profile.@cindex @option{--RTS=} switch
+@cindex @code{ravenscar-cert} (value for @option{--RTS=} switch)
+
+
+@c ******************* N O D E *******************
+@node Pragmas Automatically Enabled in the Ravenscar Profiles
+@subsection Pragmas Automatically Enabled in the Ravenscar Profiles
+
+@noindent
+The same pragmas automatically enabled in the Zero Footprint profile
+(see @ref{Pragmas Automatically Enabled in the Zero Footprint Profile})
+are also automatically enabled in the Ravenscar SFP profile:
+
+@itemize @bullet
+@item
+@code{pragma Restrictions(No_Exception_Handlers)}
+@cindex @code{pragma Restrictions(No_Exception_Handlers)} (automatic in Ravenscar SFP Profile)
+
+The Ravenscar SFP Profile uses the same last chance handler scheme as the Zero
+Footprint Profile. The Ravenscar Cert Profile uses the same scheme as the Cert
+Profile. The last chance handler is expected to terminate the whole
+application in both cases.
+
+@item
+@code{pragma Discard_Names}
+@cindex @code{pragma Discard_Names} (automatic in both Ravenscar Profiles)
+
+This pragma is enabled for both Ravenscar profiles.
+@end itemize
+
+@c ******************* N O D E *******************
+@node Non-tasking Predefined Packages in the Ravenscar Profiles
+@subsection Non-tasking Predefined Packages in the Ravenscar Profiles
+@cindex Non-tasking Ravenscar Profile (permitted predefined packages)
+
+@noindent
+The Ravenscar SFP Profile is a superset of the Zero Footprint Profile.  So
+@ref{Predefined Packages in the Zero Footprint Profile}, is
+still relevant to the Ravenscar Profile, with one difference:
+@file{s-secsta.adb} is provided. See @ref{Functions Returning
+Unconstrained Objects} for further details.
+
+The Ravenscar Cert Profile is a superset of the Cert Profile. It provides the
+same packages as the Cert Profile, except for @code{Ada.Calendar} and
+@code{Calendar}, which are disallowed by the Ravenscar profile definition.
+
+@c ******************* N O D E *******************
+@node Interrupt Handling in the Ravenscar Profiles
+@subsection Interrupt Handling in the Ravenscar Profiles
+@cindex Interrupt handling (in the Ravenscar Profiles)
+@cindex Ravenscar Profiles
+
+@noindent
+Interrupt handling is supported in the Ravenscar Profiles except for the
+VxWorks 653 target.
+The mechanism is as defined in Annex@w{ }D of the
+@cite{Ada Reference Manual};
+the handler is supplied as a parameterless protected procedure,
+pragma @code{Attach_Handler} provides static attachment, and
+@code{Interrupt_Priority} establishes the priority of the handler.
+@cindex @code{Interrupt_Priority} pragma
+@cindex @code{Attach_Handler} pragma
+
+In the GNAT Pro High-Integrity Edition for VxWorks/Cert, you can also
+use the @code{IntConnect()} routine directly, for dynamic attachment
+of handlers to interrupts.
+@cindex @code{IntConnect} routine
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert
+
+In either case there is no task switching; the interrupt handler is executed
+on the stack of the task that was running when the interrupt occurred,
+at the priority given by the @code{Interrupt_Priority} pragma.
+@cindex @code{Interrupt_Priority} pragma
+
+
+@c ************************************************
+@c *                                              *
+@c *    The GNAT Configurable Run Time Facility   *
+@c *                                              *
+@c ************************************************
+@node The GNAT Configurable Run Time Facility
+@chapter The GNAT Configurable Run Time Facility
+@cindex Configurable run time
+
+@menu
+* Standard Run-Time Mode::
+* The Configurable Run Time::
+* Run-Time Libraries and Objects::
+* How Object Dependencies are Generated::
+* How the Run Time Is Configured::
+* Naming the Run-Time Library::
+* Configuring a Special Purpose Library::
+@end menu
+
+@noindent
+This chapter describes how to configure the GNAT run-time library,
+based on specific application requirements.
+
+
+@c ******************* N O D E *******************
+@node Standard Run-Time Mode
+@section Standard Run-Time Mode
+
+@noindent
+In normal mode, the run-time library supplied by GNAT Pro is complete and
+provides all features specified in the Ada Reference Manual.
+As far as is practical, only
+those sections of the run time that are actually needed are linked,
+so the entire run time library is not always included.
+Nevertheless, some minimal
+required set of run-time units is always linked, and therefore the minimal
+run-time library in this normal mode contains a significant amount of code
+that may not be required in all operating configurations.
+
+In this standard mode, the run-time library is required to be complete.
+If the
+compiler detects that the run-time library lacks interfaces for required
+language features, then the run-time library is considered to be improperly
+configured or installed, and a fatal error message is given.
+
+
+@c ******************* N O D E *******************
+@node The Configurable Run Time
+@section The Configurable Run Time
+
+@noindent
+This capability allows the creation of run-time configurations that support
+only a
+subset of the full Ada language.
+There are several reasons for
+providing this kind of subsetting:
+
+@itemize @bullet
+
+@item
+In bare-board situations,
+@cindex Bare board configuration
+it may be desirable to minimize the amount of
+run-time code by removing features that are not required.
+As noted above,
+this happens to some extent with the standard run-time library, because
+on most operating systems the linker will
+link in only those units that are referenced by a given program. However,
+the configurable option allows much finer control, and much smaller amounts
+of run-time code end up included in an image.
+
+@item
+When using GNAT Pro in High-Integrity mode, you need to restrict the run-time
+to units that are certifiable.
+Since the certification process may require significant resources,
+it is often desirable to reduce this certification effort by minimizing
+the run-time.
+
+@item
+It may be desirable for stylistic reasons to restrict the language subset
+that is used (e.g., to eliminate tasking). This may for example be useful
+in the case where an application is to be certified, since some features
+make certification much more difficult. This subsetting can be achieved
+to some extent using the pragma @code{Restrictions} mechanism defined
+in Annex H of the @cite{Ada Reference Manual}.
+The configurable GNAT run-time facility
+augments this capability by providing much finer grained support.
+
+@item
+When a given set of @code{Restrictions} is enforced for a program, it may be
+possible to simplify the corresponding run-time library.
+This is done in certain
+cases when pragma @code{Restrictions} is specified in full run-time mode, but
+given the large set of restrictions that can be specified, it is
+not possible to do this tailoring automatically.
+@end itemize
+
+@noindent
+Using the configurable run-time capability, you
+can choose any level of support from the full run-time library to a minimal
+@emph{Zero Footprint} Profile
+@cindex Zero Footprint Profile
+which generates no run-time code at all.
+The units
+included in the library may be either a subset of the standard units provided
+with GNAT Pro, or they may be specially tailored to the application.
+
+@c ******************* N O D E *******************
+@node Run-Time Libraries and Objects
+@section Run-Time Libraries and Objects
+
+@noindent
+The run-time libraries implement functionality required by features
+whose support is not provided by code generated directly by the compiler.
+The complexity of the
+run-time library depends on features used and kernel capabilities.
+
+When an Ada program is built, the object code that makes
+up the final executable may come from the following
+entities (in addition to the user code itself):
+
+@itemize @bullet
+@item   GNAT Pro run-time library
+@item   C library
+@item   Math library
+@item   Internal GCC library
+@item   Startup code
+@end itemize
+
+@menu
+* GNAT Pro Run Time::
+* C Library::
+* Math Library::
+* Internal GCC Library::
+* Startup Code::
+@end menu
+
+@noindent
+The GNAT and GCC drivers automatically link all these libraries and
+objects with the final executable, statically or dynamically depending
+on the target and on some compilation options. The @option{-nostdlib}
+@cindex @option{-nostdlib}
+and @code{-nodefaultlibs}
+@cindex @code{-nodefaultlibs}
+options may be used to control this automatic
+behavior. In configurable run-time library mode, the @option{-nostdlib} option
+is used implicitly.
+
+GNAT Pro attempts to find these libraries and objects
+in several standard system directories plus any that are
+specified with the @option{-L} option or the @code{LIBRARY_PATH}
+environment variable.
+The @command{gcc --print-search-dirs} command prints
+the name of the configured installation directory and a list of
+program and library directories where gcc will search.
+
+The following sections define the contents and purpose of the various
+elements potentially included in an application's executable.
+
+@c -------------------------------
+@node GNAT Pro Run Time
+@subsection GNAT Pro Run-Time Library
+@cindex GNAT Pro Run-Time Library
+
+@noindent
+The high abstraction level and expressiveness provided by the full Ada
+language requires a rather complex run-time library. This library
+bridges the semantic gap between the high-level Ada constructs and the
+low-level C functions and representations available in the target
+system (in the form of C headers and libraries). Hence, the semantics
+of Ada constructs are expanded into calls to a collection of lower-level
+run-time constructions. An example of this is the implementation of Ada
+tasking.
+
+This GNAT Pro run-time library comprises both C and Ada files. The
+C run-time files define a common low-level
+interface that is implemented on top of the available C headers and
+libraries in the underlying system. Ada packages within the GNAT Pro run-time
+library implement the required Ada semantics.
+
+In the case of certifiable systems, it is likely that almost no C file
+is required.
+
+The GNAT Pro run-time library depends of the following set of libraries:
+
+@itemize @bullet
+@item  C Library (@file{libc.a}) for a number of miscellaneous functions,
+such as the input/output system, memory management, etc.
+
+@item  Math Library (@file{libm.a}) for everything related to the
+functionality specified in the Ada Numerics Annex.
+
+@item  Internal GCC Library (@file{libgcc.a}) for features such as
+integer and floating point operations, and exception handling.
+@end itemize
+
+@c -------------------------------
+@node C Library
+@subsection C Library
+
+@noindent
+This library provides standard ANSI C functionality in the
+form of:
+
+@itemize @bullet
+@item Standard Utility Functions (@file{stdlib.h})
+
+@item Character Type Macros and Functions (@file{ctype.h})
+
+@item Input and Output (@file{stdio.h})
+
+@item Strings and Memory (@file{string.h})
+
+@item Wide Character Strings (@file{wchar.h})
+
+@item Signal Handling (@file{signal.h})
+
+@item Time Functions (@file{time.h})
+
+@item Locale (@file{locale.h})
+@end itemize
+
+@noindent
+This C subroutine library depends on a few subroutine calls for
+kernel or operating system services. If the C library is intended to
+be used on a system that complies with the POSIX.1 standard (also
+known as IEEE 1003.1), most of these subroutines are supplied with
+the operating system or kernel.
+
+For bare board configurations
+these subroutines are not provided with the system. For other
+systems, only a fraction of these may be provided. In either case, the
+user must provide, as a minimum, do-nothing stubs or subroutines with
+the needed functionality, in order to allow the program to link
+with the subroutines defined in @file{libc.a}. Examples of primitives that
+@code{libc.a} may be needed:
+
+@table @emph
+@item Basic input/output capabilities
+@code{open}, @code{close}, @code{read}, @code{write}, @code{stat},
+@code{fstat}, @code{link}, @code{unlink}, @code{lseek},
+@code{isatty}
+
+@item Accessing the environment
+@code{environ}
+
+@item Process management
+@code{execve}, @code{fork}, @code{getpid},
+@code{times}, @code{wait}, @code{kill}, @code{exit}
+
+@item Heap management
+@code{sbrk}
+@end table
+
+@noindent
+In the case of certifiable systems, most of these capabilities are
+not needed. Hence, the recommended and simpler approach is that the
+user implements (in Ada or C) just the required functionality, such
+as:
+
+@table @emph
+@item  Simple Input/Output
+@code{read}, @code{write}
+
+@item  Basic memory operations
+@code{memcpy}, @code{bcopy},
+@code{memmove}, @code{memcmp}
+
+@item  Dynamic memory (heap) management
+@code{malloc}, @code{free}
+@end table
+
+@c -------------------------------
+@node Math Library
+@subsection Math Library
+
+@noindent
+A complete IEEE math library is usually provided by @file{libm.a}, which
+includes functions that take float, double, and long double
+parameters. Depending on the type used the function has a different
+extension. These extensions are named after their full precision
+equivalents; i.e., @code{sinf()} is the single precision version of the
+@code{sin()} function, and @code{sinl()} is the long double
+variant. The reduced precision functions run much faster than
+their IEEE-compliant double precision counterparts,
+which can make some floating point operations practical on hardware
+that is too weak for full double precision computations.
+
+@c -------------------------------
+@node Internal GCC Library
+@subsection Internal GCC Library
+
+@noindent
+This is a library of internal subroutines that GCC uses to overcome
+shortcomings of particular machines, or to satisfy the special needs of some
+languages.
+
+The contents of @file{libgcc.a} are documented in the GCC internals manual and
+may be inspected with standard binary oriented tools such as @code{nm} or
+@code{objdump}. The whole set can be partitioned into the two
+major groups that follow.
+
+@menu
+* Integer and Floating Point Operations::
+* Run-Time Support for Exception Handling and Trampolines::
+@end menu
+
+@c ******************* N O D E *******************
+@node Integer and Floating Point Operations
+@subsubsection Integer and Floating Point Operations
+
+@noindent
+This represents a fairly large set; documentation for most functions is
+available in the GCC internals manual and in the GCC sources.
+This section provides a brief introduction.
+
+The names of these functions have the form @code{__OpcodeModesNvalues}, where:
+
+@itemize @bullet
+@item @emph{Opcode} specifies what the function does. E.g. @code{mul} for a
+multiplication, @code{div} for a division.
+
+@item @emph{Modes} specifies the GCC machine mode of the operands it operates
+on. For example:
+@table @code
+@item si
+Single Integer (4bytes)
+
+@item di
+Double Integer (8bytes)
+
+@item sf
+Single Float (4bytes)
+
+@item df
+Double Float (8bytes)
+@end table
+
+@item @emph{Nvalues} specifies the number of values the function deals with,
+possibly including a result it computes.
+@end itemize
+
+@noindent
+Here are some examples:
+
+@table @code
+@item __muldi3
+Multiply two DI integers and return the DI result
+
+@item __negdi2
+Return the negation of a DI integer
+
+@item __eqdf2
+Return zero if neither argument is NaN and the two
+(DF) arguments are equal
+@end table
+
+
+@c ******************* N O D E *******************
+@node Run-Time Support for Exception Handling and Trampolines
+@subsubsection Run-Time Support for Exception Handling and Trampolines
+
+@noindent
+The low-level GCC library also includes everything potentially needed to
+support a compiler configured to use the GCC scheme for exception
+handling. These are the functions prefixed by
+@code{_Unwind} and @code{__register_frame}.
+
+Note that only some functions in this set are called
+``implicitly''. Most are explicitly called from the regular run-time
+libraries for exception-aware languages like C++ or Ada, when
+configured to use the GCC scheme. Moreover, the High-Integrity Profiles
+are not configured to use the GCC exception handling scheme (see
+@ref{Exceptions and the High-Integrity Profiles}, for details).
+
+In addition, ''trampolines'' (the GCC low-level mechanism to support
+pointers to nested subprograms), may require several run-time routines to work
+properly.
+@cindex Trampolines
+The compiler Back End will generate the necessary calls on routines such as
+@code{__clear_cache} and @code{__trampoline_setup}
+
+@code{pragma Restriction (No_Implicit_Dynamic_Code)} can be used to prohibit
+pointers to nested subprograms, so that support for trampolines
+is not required in that case.
+@cindex @code{No_Implicit_Dynamic_Code} restrictions identifier
+
+
+@c ******************* N O D E *******************
+@node Startup Code
+@subsection Startup / Cleanup Code
+
+@noindent
+The startup / cleanup code is usually found in assembly files named
+@file{crt*.S} (@emph{crt} stands for ``C Run Time'').
+Their objects are linked at the
+beginning and at the end of the executable. Their purpose is:
+
+@itemize @bullet
+@item to perform required program initialization (e.g., initialize hardware,
+reserve space for stack, zeroing the @code{.bss} section),
+
+@item to bootstrap the rest of the application, and
+
+@item to arrange the necessary ``cleanup'' / finalization after program
+execution completes.
+
+@end itemize
+
+@noindent
+The @file{crt0} file defines a special symbol like @code{_start} that is both
+the default base address for the application and the first symbol in the
+executable binary image.
+
+The @file{crt*.S} files are normally provided by the operating system.
+In a bare board configuration it is usually the case that only the initial
+startup code (such as @file{crt0.S}) is needed, and must be provided by
+the user.
+
+
+@c ******************* N O D E *******************
+@node How Object Dependencies are Generated
+@section How Object Dependencies are Generated
+
+@menu
+* Explicit Withs::
+* GNAT Pro Generated Calls to GNAT Pro Run-Time Primitives::
+* Pragma Import::
+* Back-End Generated Calls to Library Functions::
+@end menu
+
+@c ******************* N O D E *******************
+@node Explicit Withs
+@subsection Explicit @code{With} Clauses
+
+@noindent
+The use of @code{with} clauses creates a dependence relationship between Ada
+units. This relationship is computed at compilation time and recorded in
+the @file{ali} file produced for each object. The final executable will
+contain all the objects corresponding to the units in the dependence
+closure of the main unit.
+
+This is the simplest and most common way of determining the required
+set of objects in the final application.
+
+
+@c ******************* N O D E *******************
+@node GNAT Pro Generated Calls to GNAT Pro Run-Time Primitives
+@subsection Compiler-Generated Calls to GNAT Pro Run-Time Primitives
+
+@noindent
+When an Ada source file is compiled, the GNAT Pro compiler Front End
+generates an
+intermediate representation of the original source code. This is an
+expanded low-level version of the original source code that can be
+displayed in an
+Ada-like format, and can be inspected using the @code{-gnatD} or
+@code{-gnatG} compiler switch.
+
+The expanded code contains calls to the run-time primitives
+that implement different Ada features. The required run-time library
+packages are linked to the included hierarchy of library units, in the
+same way as if an explicit @code{with} had been used. These
+dependencies on the GNAT Pro run-time units are also determined at
+compilation time.
+
+
+@c ******************* N O D E *******************
+@node Pragma Import
+@subsection Pragma Import
+
+@noindent
+A pragma Import specifies that the designated entity is defined
+externally. The use of @code{pragma Import} clauses forces the inclusion of
+the required external symbol (and transitively, those that it requires) in the
+resulting executable file. This dependency is resolved at link time,
+because it is not possible to know in advance which object file
+contains the required symbol.
+
+The fact that this dependence is resolved late (at link time, after
+the binder file has been generated) has a potentially
+dangerous effect: when an Ada subprogram is imported, the binder does
+not know where the symbol comes from, and the
+elaboration code that the imported routine may require will not be called.
+
+
+@c ******************* N O D E *******************
+@node Back-End Generated Calls to Library Functions
+@subsection Back-End Generated Calls to Library Functions
+
+@noindent
+The GCC back-end may generate ``implicit'' calls to library subprograms
+for various reasons. Such calls are said to be implicit because they
+do not directly correspond to explicit subprogram invocations in the
+application source code.
+
+Implicit calls to library subprograms occur for several reasons:
+
+@enumerate a
+@item
+@emph{Integer and floating point operations}. Some source operations
+require arithmetic support not available on the target hardware.
+
+@item
+@emph{Run-time support for exception handling and trampolines}. Some
+high-level constructs require low-level data structure management too
+complex to emit inline code for.
+
+@item
+@emph{Basic memory operations}. Some basic memory operations are too
+expensive to expand inline, e.g. large block copies or comparisons.
+@end enumerate
+
+@noindent
+For (a), what the compiler knows about the target hardware may
+depend on compilation options. For instance, @code{-msoft-float} triggers
+calls to library functions for floating point operations even if the
+hardware has the necessary instructions available. Similarly, the
+@code{-mcpu} switch allows modifying the compiler's default view of the
+target hardware.
+
+The functions to support (a) and (b) are located in @file{libgcc.a}, the GCC
+low-level runtime library built together with the compiler itself.
+
+For (c), the called functions are located in the regular system C
+library, except for the block comparison function on systems where
+@code{memcmp} is not available, in which case, the libgcc
+@code{__gcc_bcmp} function is used.
+
+@c ******************* N O D E *******************
+@node How the Run Time Is Configured
+@section How The Run Time Library Is Configured
+
+@noindent
+There are three major mechanisms for tailoring the run-time library.
+
+@itemize @bullet
+@item   Use of Configuration Pragmas
+@item   Specification of Configuration Parameters
+@item   Restricting the Set of Run-Time Units
+@end itemize
+
+@menu
+* Use of Configuration Pragmas::
+* Specification of Configuration Parameters::
+* Restricting the Set of Run-Time Units::
+@end menu
+
+@noindent
+These three mechanisms work together to provide a coherent run-time library
+that provides a well defined subset. The compiler understands
+these mechanisms, and will properly enforce the corresponding language
+subset, providing informative and appropriate messages if features not
+supported by the subset are used.
+
+
+@c -------------------------------
+@node Use of Configuration Pragmas
+@subsection Use of Configuration Pragmas
+@cindex Configuration pragmas (for tailoring the run time)
+
+@noindent
+A selected set of configuration pragmas can be placed at the start of package
+@code{System}, and enforced for all units compiled in the presence of this
+@code{System} package:
+
+@smallexample @c ada
+   pragma Detect_Blocking;
+@cindex @code{pragma Detect_Blocking}
+   pragma Discard_Names;
+@cindex @code{pragma Discard_Names}
+   pragma Locking_Policy (name);
+@cindex @code{pragma Locking_Policy}
+   pragma Normalize_Scalars;
+@cindex @code{pragma Normalize_Scalars}
+   pragma Polling (On);
+@cindex @code{pragma Polling}
+   pragma Queuing_Policy (name);
+@cindex @code{pragma Queuing_Policy}
+   pragma Task_Dispatching_Policy (name);
+@cindex @code{pragma Task_Dispatching_Policy}
+@end smallexample
+
+@noindent
+The units provided in the corresponding run-time library
+need not support language features that would be prohibited by these pragmas.
+
+In addition, @code{Restrictions} pragmas
+@cindex @code{pragma Restrictions}
+may be used for all simple
+restrictions which are required to be applied consistently throughout
+a partition.
+The current set of such restrictions is given in the following list.
+GNAT Pro implements all such restrictions defined in the Ada RM,
+and, in the list below,
+the RM reference is given for these restrictions. In addition, GNAT Pro also
+implements a number of implementation-defined restrictions. See the
+@cite{GNAT Pro Reference Manual} for details of the meaning of these additional
+restrictions. This list is taken from the run-time source file
+@file{s-rident.ads}, which should be consulted for the definitive
+current list for your configuration.
+
+
+@smallexample @c ada
+      Boolean_Entry_Barriers,                  -- GNAT (Ravenscar)
+      No_Abort_Statements,                     -- (RM D.7(5), H.4(3))
+      No_Access_Subprograms,                   -- (RM H.4(17))
+      No_Allocators,                           -- (RM H.4(7))
+      No_Asynchronous_Control,                 -- (RM D.7(10))
+      No_Calendar,                             -- GNAT
+      No_Delay,                                -- (RM H.4(21))
+      No_Direct_Boolean_Operators,             -- GNAT
+      No_Dispatch,                             -- (RM H.4(19))
+      No_Dynamic_Interrupts,                   -- GNAT
+      No_Dynamic_Priorities,                   -- (RM D.9(9))
+      No_Enumeration_Maps,                     -- GNAT
+      No_Entry_Calls_In_Elaboration_Code,      -- GNAT
+      No_Entry_Queue,                          -- GNAT (Ravenscar)
+      No_Exception_Handlers,                   -- GNAT
+      No_Exception_Registration,               -- GNAT
+      No_Exceptions,                           -- (RM H.4(12))
+      No_Finalization,                         -- GNAT
+      No_Fixed_Point,                          -- (RM H.4(15))
+      No_Floating_Point,                       -- (RM H.4(14))
+      No_IO,                                   -- (RM H.4(20))
+      No_Implicit_Conditionals,                -- GNAT
+      No_Implicit_Dynamic_Code,                -- GNAT
+      No_Implicit_Heap_Allocations,            -- (RM D.8(8), H.4(3))
+      No_Implicit_Loops,                       -- GNAT
+      No_Initialize_Scalars,                   -- GNAT
+      No_Local_Allocators,                     -- (RM H.4(8))
+      No_Local_Protected_Objects,              -- GNAT
+      No_Nested_Finalization,                  -- (RM D.7(4))
+      No_Protected_Type_Allocators,            -- GNAT
+      No_Protected_Types,                      -- (RM H.4(5))
+      No_Recursion,                            -- (RM H.4(22))
+      No_Reentrancy,                           -- (RM H.4(23))
+      No_Relative_Delay,                       -- GNAT (Ravenscar)
+      No_Requeue,                              -- GNAT
+      No_Secondary_Stack,                      -- GNAT
+      No_Select_Statements,                    -- GNAT (Ravenscar)
+      No_Standard_Storage_Pools,               -- GNAT
+      No_Streams,                              -- GNAT
+      No_Task_Allocators,                      -- (RM D.7(7))
+      No_Task_Attributes,                      -- GNAT
+      No_Task_Hierarchy,                       -- (RM D.7(3), H.4(3))
+      No_Task_Termination,                     -- GNAT (Ravenscar)
+      No_Tasking,                              -- GNAT
+      No_Terminate_Alternatives,               -- (RM D.7(6))
+      No_Unchecked_Access,                     -- (RM H.4(18))
+      No_Unchecked_Conversion,                 -- (RM H.4(16))
+      No_Unchecked_Deallocation,               -- (RM H.4(9))
+      No_Wide_Characters,                      -- GNAT
+      Static_Priorities,                       -- GNAT
+      Static_Storage_Size,                     -- GNAT
+
+      Max_Asynchronous_Select_Nesting,         -- (RM D.7(18), H.4(3))
+      Max_Entry_Queue_Depth,                   -- GNAT
+      Max_Protected_Entries,                   -- (RM D.7(14))
+      Max_Select_Alternatives,                 -- (RM D.7(12))
+      Max_Storage_At_Blocking,                 -- (RM D.7(17))
+      Max_Task_Entries,                        -- (RM D.7(13), H.4(3))
+      Max_Tasks,                               -- (RM D.7(19), H.4(3))
+@end smallexample
+
+@noindent
+No other pragmas are allowed in package @code{System} (other than the pragma
+@code{Pure} for @code{System} itself which is always present).
+
+
+
+@c -------------------------------
+@node Specification of Configuration Parameters
+@subsection Specification of Configuration Parameters
+
+@noindent
+The private part of package @code{System} defines a number of Boolean
+configuration switches, which control the support of specific language
+features.
+
+@smallexample @c adanocomment
+   -----------------------
+   -- Target Parameters --
+   -----------------------
+
+   --  The following parameters correspond to the constants defined in the
+   --  private part of System. Note that it is required that all parameters
+   --  defined here be specified in the target specific version of system.ads
+   --  There are no default values.
+
+   ----------------------------
+   -- Special Target Control --
+   ----------------------------
+
+   --  The great majority of GNAT ports are based on GCC. The switches in
+   --  This section indicate the use of some non-standard target back end.
+
+   AAMP : Boolean;
+@cindex @code{AAMP} (configuration parameter)
+   --  Set to True if target is AAMP.
+
+   -------------------------------
+   -- Backend Arithmetic Checks --
+   -------------------------------
+
+   --  Divide and overflow checks are either done in the front end or
+   --  back end. The front end will generate checks when required unless
+   --  the corresponding parameter here is set to indicate that the back
+   --  end will generate the required checks (or that the checks are
+   --  automatically performed by the hardware in an appropriate form).
+
+   Backend_Divide_Checks : Boolean;
+@cindex @code{Backend_Divide_Checks} (configuration parameter)
+   --  Set True if the back end generates divide checks, or if the hardware
+   --  checks automatically. Set False if the front end must generate the
+   --  required tests using explicit expanded code.
+
+   Backend_Overflow_Checks : Boolean;
+@cindex @code{Backend_Overflow_Checks} (configuration parameter)
+   --  Set True if the back end generates arithmetic overflow checks, or if
+   --  the hardware checks automatically. Set False if the front end must
+   --  generate the required tests using explicit expanded code.
+
+   -----------------------------------
+   -- Control of Exception Handling --
+   -----------------------------------
+
+   --  GNAT implements three methods of implementing exceptions:
+
+   --    Front-End Longjmp/Setjmp Exceptions
+@cindex Front-End longjmp/setjmp exceptions
+
+   --      This approach uses longjmp/setjmp to handle exceptions. It
+   --      uses less storage, and can often propagate exceptions faster,
+   --      at the expense of (sometimes considerable) overhead in setting
+   --      up an exception handler. This approach is available on all
+   --      targets, and is the default where it is the only approach.
+
+   --      The generation of the setjmp and longjmp calls is handled by
+   --      the front end of the compiler (this includes gigi in the case
+   --      of the standard GCC back end). It does not use any back end
+   --      support (such as the GCC3 exception handling mechanism). When
+   --      this approach is used, the compiler generates special exception
+   --      handlers for handling cleanups when an exception is raised.
+
+   --    Back-End Zero Cost Exceptions
+@cindex Back-End zero cost exceptions
+
+   --      With this approach, the back end handles the generation and
+   --      handling of exceptions. For example, the GCC3 exception handling
+   --      mechanisms are used in this mode. The front end simply generates
+   --      code for explicit exception handlers, and AT END cleanup handlers
+   --      are simply passed unchanged to the backend for generating cleanups
+   --      both in the exceptional and non-exceptional cases.
+
+   --      As the name implies, this approach generally uses a zero-cost
+   --      mechanism with tables, but the tables are generated by the back
+   --      end. However, since the back-end is entirely responsible for the
+   --      handling of exceptions, another mechanism might be used. In the
+   --      case of GCC3 for instance, it might be the case that the compiler
+   --      is configured for setjmp/longjmp handling, then everything will
+   --      work correctly. However, it is definitely preferred that the
+   --      back end provide zero cost exception handling.
+
+   --    Control of Available Methods and Defaults
+
+   --      The following switches specify whether the ZCX method is
+   --      available in an implementation, and which method is the default
+   --      method.
+
+   ZCX_By_Default : Boolean;
+@cindex @code{ZCX_By_Default} (configuration parameter)
+   --  Indicates if zero cost exceptions are active by default. If this
+   --  variable is False, then the only possible exception method is the
+   --  front-end setjmp/longjmp approach, and this is the default. If
+   --  this variable is True, then one of the following two flags must
+   --  be True, and represents the method to be used by default.
+
+   GCC_ZCX_Support_On_Target  : Boolean;
+@cindex @code{GCC_ZCX_Support_On_Target} (configuration parameter)
+   --  Indicates that when ZCX is active, the mechanism to be used is the
+   --  back-end ZCX exception approach. If this variable is set to True,
+   --  then Front_End_ZCX_Support_On_Target must be False.
+
+   --------------------------------
+   -- Configurable Run-Time Mode --
+   --------------------------------
+
+   --  In configurable run-time mode, the system run-time may not support
+   --  the full Ada language. The effect of setting this switch is to let
+   --  the compiler know that it is not surprising (i.e. the system is not
+   --  misconfigured) if run-time library units or entities within units are
+   --  not present in the run-time.
+
+   Configurable_Run_Time : Boolean;
+@cindex @code{Configurable_Run_Time} (configuration parameter)
+   --  Indicates that the system.ads file is for a configurable run-time
+   --
+   --  This has some specific effects as follows
+   --
+   --    The binder generates the gnat_argc/argv/envp variables in the
+   --    binder file instead of being imported from the run-time library.
+   --
+   --    The routine __gnat_break_start is defined within the binder file
+   --    instead of being imported from the run-time library.
+   --
+   --    The variable __gnat_exit_status is generated within the binder file
+   --    instead of being imported from the run-time library.
+   --
+   --    No -Ldir switches are added for the linker step
+   --
+   --    No standard switches are added after user file entries to the
+   --    linker line. All such switches must be explicit. In other words
+   --    the option -nostdlib is implicit with a configurable run-time.
+
+   Suppress_Standard_Library : Boolean;
+@cindex @code{Suppress_Standard_Library} (configuration parameter)
+   --  If this flag is True, then the standard library is not included by
+   --  default in the executable (see unit System.Standard_Library in file
+   --  s-stalib.ads for details of what this includes). This is for example
+   --  set True for the Zero Footprint case, where these files should not
+   --  be included by default.
+   --
+   --  This flag has some other related effects:
+   --
+   --    The generation of global variables in the bind file is suppressed,
+   --    with the exception of the priority of the environment task, which
+   --    is needed by the Ravenscar run-time.
+   --
+   --    The generation of exception tables is suppressed for front end
+   --    ZCX exception handling (since we assume no exception handling).
+   --
+   --    The calls to __gnat_initialize and __gnat_finalize are omitted
+   --
+   --    All finalization and initialization (controlled types) is omitted
+   --
+   --    The routine __gnat_handler_installed is not imported
+
+   ---------------------
+   -- Duration Format --
+   ---------------------
+
+   --  By default, type Duration is a 64-bit fixed-point type with a delta
+   --  and small of 10**(-9) (i.e. it is a count in nanoseconds. This flag
+   --  allows that standard format to be modified.
+
+   Duration_32_Bits : Boolean;
+@cindex @code{Duration_32_Bits} (configuration parameter)
+   --  If True, then Duration is represented in 32 bits and the delta and
+   --  small values are set to 20.0*(10**(-3)) (i.e. it is a count in units
+   --  of 20 milliseconds.
+
+   ------------------------------------
+   -- Back-End Code Generation Flags --
+   ------------------------------------
+
+   --  These flags indicate possible limitations in what the code generator
+   --  can handle. They will all be True for a full run-time, but one or more
+   --  of these may be false for a configurable run-time, and if a feature is
+   --  used at the source level, and the corresponding flag is false, then an
+   --  error message will be issued saying the feature is not supported.
+
+   Support_64_Bit_Divides : Boolean;
+@cindex @code{Support_64_Bit_Divides} (configuration parameter)
+   --  If True, the back end supports 64-bit divide operations. If False, then
+   --  the source program may not contain 64-bit divide operations. This is
+   --  specifically useful in the zero foot-print case, where the issue is
+   --  whether there is a hardware divide instruction for 64-bits so that
+   --  no run-time support is required. It should always be set True if the
+   --  necessary run-time support is present.
+
+   Support_Aggregates : Boolean;
+@cindex @code{Support_Aggregates} (configuration parameter)
+   --  In the general case, the use of aggregates may generate calls
+   --  to run-time routines in the C library, including memset, memcpy,
+   --  memmove, and bcopy. This flag is set to True if these routines
+   --  are available. If any of these routines is not available, then
+   --  this flag is False, and the use of aggregates is not permitted.
+
+   Support_Composite_Assign : Boolean;
+@cindex @code{Support_Composite_Assign} (configuration parameter)
+   --  The assignment of composite objects other than small records and
+   --  arrays whose size is 64-bits or less and is set by an explicit
+   --  size clause may generate calls to memcpy, memmove, and bcopy.
+   --  If versions of all these routines are available, then this flag
+   --  is set to True. If any of these routines is not available, then
+   --  the flag is set False, and composite assignments are not allowed.
+
+   Support_Composite_Compare : Boolean;
+@cindex @code{Support_Composite_Compare} (configuration parameter)
+   --  If this flag is True, then the back end supports bit-wise comparison
+   --  of composite objects for equality, either generating inline code or
+   --  calling appropriate (and available) run-time routines. If this flag
+   --  is False, then the back end does not provide this support, and the
+   --  front end uses component by component comparison for composites.
+
+   Support_Long_Shifts : Boolean;
+@cindex @code{Support_Long_Shifts} (configuration parameter)
+   --  If True, the back end supports 64-bit shift operations. If False, then
+   --  the source program may not contain explicit 64-bit shifts. In addition,
+   --  the code generated for packed arrays will avoid the use of long shifts.
+
+   -------------------------------
+   -- Control of Stack Checking --
+   -------------------------------
+
+   --  GNAT provides two methods of implementing exceptions:
+
+   --    GCC Probing Mechanism
+
+   --      This approach uses the standard GCC mechanism for
+   --      stack checking. The method assumes that accessing
+   --      storage immediately beyond the end of the stack
+   --      will result in a trap that is converted to a storage
+   --      error by the runtime system. This mechanism has
+   --      minimal overhead, but requires complex hardware,
+   --      operating system and run-time support. Probing is
+   --      the default method where it is available. The stack
+   --      size for the environment task depends on the operating
+   --      system and cannot be set in a system-independent way.
+
+   --   GNAT Stack-limit Checking
+
+   --      This method relies on comparing the stack pointer
+   --      with per-task stack limits. If the check fails, an
+   --      exception is explicitly raised. The advantage is
+   --      that the method requires no extra system dependent
+   --      runtime support and can be used on systems without
+   --      memory protection as well, but at the cost of more
+   --      overhead for doing the check. This method is the
+   --      default on systems that lack complete support for
+   --      probing.
+
+   Stack_Check_Probes : Boolean;
+@cindex @code{Stack_Check_Probes} (configuration parameter)
+   --  Indicates if stack check probes are used, as opposed to the standard
+   --  target independent comparison method.
+
+   Stack_Check_Default : Boolean;
+@cindex @code{Stack_Check_Default} (configuration parameter)
+   --  Indicates if stack checking is on by default
+
+   ----------------------------
+   -- Command Line Arguments --
+   ----------------------------
+
+   --  For most ports of GNAT, command line arguments are supported. The
+   --  following flag is set to False for targets that do not support
+   --  command line arguments (VxWorks and AAMP). Note that support of
+   --  command line arguments is not required on such targets (RM A.15(13)).
+
+   Command_Line_Args : Boolean;
+@cindex @code{Command_Line_Args} (configuration parameter)
+   --  Set False if no command line arguments on target
+
+   --  Similarly, most ports support the use of an exit status, but AAMP
+   --  is an exception (as allowed by RM A.15(18-20))
+
+   Exit_Status_Supported : Boolean;
+@cindex @code{Exit_Status_Supported} (configuration parameter)
+   --  Set False if returning of an exit status is not supported on target
+
+   -----------------------
+   -- Main Program Name --
+   -----------------------
+
+   --  When the binder generates the main program to be used to create the
+   --  executable, the main program name is main by default (to match the
+   --  usual Unix practice). If this parameter is set to True, then the
+   --  name is instead by default taken from the actual Ada main program
+   --  name (just the name of the child if the main program is a child unit).
+   --  In either case, this value can be overridden using -M name.
+
+   Use_Ada_Main_Program_Name : Boolean;
+@cindex @code{Use_Ada_Main_Program_Name} (configuration parameter)
+   --  Set True to use the Ada main program name as the main name
+
+   ----------------------------------------------
+   -- Boolean-Valued Floating-Point Attributes --
+   ----------------------------------------------
+
+   --  The constants below give the values for representation oriented
+   --  floating-point attributes that are the same for all float types
+   --  on the target. These are all boolean values.
+
+   --  A value is only True if the target reliably supports the corresponding
+   --  feature. Reliably here means that support is guaranteed for all
+   --  possible settings of the relevant compiler switches (like -mieee),
+   --  since we cannot control the user setting of those switches.
+
+   --  The attributes cannot dependent on the current setting of compiler
+   --  switches, since the values must be static and consistent throughout
+   --  the partition. We probably should add such consistency checks in future,
+   --  but for now we don't do this.
+
+   Denorm : Boolean;
+@cindex @code{Denorm} (configuration parameter)
+   --  Set to False on targets that do not reliably support denormals.
+   --  Reliably here means for all settings of the relevant -m flag, so
+   --  for example, this is False on the Alpha where denormals are not
+   --  supported unless -mieee is used.
+
+   Machine_Rounds : Boolean;
+@cindex @code{Machine_Rounds} (configuration parameter)
+   --  Set to False for targets where S'Machine_Rounds is False
+
+   Machine_Overflows : Boolean;
+@cindex @code{Machine_Overflows} (configuration parameter)
+   --  Set to True for targets where S'Machine_Overflows is True
+
+   Signed_Zeros : Boolean;
+@cindex @code{Signed_Zeros} (configuration parameter)
+   --  Set to False on targets that do not reliably support signed zeros.
+
+   OpenVMS : Boolean;
+@cindex @code{OpenVMS} (configuration parameter)
+   --  Set to True if target is OpenVMS.
+
+   -------------------------------------------
+   -- Boolean-Valued Fixed-Point Attributes --
+   -------------------------------------------
+
+   Fractional_Fixed_Ops : Boolean;
+@cindex @code{Fractional_Fixed_Ops} (configuration parameter)
+   --  Set to True for targets that support fixed-by-fixed multiplication
+   --  and division for fixed-point types with a small value equal to
+   --  2 ** (-(T'Object_Size - 1)) and whose values have an absolute
+   --  value less than 1.0.
+
+   --------------------------------------------------------------
+   -- Handling of Unconstrained Values Returned from Functions --
+   --------------------------------------------------------------
+
+   --  Functions that return variable length objects, notably unconstrained
+   --  arrays are a special case, because there is no simple obvious way of
+   --  implementing this feature. Furthermore, this capability is not present
+   --  in C++ or C, so typically the system ABI does not handle this case.
+
+   --  GNAT uses two different approaches
+
+   --    The Secondary Stack
+
+   --      The secondary stack is a special storage pool that is used for
+   --      this purpose. The called function places the result on the
+   --      secondary stack, and the caller uses or copies the value from
+   --      the secondary stack, and pops the secondary stack after the
+   --      value is consumed. The secondary stack is outside the system
+   --      ABI, and the important point is that although generally it is
+   --      handled in a stack like manner corresponding to the subprogram
+   --      call structure, a return from a function does NOT pop the stack.
+
+   --    DSP (Depressed Stack Pointer)
+
+   --      Some targets permit the implementation of a function call/return
+   --      protocol in which the function does not pop the main stack pointer
+   --      on return, but rather returns with the stack pointer depressed.
+   --      This is not generally permitted by any ABI, but for at least some
+   --      targets, the implementation of alloca provides a model for this
+   --      approach. If return-with-DSP is implemented, then functions that
+   --      return variable length objects do it by returning with the stack
+   --      pointer depressed, and the returned object is a pointer to the
+   --      area within the stack frame of the called procedure that contains
+   --      the returned value. The caller must then pop the main stack when
+   --      this value is consumed.
+
+   Functions_Return_By_DSP : Boolean;
+@cindex @code{Functions_Return_By_DSP} (configuration parameter)
+   --  Set to True if target permits functions to return with using the
+   --  DSP (depressed stack pointer) approach.
+
+   -----------------
+   -- Data Layout --
+   -----------------
+
+   --  Normally when using the GCC backend, Gigi and GCC perform much of the
+   --  data layout using the standard layout capabilities of GCC. If the
+   --  parameter Backend_Layout is set to False, then the front end must
+   --  perform all data layout. For further details see the package Layout.
+
+   Frontend_Layout : Boolean;
+@cindex @code{Frontend_Layout} (configuration parameter)
+   --  Set True if front end does layout
+
+   -------------------------------
+   -- Control of Stack Creation --
+   -------------------------------
+
+   --  In bare board configurations supporting a static task model (such as
+   --  Ravenscar), the compiler can create statically (at compile time) the
+   --  stacks to be used by the different tasks.
+
+   Preallocated_Stacks : Boolean;
+@cindex @code{Preallocated_Stacks} (configuration parameter)
+   --  Set to True if the compiler creates statically the stacks for the
+   --  different tasks. Set to False if stacks are created by the underlying
+   --  operating system at run time.
+@end smallexample
+
+
+@c -------------------------------
+@node Restricting the Set of Run-Time Units
+@subsection Restricting the Set of Run-Time Units
+
+@noindent
+Many Ada language features generate implicit calls to the run-time library.
+For example, if we have the Ada procedure:
+
+@smallexample @c ada
+pragma Suppress (All_Checks);
+function Calc (X : Integer) return Integer is
+begin
+   return X ** 4 + X ** 52;
+end Calc;
+@end smallexample
+
+@noindent
+Then the compiler will generate the following code (this is @option{-gnatG}
+output):
+
+@smallexample @c ada
+with system.system__exn_int;
+
+function calc (x : integer) return integer is
+begin
+   E1b : constant integer := x * x;
+   return integer (E1b * E1b +
+                    integer(system__exn_int__exn_integer (x, 52)));
+end calc;
+@end smallexample
+
+@noindent
+In the generated code, you can see that the compiler generates direct inlined
+code for @code{X ** 4} (by computing @code{(X ** 2) ** 2}).
+But the computation of @code{X ** 52}
+requires a call to the runtime routine @code{System.Exn_Int.Exn_Integer}
+(the double underlines in the @option{-gnatG} output represent dots in the
+name).
+@cindex Exponentiation (and configurable run time)
+
+The full GNAT Pro run-time library contains an appropriate package that
+provides this capability:
+
+@smallexample @c ada
+--  Integer exponentiation (checks off)
+
+package System.Exn_Int is
+@cindex @code{System.Exn_Int} package
+pragma Pure (Exn_Int);
+
+   function Exn_Integer
+     (Left  : Integer;
+      Right : Natural)
+      return  Integer;
+
+end System.Exn_Int;
+@end smallexample
+
+@noindent
+If the configurable run-time option is chosen
+(set @code{Configurable_Run_Time}
+@cindex @code{Configurable_Run_Time} (in package @code{System})
+to @code{True} in the @code{System} spec
+in file @file{system.ads}), then package @code{System.Exn_Int} may or may
+not be present in the run-time library. If it is not present, then the subset
+of Ada does not allow exponentiation by large integer values, and an attempt
+to compile @code{Calc} will result in an error message:
+
+@smallexample
+1. function Calc (X : Integer) return Integer is
+2. begin
+3.   return X ** 4 + X ** 52;
+                       |
+   >>> construct not allowed in this configuration
+   >>> entity "System.Exn_Int.Exn_Integer" not defined
+
+4. end Calc;
+@end smallexample
+
+@noindent
+The first line of the error message indicates that the construct is
+not provided in the library. The second line shows the exact entity
+that is missing. In this case, it is the entity @code{Exn_Integer}
+in package @code{System.Exn_Int}. This package is in file
+@code{s-exnint.ads} (you can use the command
+@code{gnatkr system.exn_int.ads} to find this file name).
+If you look at the spec of this package, you will find the
+specification of this function:
+
+@smallexample
+function Exn_Integer
+ (Left : Integer; Right : Natural) return Integer;
+@end smallexample
+
+@noindent
+If exponentiation is required, then this package must be provided,
+and must contain an appropriate declaration of the missing entity. There are
+two ways to accomplish this. Either the standard GNAT body can be
+copied and used in the configurable run-time, or a new body can be written
+that satisfies the specification. Rewriting the body may be useful either
+to simplify the implementation (possibly taking advantage of configuration
+pragmas provided in @file{system.ads}), or to meet coding requirements of some
+particular certification protocol.
+
+In either case, you will have to prepare certification materials
+for the new package, since the existing certification materials
+for the run-time library will not include this new package.
+
+Alternatively, you could modify the source code to call an
+exponentiation routine that is defined within your application:
+
+@smallexample
+with Exp;
+function Calc (X : Integer) return Integer is
+begin
+  return Exp (X, 4) + Exp (X, 52);
+end Calc;
+@end smallexample
+
+@noindent
+where @code{Exp} is an application function that provides the desired
+exponentiation capability, and is certified along with the rest of the
+application in the normal manner.
+
+There are several hundred similar units in the library. For each unit, the
+unit may or may not be present in the configurable run-time, depending on
+which facilities are required.
+
+
+@c ******************* N O D E *******************
+@node Naming the Run-Time Library
+@section Naming the Run-Time Library
+@cindex Naming the run-time library
+
+@noindent
+To assist in keeping track of multiple run-time configurations, the GNAT Pro
+High-Integrity Edition provides a facility
+for naming the run-time library. To do this,
+include a line with the following format (starting in column 4) in
+@file{system.ads}:
+
+@smallexample @c ada
+   Run_Time_Name : constant String := "Simple Run Time 1";
+@end smallexample
+@cindex @code{Run_Time_Name} (for configurable run time)
+
+@noindent
+The name may contain letters, digits, spaces and underlines. If such a name
+is provided, then error messages pertaining to the subset include the name
+of the library:
+
+@smallexample
+1. function Calc (X : Integer) return Integer is
+2. begin
+3.   return X ** 4 + X ** 52;
+                       |
+   >>> construct not allowed in this configuration (Simple Run Time 1)
+
+4. end Calc;
+@end smallexample
+
+
+@c ******************* N O D E *******************
+@node Configuring a Special Purpose Library
+@section Configuring a Special Purpose Library
+
+@noindent
+As described above, the run-time library may be tailored to suit a specific
+application. This process can be carried out either by starting with one of
+the supplied run-time configurations and modifying it, or by starting with
+the full GNAT Pro library.
+
+A small set of standard units is supplied which can be added to the Zero
+Footprint library to expand the supported subset, including:
+
+@table @emph
+@item Secondary Stack Support
+@cindex Secondary Stack Support
+     This allows functions to return unconstrained results, e.g. arbitrary
+     length strings.
+
+@item Minimal Exception Support
+@cindex Minimal Exception Support
+     This allows for a minimal support for propagation of exceptions
+@end table
+
+@noindent
+It is of course possible to add any units. However, the configuration of
+a complex run-time library may be quite difficult, and is best carried out
+in consultation with experts who are familiar with the structure of the
+GNAT run-time libraries.
+
+
+
+@c ***************************
+@c *                         *
+@c *  Target-Specific Topics *
+@c *                         *
+@c ***************************
+@node Target-Specific Topics
+@chapter Target-Specific Topics
+
+@noindent
+This chapter contains several target-specific supplements. These
+supplements list the features available for several target platforms
+and shows how to build programs for these targets.
+
+@menu
+* VxWorks 653 Topics::
+* VxWorks/Cert Topics::
+@end menu
+
+
+@c ******************* N O D E *******************
+@node VxWorks 653 Topics
+@section VxWorks 653 Topics
+
+@noindent
+The GNAT Pro High-Integrity Edition for VxWorks 653 comprises the following
+software components:
+@cindex GNAT Pro High-Integrity Edition for VxWorks 653
+@itemize @bullet
+@item
+The complete GNAT Pro toolchain for the PowerPC/VxWorks 653 target
+
+@item
+A compiler and associated tools that can be configured for any of four modes,
+each corresponding to an Ada feature profile:
+@itemize @bullet
+@item
+@emph{Zero Footprint mode}, with no run-time support
+@cindex Zero Footprint mode
+
+@item
+@emph{Cert mode}, with a minimal run-time. This mode may
+be used with APEX processes. It is intended for use only within the
+partition OS, and is aimed particularly at use within the certified
+version of the partition OS.
+
+@cindex Cert mode
+
+@item
+@emph{Ravenscar Cert mode}, based on Cert mode, and enhanced with Ravenscar
+support. This mode cannot be used with APEX processes, but can use other APEX
+facilities. It is intended for use only within the
+partition OS, and is aimed particularly at use within the certified
+version of the partition OS.
+
+@cindex Ravenscar Cert mode
+
+@item
+@emph{Full-Runtime mode}, with a standard run-time
+@cindex Full-Runtime mode
+@end itemize
+
+@item
+A binding to the ARINC 653 APEX API
+@cindex ARINC binding
+
+@item
+A set of example programs
+@end itemize
+
+@noindent
+The compiler when configured for any of the High-Integrity Profiles
+enforces the associated restrictions and rejects any program that uses
+a prohibited feature.
+
+Much more detail on the use of GNAT Pro for VxWorks 653 is provided in
+@cite{GNAT Pro User's Guide Supplement for Cross Platforms}.
+
+@cindex High-Integrity Profiles
+
+@menu
+* Changing the Last Chance Handler::
+* VxWorks 653 Examples::
+@end menu
+
+@c ******************* N O D E *******************
+@node Changing the Last Chance Handler
+@subsection Changing the Last Chance Handler
+
+@noindent
+For any thread with an unhandled exception, control is transferred to
+a last chance handler with an identification of the exception and a
+message.  The default last chance handler for the restricted run-time
+library suspends the application, generates a stack trace, and notifies the
+VxWorks 653 health management system via Raise_Application_Error.
+You can replace this default handler to perform additional actions.  The
+default handler provided for the full behaves similarly.
+
+There are two ways of overriding the default last chance handler,
+depending on whether it is linked statically into the application,
+or whether it is installed separately in the application partition or
+a shared library partition.
+
+For the first case, the replacement last chance handler is built using:
+
+@smallexample
+powerpc-wrs-vxworksae-gnatmake <options> <replacement_handler>.adb
+@end smallexample
+
+@noindent
+This will generate a file @file{<replacement_handler>.o} in your
+designated object directory.  The path of this file is
+then added to the linker directives for the application.  This causes
+the replacement handler to be statically linked with the application.
+
+In the second case, generate the object module of the replacement
+handler as was done in the first case.  Then modify the linker
+options of the application to include @option{-nostdlib}.
+@cindex @option{-nostdlib} option
+This prevents
+the default handler and the run-time library from
+@file{libgnat.a} from being included in the application module.
+
+The modules for the run-time library and default handler can be
+extracted from @file{libgnat.a} with the following command, assuming
+that the Tornado environment variables are properly set:
+
+@smallexample
+arppc x <path>libgnat.a libgnat.o a-elchha.o
+@end smallexample
+
+@noindent
+The object modules may then be added to a Tornado component that will be
+included in either an application partition or a shared library partition.
+Both the run-time library module and the last chance handler module
+must be in the same partition.  If providing a replacement last chance
+handler, use its object module in place of @file{a-elchha.o}.
+
+@node VxWorks 653 Examples
+@subsection VxWorks 653 Examples
+
+@noindent
+Two examples targeted to an VxWorks 653 system are provided with GNAT Pro. They
+can be found in the starter kit that comes as a separate package. There is:
+
+@itemize @bullet
+@item
+a test suite for the ARINC653 binding that comes with GNAT Pro (subdirectory
+@file{arinc653_testsuite}),
+
+@item
+and an example covering various uses of the ARINC653 binding (subdirectory
+@file{arinc653_example}).
+@end itemize
+
+@noindent
+Both examples multi-partition applications. The @code{arinc653_example} is also
+multi-language (Ada/C). Their respective subdirectories contain a README file
+explaining how to set up an VxWorks 653 system to run them. Note that the
+starter kit is the most convenient approach, as it automates all the steps
+needed to configure and build the VxWorks 653 system.
+
+The @code{arinc653_testsuite} example requires installation of the @code{AUnit}
+unit test framework prior to building.  This package is available through
+GNATtracker.
+
+@c ******************* N O D E *******************
+@node VxWorks/Cert Topics
+@section VxWorks/Cert Topics
+
+@noindent
+There are two products in this category: one for VxWorks 5.x CERT; the other
+for VxWorks 6.x CERT.
+The GNAT Pro High-Integrity Edition for VxWorks/Cert comprises the following
+software components:
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert
+@itemize @bullet
+@item
+The complete GNAT Pro toolchain for the PowerPC/VxWorks target
+
+@item
+A compiler and associated tools that can be configured for any of three modes,
+depending on the VxWorks version, each corresponding to an Ada feature profile:
+@itemize @bullet
+@item
+@emph{Zero Footprint mode}, with no run-time support
+@cindex Zero Footprint mode
+
+@item
+@emph{Ravenscar SFP mode}, with a minimal tasking run-time as required by the
+Ravenscar features, targeted to the VxWorks 5.x Cert kernel.
+This is for VxWorks 5.x CERT only
+@cindex Ravenscar SFP mode
+
+@item
+@emph{Ravenscar Cert mode}, with a minimal tasking run-time as required by the
+Ravenscar features, targeted to the VxWorks 6.x Cert kernel. This is for
+VxWorks 6.x CERT only
+@cindex Ravenscar Cert mode
+
+@item
+@emph{Full-Runtime mode}, with a standard run-time targeted to the
+VxWorks 5.x or 6.x kernel
+@cindex Full-Runtime mode
+@cindex VxWorks 5.x kernel
+@cindex VxWorks 6.x kernel
+@end itemize
+
+@item
+A binding to the VxWorks/Cert 5.x API; this binding does not generate any
+objects and thus does not need to be included in system certification. This is
+only for the VxWorks 5.x product.
+@cindex VxWorks/Cert 5.x binding
+
+@item
+A set of example programs
+@end itemize
+
+@noindent
+The compiler when configured for either of the High-Integrity Profiles
+enforces the associated restrictions and rejects any program that uses
+a prohibited feature.
+@cindex High-Integrity Profiles
+
+@menu
+* VxWorks/Cert 5.x Bindings::
+* VxWorks/Cert Getting Started::
+* VxWorks/Cert Examples::
+@end menu
+
+@c ******************* N O D E *******************
+@node VxWorks/Cert 5.x Bindings
+@subsection VxWorks/Cert 5.x Bindings
+@cindex VxWorks/Cert 5.x Bindings
+
+@noindent
+In the GNAT Pro High-Integrity Edition for VxWorks/Cert 5.x, two bindings
+are provided for Tornado for DO-178B 2.0 and 2.1. To change the binding
+by default, edit @code{ada_source_path} and @code{ada_object_path} in the
+run-time directories.
+
+The following units from the VxWorks/Cert 5.x binding are supported in the
+Zero Footprint Profile, for Tornado for DO-178B 2.0:
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert 5.x
+@cindex VxWorks/Cert 5.x binding (Tornado for DO-178B 2.1)
+
+@itemize @bullet
+@item @code{cacheLib}
+@item @code{cert_ioLib}
+@item @code{ctype}
+@item @code{dllLib}
+@item @code{errnoLib}
+@item @code{excLib}
+@item @code{fppLib}
+@item @code{intLib}
+@item @code{kernelLib}
+@item @code{lastRites}
+@item @code{locale}
+@item @code{logLib}
+@item @code{math}
+@item @code{memLib}
+@item @code{msgQLib}
+@item @code{ppcDecTimer}
+@item @code{qFifoLib}
+@item @code{qPriListLib}
+@item @code{semLib}
+@item @code{setjmp}
+@item @code{signal}
+@item @code{stdlib}
+@item @code{strings}
+@item @code{taskHookLib}
+@item @code{taskLib}
+@item @code{taskVarLib}
+@item @code{tickLib}
+@item @code{vmLib}
+@item @code{vwModNum}
+@item @code{vxTypes}
+@item @code{wdLib}
+@end itemize
+
+@noindent
+Respectively, for Tornado for DO-178B 2.1:
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert
+@cindex VxWorks/Cert 5.x binding (Tornado for DO-178B 2.1)
+
+@itemize @bullet
+@item @code{cacheLib}
+@item @code{cert_fioLib}
+@item @code{cert_ioDevLib}
+@item @code{ctype}
+@item @code{dllLib}
+@item @code{errnoLib}
+@item @code{excLib}
+@item @code{fppLib}
+@item @code{intLib}
+@item @code{kernelLib}
+@item @code{lastRites}
+@item @code{locale}
+@item @code{logLib}
+@item @code{math}
+@item @code{memLib}
+@item @code{msgQLib}
+@item @code{ppcDecTimer}
+@item @code{rngLib}
+@item @code{semLib}
+@item @code{setjmp}
+@item @code{signal}
+@item @code{stdlib}
+@item @code{strings}
+@item @code{taskHookLib}
+@item @code{taskLib}
+@item @code{taskVarLib}
+@item @code{tickLib}
+@item @code{time}
+@item @code{vmLib}
+@item @code{vwModNum}
+@item @code{vxLib}
+@item @code{vxTypes}
+@item @code{wdLib}
+@end itemize
+
+@c ******************* N O D E *******************
+@node VxWorks/Cert Getting Started
+@subsection VxWorks/Cert Getting Started
+@cindex VxWorks/Cert Getting started
+
+@noindent
+In general, to build a program with the GNAT Pro High-Integrity Edition you
+use the same approach as with other GNAT Pro cross compilers.
+This section shows the specific steps needed when using the
+VxWorks/Cert-targeted product;
+in particular it describes how to use GNAT Pro configured for the
+Zero Footprint Profile to compile and build Ada programs that use the services
+of the VxWorks/Cert kernel.
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert
+@cindex Zero Footprint Profile
+@cindex VxWorks/Cert kernel
+
+Two steps are necessary:
+@itemize @bullet
+@item Compile, bind and link the application source files
+@item Link the resulting load module with the needed routines from the
+VxWorks/Cert kernel
+@end itemize
+
+@noindent
+The first step is handled by the GNAT Pro tools @code{gcc}, @code{gnatmake},
+@code{gnatbind} and @code{gnatlink}.
+The second can be accomplished manually, through Tornado's
+project facility if you have installed the GNAT Pro integration for Tornado
+ with VxWorks CERT 5.x, or through Workbench and the GNATbench integration for
+VxWorks Cert 6.x.
+@cindex Tornado project facility
+@cindex GNAT Pro integration for Tornado
+@cindex WorkBench / GNATbench
+
+@menu
+* Building an Application::
+* Running the Application under the VxWorks/Cert Kernel::
+@end menu
+
+@c ******************* N O D E *******************
+@node Building an Application
+@subsubsection Building an Application
+
+@noindent
+The traditional ``Hello, World'' program will illustrate how to use the
+GNAT Pro High-Integrity Edition toolset with VxWorks/Cert.
+@cindex VxWorks/Cert kernel
+First, create a file named @file{hello_world.adb} with the following content
+(VxWorks Cert 5.x only):
+
+@smallexample @c ada
+@group
+@cartouche
+with cert_ioDevLib; use cert_ioDevLib;
+with vxTypes; use vxTypes;
+
+procedure Hello_World is
+   Message : constant String := "Hello, WORLD!";
+begin
+   Result := cert_ioDevWrite
+     (pDev    => To_TY_DEV_ID (STD_OUT),
+      buffer  => Message (1)'Address,
+      nbytes  => Message'Length);
+end Hello;
+@end cartouche
+@end group
+@end smallexample
+@cindex Example - @code{Hello_World} procedure
+@cindex @code{Hello_World} example procedure
+
+@noindent
+Note that you can also use the predefined GNAT Pro package @code{GNAT.IO}
+rather than the Ada binding to @code{cert_ioDevLib} for VxWorks Cert 5.x.
+Since no binding is provided for VxWorks Cert 6.x we recommend using
+@code{GNAT.IO}.
+
+For VxWorks Cert 6.x, follow the intructions in
+@cite{The GNAT Pro User's Guide Supplement for Cross Platforms}. For VxWorks
+Cert 5.x, the following is appropriate.
+
+Assuming that the GNAT Pro High-Integrity Edition tools are on your path,
+compile the application with the following command:
+@smallexample
+@b{$} powerpc-wrs-vxworks-gcc -c -gnatp hello_world.adb
+@end smallexample
+
+@noindent
+Next, bind and link to create an executable that can be
+linked with the VxWorks kernel:
+
+@smallexample
+@b{$} powerpc-wrs-vxworks-gnatbind hello_world
+@b{$} powerpc-wrs-vxworks-gnatlink hello_world
+@end smallexample
+
+@noindent
+You can also combine these three steps into a single command by using
+@code{gnatmake}:
+
+@smallexample
+@b{$} powerpc-wrs-vxworks-gnatmake hello_world -cargs -gnatp
+@end smallexample
+
+@noindent
+These commands will generate an executable named @file{hello_world}
+or @file{hello_world.exe},
+depending on the host used for the build (Solaris / Windows respectively).
+You will then need to link it with the VxWorks/Cert 5.x kernel, which will be
+described in the next section.
+
+We used the @code{-gnatp} switch to suppress checks,
+in order to reduce the possibility of an exception being raised.
+@cindex @code{-gnatp} compiler switch
+If you wish to use exceptions, see
+@ref{Exceptions and the High-Integrity Profiles}, for details.
+
+
+@c ******************* N O D E *******************
+@node Running the Application under the VxWorks/Cert Kernel
+@subsubsection Running the Application under the VxWorks/Cert Kernel
+
+@noindent
+Having built the application, we now wish to execute it under the
+VxWorks kernel. We must first build this kernel;
+this may be accomplished for VxWorks Cert 5.x in two ways, either through the
+GNAT Pro / Tornado integration, or manually. For VxWorks Cert 6.x, refer to the
+VxWorks 6 section in
+@cite{The GNAT Pro User's Guide Supplement for Cross Platforms} for general
+instructions on building applications linked with the kernel. In this case,
+the cert kernel must be configured to contain taskVarLib.
+
+We first show the build steps assuming the presence of the
+GNAT Pro integration for Tornado. If the integration
+is not installed on your system, you may use the manual procedure described
+at the end of this section, or install the integration.
+
+We will be using Tornado's project facility; for more detail, see
+the @cite{Tornado User's Guide}, and the section ``Using GNAT from the Tornado
+Project Facility'' in the @cite{GNAT for VxWorks User's Guide}.
+@cindex Tornado project facility
+@cindex @cite{Tornado User's Guide}
+@cindex @cite{GNAT for VxWorks User's Guide}
+
+First, create a project using the following sequence of menu selections:
+
+@smallexample
+File @result{} New project @result{} Create a bootable VxWorks image
+@end smallexample
+
+@noindent
+Choose a BSP which has been adapted for GNAT. Standard names are <BSP>-gnat.
+When the project is created, choose the ``subset'' build specification, and
+edit its properties, adding the following flags at the end of the flag line
+@emph{tools} in the @emph{C/C++ compiler} panel:
+
+@smallexample
+-cargs -v -gnatp -largs -HImode
+@end smallexample
+
+@noindent
+We used the @code{-HImode} switch to suppress the link with @file{libgcc.a} at
+the final link, as the linker switch @code{-nostdlib} is not supported
+by the Tornado Integration.
+You can now choose the kernel components. For this simple example, correct
+all errors listed for the project on the ``VxWorks'' tab by adding any
+needed components and removing components not included in the subset.
+Now your Ada object is ready to be integrated into the kernel. In order to
+cause its execution following kernel startup, edit @file{usrAppInit.c} and add
+a call to the @code{Hello_World} program:
+@cindex @file{usrAppInit.c}
+@cindex Initialization of user application for VxWorks/Cert
+
+@smallexample
+@group
+@cartouche
+/*********************************************************
+ *
+ * usrAppInit - initialize the users application
+ */
+
+void usrAppInit (void)
+    @{
+#ifdef  USER_APPL_INIT
+    USER_APPL_INIT;     /* for backwards compatibility */
+#endif
+
+    /* add application specific code here */
+    hello ();
+    @}
+@end cartouche
+@end group
+@end smallexample
+
+@noindent
+The combined kernel and application is now ready to be tested. If you
+build the project, and load the resulting VxWorks image onto the target,
+the message @code{"Hello WORLD!"} should appear following boot up.
+
+@noindent
+If the GNAT Pro / Tornado integration is not installed on your system, or if
+you prefer to edit the WRS makefile, you can still integrate the Ada component
+into the kernel. To do so, add a call to the program in @file{usrAppInit.c}
+(as described in the previous section), and add @file{hello_world}
+(Solaris host) or @file{hello_world.exe} (Windows host) to the list of objects
+to be linked with the kernel.
+The list of necessary objects is in the @file{prjObjs.lst} file.
+@cindex @file{prjObjs.lst}
+@cindex @file{usrAppInit.c}
+
+@c ******************* N O D E *******************
+@node VxWorks/Cert Examples
+@subsection VxWorks/Cert Examples
+
+@noindent
+An example is shipped with this product to illustrate how to use
+GNAT Pro's VxWorks/Cert Ada binding with the Zero Footprint Profile for
+the purpose of replacing restricted Ada features, particularly the Ada
+tasking facilities. Please consult the @cite{VxWorks Programmer's
+Reference} for details of using the VxWorks/Cert kernel services.
+@cindex Tasking (simulating via calls of VxWorks/Cert 5.x services)
+@cindex @cite{VxWorks Programmer's Reference}
+@cindex VxWorks/Cert 5.x binding
+@cindex Zero Footprint Profile
+
+The program comprises a driver subprogram, two example packages, and
+several supporting utilities.  The first example is a simple ``Hello,
+world'', based on @code{GNAT.IO} rather than on @code{cert_ioDevLib} as
+shown in @ref{Building an Application}.  The second example
+illustrates obtaining tasking behavior through the VxWorks/Cert
+binding.
+
+The examples' source code, a project file and a @code{Makefile} are
+supplied in the @file{examples} directory of the GNAT Pro
+High-Integrity Edition for VxWorks/Cert 5.x installation.
+@cindex GNAT Pro High-Integrity Edition for VxWorks/Cert 5.x
+To build a driver program that invokes any or all of the example
+procedures, perform the following steps:
+
+@enumerate
+@item
+Edit @file{ada_entry_point.adb}, which contains the driver procedure.
+Choose the example(s) by setting the
+relevant Boolean constant(s) to @code{True}.
+
+@item
+Run @code{make}, which will build @file{ada_entry_point}, or build through
+GPS.
+
+@item
+Link @file{ada_entry_point} with the kernel, which will create the
+executable program
+@end enumerate
+
+@noindent
+Then copy @file{ada_entry_point} to your project
+directory, edit @file{prjObjs.lst} by adding @file{ada_entry_point} to the
+list of objects, and add a call to @code{ada_entry_point()} in
+@file{usrAppInit.c}.
+
+@c **********************************
+@c * GNU Free Documentation License *
+@c **********************************
+@include gfdl.texi
+@c GNU Free Documentation License
+
+@c ******************* N O D E *******************
+@node Index
+@unnumbered Index
+
+@printindex cp
+
+@contents
+
+@bye

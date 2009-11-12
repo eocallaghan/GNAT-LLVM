@@ -1,0 +1,37 @@
+1  GDB
+
+   Debugging features are supported with the Gnu Debugger (GDB). Running
+   under debugger control works when qualifying GNAT MAKE with /DEBUG
+   or qualifying GNAT LINK with /DEBUG.
+
+   GDB works similarly to what VMS debug calls "kept mode", e.g. it won't
+   automatically get invoked when running a program linked with /DEBUG
+   unless the logical name LIB$DEBUG is defined (see Differinces in VMS
+   version below).
+
+   Then syntax is:
+
+      GDB <executable_file_spec>
+
+   More help is available at the GDB command prompt by typing "help".
+
+2  Differences/Restrictions in VMS version
+
+   The initialization file is called GDB.INIT instead of .gdbinit
+
+   To have GDB automatically be invoked at program execution:
+   $ DEFINE LIB$DEBUG GDB$DEBUG
+   $ RUN/DEBUG <program>.
+
+   The GDB directory command accepts a comma separated list of directory
+   names, including wildcard specifications.
+
+   Redirecting program output with ">" doesn't work. Use the "tty" command.
+
+2  Generics
+
+   GNAT does not share generic code, but uses macro substitution.  To set
+   a breakpoint in generic code use the expanded name of the function in
+   which you want to stop.  The expanded name can be determined by captur-
+   ing the output when compiling with -gnatdg and looking for the desired
+   function suffixed with a unique number.

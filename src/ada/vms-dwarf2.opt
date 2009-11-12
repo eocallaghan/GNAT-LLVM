@@ -1,0 +1,6 @@
+case_sensitive=yes
+cluster=DWARF2debug,,,gnu:[lib.openvms7_1.2_8_1]vms-dwarf2.obj
+collect=DWARF2debug,debug_abbrev,debug_aranges,-
+ debug_frame,debug_info,debug_line,debug_loc,-
+ debug_macinfo,debug_pubnames,debug_str,debug_zzzzzz
+case_sensitive=NO

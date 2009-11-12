@@ -1,0 +1,1895 @@
+This file contains the patches to make the DEC Ada 3.2, 3.3, and 3.4 run-time
+library compatible with GNAT and Ada95. Some of these patches are accomplished
+via sed script.
+
+	* assert_generic.ads: text_io -> dec.text_io
+
+	* cdd_types.ads: Add pragma Pure.
+
+	* complex_fast_elementary_functions.ads: GNAT compatible
+	replacement. Instantiation of Ada.Numerics.
+	Generic_Complex_Elementary_Functions.
+
+	* condition_handling.ads: Add pragma Preelaborate.
+
+	* control_c_interception.adb: Export control_c_handler after spec
+	to comply with Ada95 rules.
+
+	* control_c_interception.ads: Add pragma Elaborate_Body.
+
+	* c_types.adb (to_string, length): Modify for ... use clause
+	to comply with Ada95 rules.
+
+	* dec-direct_io.adb: Change package name to match filename.
+	(create,open,read_1,read_2,read_epilogue,write,write): Change
+	external name from ADA$... to GNAT$...
+
+	* dec-direct_io.ads: Change package name to match filename.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(close,delete,reset,reset,mode,name,form,is_open,set_index,index,
+	size,end_of_file): Change external name from ADA$... to GNAT$...
+
+	* dec-direct_mixed_io.adb: Change package name to match filename.
+	(create,open,get_1,get_2,get_epilogue,get_array,put): Change
+	external name from ADA$... to GNAT$...
+
+	* dec-direct_mixed_io.ads: Change package name to match filename.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(get_item,put_item): Change generic formal parameter to comply with
+	Ada95 rules about an unconstrained actual.
+	(close,delete,reset,mode,name,form,is_open,end_of_buffer,
+	set_position,max_element_size,element_size,read,read,write,
+	write,set_index,index,size,end_of_file): Change external name from
+	ADA$... to GNAT$...
+
+	* dec-indexed_io.adb: Change package name to match filename.
+	(create,open,read_1,read_2,read_epilogue,read_1,read_2,read_epilogue,
+	write,update): Change external name from ADA$... to GNAT$...
+
+	* dec-indexed_io.ads: Change package name to match filename.
+	Change generic formal parameter to comply with Ada95 rules about an
+	unconstrained actual.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(read_by_key): Change generic formal parameter to comply with
+	Ada95 rules about an unconstrained actual.
+	(close,delete,reset,reset,mode,name,form,is_open,unlock,
+	delete_element,end_of_file): Change external name from ADA$... to
+	GNAT$...
+
+	* dec-indexed_mixed_io.adb: Change package name to match filename.
+	(create,open,get_1,get_2,get_epilogue,get_array,put,read): Change
+	external name from ADA$... to GNAT$...
+
+	* dec-indexed_mixed_io.ads: Change package name to match filename.
+	Change generic formal parameter to comply with Ada95 rules about an
+	unconstrained actual.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(read_by_key): Change generic formal parameter to comply with
+	Ada95 rules about an unconstrained actual.
+	(close,delete,reset,mode,name,form,is_open,end_of_buffer,
+	set_position,max_element_size,element_size,read,read,write,
+	update,unlock,delete_element,end_of_file): Change external name from
+	ADA$... to GNAT$...
+
+	* dec-relative_io.adb: Change package name to match filename.
+	(create,open,read_1,read_e_1,read_2,read_e_2,read_epilogue,write,
+	write,update): Change external name from ADA$... to GNAT$...
+
+	* dec-relative_io.ads: Change package name to match filename.
+	Change generic formal parameter to comply with Ada95 rules about an
+	unconstrained actual.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(close,delete,reset,mode,name,form,is_open,set_index,index,unlock,
+	delete_element,end_of_file): Change external name from ADA$... to
+	GNAT$...
+
+	* dec-relative_mixed_io.adb: Change package name to match filename.
+	(create,open,get_1,get_2,get_epilogue,get_array,put): Change
+	external name from ADA$... to GNAT$...
+
+	* dec-relative_mixed_io.ads: Change package name to match filename.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(read_by_key): Change generic formal parameter to comply with
+	Ada95 rules about an unconstrained actual.
+	(close,delete,reset,mode,name,form,is_open,end_of_buffer,
+	set_position,max_element_size,element_size,read,read,read_existing,
+   	read_existing,write,write,update,set_index,index,unlock,
+	delete_element,end_of_file): Change external name from ADA$... to
+	GNAT$...
+
+	* dec-sequential_io.adb:  Change package name to match filename.
+	(create,open,read_1,read_2,read_epilogue,write): Change external
+	name from ADA$... to GNAT$...
+
+	* dec-sequential_io.ads: Change package name to match filename.
+	Change generic formal parameter to comply with Ada95 rules about an
+	unconstrained actual.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(close,delete,reset,mode,name,form,is_open,end_of_file): Change
+	external name from ADA$... to GNAT$...
+
+	* dec-sequential_mixed_io.adb: Change package name to match filename.
+	(create,open,get_1,get_2,get_epilogue,get_array,put): Change
+	external name from ADA$... to GNAT$...
+
+	* dec-sequential_mixed_io.ads: Change package name to match filename.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(get_item,put_item): Change generic formal parameter to comply with
+	Ada95 rules about an unconstrained actual.
+	(close,delete,reset,reset,mode,name,form,is_open,end_of_buffer,
+	set_position,position,max_element_size,element_size,read,write,
+	end_of_file): Change external name from ADA$... to GNAT$...
+
+	* dec-text_io.adb: Change package name to match filename.
+	(create,open,text_io_get_1,text_io_get_2,text_io_get_3,
+	text_io_get_4,text_io_get_line_1,text_io_get_line_2,text_io_put_1,
+	text_io_put_2,text_io_put_line_1,text_io_put_line_2,
+	integer_io_get_1,integer_io_get_2,integer_io_get_3,
+	integer_io_put_1,integer_io_put_2,integer_io_put_3,
+	fixed_io_get_1,fixed_io_get_2,fixed_io_get_3,
+	fixed_io_put_1,fixed_io_put_2,fixed_io_put_3,
+	enumeration_io_get_1,enumeration_io_get_2,enumeration_io_get_3,
+	enumeration_io_put_1,enumeration_io_put_2,enumeration_io_put_3,
+	float_io_get_1,float_io_get_2,float_io_get_3,
+	float_io_put_1,float_io_put_2,float_io_put_3): Change external
+	name from ADA$... to GNAT$...
+
+	* dec-text_io.ads: Change package name to match filename.
+	Move for FILE_MODE use ... clause to location compatible with
+	Ada95 rules.
+	(close,delete,reset,reset,mode,name,form,is_open,set_input,
+	set_output,standard_input,standard_output,current_input,
+	current_output): Change external name from ADA$... to GNAT$...
+	(set_line_length,set_line_length,set_page_length,set_page_length,
+	line_length,line_length,page_length,page_length): Change external
+	name from ADA$... to GNAT$...
+	(new_line,new_line,skip_line,skip_line,end_of_line,end_of_line,
+	new_page,new_page,skip_page,skip_page,end_of_page,end_of_page,
+	end_of_file,end_of_file,set_col,set_col,set_line,set_line,col,col,
+	line,line,page,page): Change external name from ADA$... to GNAT$...
+
+	* directio.ads: New package renaming dec-direct_io.ads
+
+	* direct_mixed_io.ads: New package renaming dec-direct_mixed_io.ads
+
+	* float_text_io.ads: text_io -> dec.text_io
+
+	* generic_complex_types.ads: New package renaming
+	ada.numerics.generic_complex_types.
+
+	* generic_elementary_functions.ads: New package renaming
+	ada.numerics.generic_elementary_functions.
+
+	* generic_fast_elementary_functions.ads: Remove private part, new
+	body now provides implementation.
+	
+	* indexed_io.ads: New package renaming dec-indexed_io.ads
+
+	* indexed_mixed_io.ads: New package renaming dec-indexed_mixed_io.ads
+
+	* integer_text_io.ads: text_io -> dec.text_io
+
+	* long_complex_fast_elementary_functions.ads: GNAT compatible
+	replacement. Instantiation of Ada.Numerics.
+	Generic_Complex_Elementary_Functions.
+
+	* long_float_text_io.ads: text_io -> dec.text_io
+
+	* long_integer_text_io.ads: text_io -> dec.text_io
+
+	* mth.ads: Add pragma Pure.
+
+	* relative_io.ads: New package renaming dec-relative_io.ads
+
+	* relative_mixed_io.ads: New package renaming dec-relative_mixed_io.ads
+
+	* sequenio.ads: New package renaming dec-sequential_io.ads
+
+	* sequential_mixed_io.ads: New package renaming
+	dec-sequential_mixed_io.ads
+
+	* short_integer_text_io.ads: text_io -> dec.text_io
+
+	* short_short_integer_text_io.ads: text_io -> dec.text_io
+
+	* synchronize_nonreentrant_access.ads: Comment out private part,
+	new package body now provides implementation.
+
+	* system_runtime_tuning.ads: Comment out pragma interface bodies,
+	new package body now provide implementation.
+
+	* starlet.ads: Change all occurences of "PROTECTED" to "PROTECTD"
+	so as not to clash with Ada95 keyword.
+
+	* starlet.ads: Increase CMB_TYPE to 64 bits, padded with zeroes,
+	to get around problem calling SYS$CREMBX with a defaulted FLAGS
+	parameter. Non-zero high order 32 bits causes reserved opcode fault.
+
+	* starlet.ads: Increase PRC_TYPE to 64 bits, padded with zeroes.
+	Similar to problem above.
+
+	* text_io.ads: New package renaming dec-text_io.ads
+
+	* xm_string.ads: Add pragma Elaborate_Body.
+
+	* xt_string.ads: Add pragma Elaborate_Body.
+
+	* xt.adb: Suppress warning on return type from C routine.
+
+	* x_lib.adb: Comment out unused variable.
+
+	* x_lib_support.adb: Add return statements to get rid of warnings
+	about the lack thereof.
+
+	* xt.ads: Use 'Storage_Size of Standard'Address_Size on access type
+	returned from C routine.
+
+	* condition_handling.adb: Suppress warning on unchecked_conversion.
+
+	* xt.ad[bs]: Work around value result mechanism record return bug.
+
+	* dec-{direct,sequential}_mixed_io.adb: Turn warnings off around
+	when others => statements that can never be executed, but give
+	compiler warnings.
+
+	* dec-*_io.ads: Specify File_Type type to conform with DEClib Bliss
+	code. Fixes unaligned accesses.
+
+	* rms_asynch_opertions.adb,tasking_services.adb: With
+	System.Tasking.Operations.DEC and change DEC Ada RTL AST handling
+	subprograms with GNAT subprograms.
+
+	* tasking_services.ads: Add pragma Elaborate_All (RMS_ASYNCH_OPEATIONS)
+	to avoid warnings with -gnatwl.
+
+$ gnudiff -c sys$common:[syslib.adalib]control_c_interception.adc control_c_interception.adb
+*** sys$common:[syslib.adalib]control_c_interception.adc	Tue Dec 10 07:46:03 1996
+--- control_c_interception.adb	Tue Aug  5 11:55:41 1997
+***************
+*** 109,114 ****
+--- 109,120 ----
+  
+  
+  
++     procedure CONTROL_C_HANDLER;
++ 
++     -- Export CONTROL_C_HANDLER so 'ADDRESS is non-zero
++     --
++     pragma EXPORT_PROCEDURE (CONTROL_C_HANDLER, "ADA$CONTROL_C_HANDLER");
++ 
+      procedure CONTROL_C_HANDLER is 
+  
+  	-- Control C AST handler procedure
+***************
+*** 201,210 ****
+      exception
+  	when OTHERS=> raise;
+      end CONTROL_C_HANDLER;
+- 
+-     -- Export CONTROL_C_HANDLER so 'ADDRESS is non-zero
+-     --
+-     pragma EXPORT_PROCEDURE (CONTROL_C_HANDLER, "GNAT$CONTROL_C_HANDLER");
+  
+  
+  
+--- 207,212 ----
+$ gnudiff -c sys$common:[syslib.adalib]direct_io_.adc dec-direct_io.ads
+*** sys$common:[syslib.adalib]direct_io_.adc	Tue Dec 10 07:46:03 1996
+--- dec-direct_io.ads	Tue Aug  5 11:55:41 1997
+***************
+*** 10,18 ****
+             type FILE_TYPE is limited private;
+  
+             type    FILE_MODE      is (IN_FILE, INOUT_FILE, OUT_FILE);
+             type    COUNT       is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+ 
+             -- The upper bound for COUNT is implementation-defined.
+  
+             -- File management
+--- 10,20 ----
+             type FILE_TYPE is limited private;
+  
+             type    FILE_MODE      is (IN_FILE, INOUT_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE => 2);
++ 
+             type    COUNT       is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+
+             -- The upper bound for COUNT is implementation-defined.
+  
+             -- File management
+***************
+*** 75,82 ****
+  
+          private
+  
+-            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE =>2);
+- 
+             type FILE_TYPE is 
+                 record
+  
+--- 76,81 ----
+$ gnudiff -c sys$common:[syslib.adalib]direct_mixed_io_.adc dec-direct_mixed_io.ads
+*** sys$common:[syslib.adalib]direct_mixed_io_.adc	Tue Dec 10 07:46:03 1996
+--- dec-direct_mixed_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 17,25 ****
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
+             type COUNT is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+  
+  
+             -- File management
+  
+--- 17,27 ----
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE => 2);
++ 
+             type COUNT is range 0 .. 2**31 - 1; for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+
+  
+             -- File management
+  
+***************
+*** 52,58 ****
+             -- Item input and output operations
+  
+             generic
+!               type ITEM_TYPE is private;
+             procedure GET_ITEM(FILE : in FILE_TYPE; ITEM : out ITEM_TYPE);
+  
+             generic
+--- 53,59 ----
+             -- Item input and output operations
+  
+             generic
+!               type ITEM_TYPE(<>) is private;
+             procedure GET_ITEM(FILE : in FILE_TYPE; ITEM : out ITEM_TYPE);
+  
+             generic
+***************
+*** 64,70 ****
+                                 LAST  : out INDEX);
+  
+             generic
+!               type ITEM_TYPE is private;
+             procedure PUT_ITEM(FILE : in FILE_TYPE; ITEM : in ITEM_TYPE);
+  
+             function END_OF_BUFFER(FILE : in FILE_TYPE) return BOOLEAN;
+--- 65,71 ----
+                                 LAST  : out INDEX);
+  
+             generic
+!               type ITEM_TYPE(<>) is private;
+             procedure PUT_ITEM(FILE : in FILE_TYPE; ITEM : in ITEM_TYPE);
+  
+             function END_OF_BUFFER(FILE : in FILE_TYPE) return BOOLEAN;
+***************
+*** 108,116 ****
+  
+          private
+  
+!            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE =>2);
+! 
+!            type FILE_TYPE is 
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+--- 109,115 ----
+  
+          private
+  
+!            type FILE_TYPE is
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+$ gnudiff -c sys$common:[syslib.adalib]generic_fast_elementary_functions_.adc generic_fast_elementary_functions.ads
+*** sys$common:[syslib.adalib]generic_fast_elementary_functions_.adc	Tue Dec 10 07:46:05 1996
+--- generic_fast_elementary_functions.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 54,123 ****
+      function ATAND2 (Y,X:FLOAT_TYPE) return FLOAT_TYPE;
+      function "**"   (X,Y:FLOAT_TYPE) return FLOAT_TYPE;
+  
+- private
+-     type Require_Body;
+- 
+-     -- Make sure the compiler knows they are builtin
+- 
+-     pragma INTERFACE(BUILTIN, SQRT);
+-     pragma INTERFACE(BUILTIN, LOG);
+-     pragma INTERFACE(BUILTIN, LOG10);
+-     pragma INTERFACE(BUILTIN, LOG2);
+-     pragma INTERFACE(BUILTIN, EXP);
+- 
+-     pragma INTERFACE(BUILTIN, SIN);
+-     pragma INTERFACE(BUILTIN, COS);
+-     pragma INTERFACE(BUILTIN, TAN);
+- 
+-     pragma INTERFACE(BUILTIN, ARCSIN);
+-     pragma INTERFACE(BUILTIN, ARCCOS);
+-     pragma INTERFACE(BUILTIN, ARCTAN);
+-     pragma INTERFACE(BUILTIN, ARCTAN2);
+- 
+-     pragma INTERFACE(BUILTIN, SINH);
+-     pragma INTERFACE(BUILTIN, COSH);
+-     pragma INTERFACE(BUILTIN, TANH);
+- 
+-     pragma INTERFACE(BUILTIN, SIND);
+-     pragma INTERFACE(BUILTIN, COSD);
+-     pragma INTERFACE(BUILTIN, TAND);
+- 
+-     pragma INTERFACE(BUILTIN, ASIND);
+-     pragma INTERFACE(BUILTIN, ACOSD);
+-     pragma INTERFACE(BUILTIN, ATAND);
+-     pragma INTERFACE(BUILTIN, ATAND2);
+-     pragma INTERFACE(BUILTIN, "**");
+- 
+-     -- IMPORT_FUNCTION pragmas, to bind to exact internal operation
+- 
+-     pragma IMPORT_FUNCTION(SQRT,    external => "SQRT" , mechanism => value);
+-     pragma IMPORT_FUNCTION(LOG,     external => "LOG"  , mechanism => value);
+-     pragma IMPORT_FUNCTION(LOG10,   external => "LOG10", mechanism => value);
+-     pragma IMPORT_FUNCTION(LOG2,    external => "LOG2" , mechanism => value);
+-     pragma IMPORT_FUNCTION(EXP,     external => "EXP"  , mechanism => value);
+- 
+-     pragma IMPORT_FUNCTION(SIN,     external => "SIN"  , mechanism => value);
+-     pragma IMPORT_FUNCTION(COS,     external => "COS"  , mechanism => value);
+-     pragma IMPORT_FUNCTION(TAN,     external => "TAN"  , mechanism => value);
+- 
+-     pragma IMPORT_FUNCTION(ARCSIN,    external => "ASIN" , mechanism => value);
+-     pragma IMPORT_FUNCTION(ARCCOS,    external => "ACOS" , mechanism => value);
+-     pragma IMPORT_FUNCTION(ARCTAN,    external => "ATAN" , mechanism => value);
+-     pragma IMPORT_FUNCTION(ARCTAN2,   external => "ATAN2", mechanism => value);
+- 
+-     pragma IMPORT_FUNCTION(SINH,    external => "SINH" , mechanism => value);
+-     pragma IMPORT_FUNCTION(COSH,    external => "COSH" , mechanism => value);
+-     pragma IMPORT_FUNCTION(TANH,    external => "TANH" , mechanism => value);
+- 
+-     pragma IMPORT_FUNCTION(SIND,     external => "SIND"  , mechanism => value);
+-     pragma IMPORT_FUNCTION(COSD,     external => "COSD"  , mechanism => value);
+-     pragma IMPORT_FUNCTION(TAND,     external => "TAND"  , mechanism => value);
+- 
+-     pragma IMPORT_FUNCTION(ASIND,    external => "ASIND" , mechanism => value);
+-     pragma IMPORT_FUNCTION(ACOSD,    external => "ACOSD" , mechanism => value);
+-     pragma IMPORT_FUNCTION(ATAND,    external => "ATAND" , mechanism => value);
+-     pragma IMPORT_FUNCTION(ATAND2,   external => "ATAN2D", mechanism => value);
+- 
+-     pragma IMPORT_FUNCTION("**",    external => "PWRO" , mechanism => value);
+- 
+  end GENERIC_FAST_ELEMENTARY_FUNCTIONS;
+--- 54,57 ----
+      function ATAND2 (Y,X:FLOAT_TYPE) return FLOAT_TYPE;
+      function "**"   (X,Y:FLOAT_TYPE) return FLOAT_TYPE;
+  
+  end GENERIC_FAST_ELEMENTARY_FUNCTIONS;
+$ gnudiff -c sys$common:[syslib.adalib]indexed_io_.adc dec-indexed_io.ads
+*** sys$common:[syslib.adalib]indexed_io_.adc	Tue Dec 10 07:46:06 1996
+--- dec-indexed_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 14,25 ****
+          with IO_EXCEPTIONS;
+          with AUX_IO_EXCEPTIONS;
+          generic
+!            type ELEMENT_TYPE is private;
+!         package DEC.INDEXED_IO is
+  
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
+  
+             type RELATION_TYPE is (EQUAL_NEXT, EQUAL, NEXT);
+  
+--- 14,26 ----
+          with IO_EXCEPTIONS;
+          with AUX_IO_EXCEPTIONS;
+          generic
+!            type ELEMENT_TYPE(<>) is private;
+!         package DEC.INDEXED_IO is
+  
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE => 2);
+  
+             type RELATION_TYPE is (EQUAL_NEXT, EQUAL, NEXT);
+  
+***************
+*** 63,69 ****
+             procedure READ (FILE : in  FILE_TYPE; ITEM : out  ELEMENT_TYPE);
+  
+             generic
+!                type KEY_TYPE is private;
+                 DEFAULT_KEY_NUMBER : INTEGER := 0;
+             procedure READ_BY_KEY (FILE       : in  FILE_TYPE;
+                                    ITEM       : out ELEMENT_TYPE;
+--- 64,70 ----
+             procedure READ (FILE : in  FILE_TYPE; ITEM : out  ELEMENT_TYPE);
+  
+             generic
+!                type KEY_TYPE(<>) is private;
+                 DEFAULT_KEY_NUMBER : INTEGER := 0;
+             procedure READ_BY_KEY (FILE       : in  FILE_TYPE;
+                                    ITEM       : out ELEMENT_TYPE;
+***************
+*** 95,101 ****
+             EXISTENCE_ERROR  : exception renames AUX_IO_EXCEPTIONS.EXISTENCE_ERROR;
+  
+          private
+-            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE => 2);
+  
+             type FILE_TYPE is 
+                 record
+--- 96,101 ----
+             EXISTENCE_ERROR  : exception renames AUX_IO_EXCEPTIONS.EXISTENCE_ERROR;
+  
+          private
+  
+             type FILE_TYPE is 
+                 record
+$ gnudiff -c sys$common:[syslib.adalib]indexed_mixed_io_.adc dec-indexed_mixed_io.ads
+*** sys$common:[syslib.adalib]indexed_mixed_io_.adc	Tue Dec 10 07:46:06 1996
+--- dec-indexed_mixed_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 18,23 ****
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
+  
+             type RELATION_TYPE is (EQUAL_NEXT, EQUAL, NEXT);
+  
+--- 18,24 ----
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE => 2);
+  
+             type RELATION_TYPE is (EQUAL_NEXT, EQUAL, NEXT);
+  
+***************
+*** 90,96 ****
+             procedure READ(FILE : in FILE_TYPE);
+  
+             generic
+!                type KEY_TYPE is private;
+                 DEFAULT_KEY_NUMBER : INTEGER := 0;
+             procedure READ_BY_KEY (FILE       : in  FILE_TYPE;
+                                    KEY        : in  KEY_TYPE;
+--- 91,97 ----
+             procedure READ(FILE : in FILE_TYPE);
+  
+             generic
+!                type KEY_TYPE(<>) is private;
+                 DEFAULT_KEY_NUMBER : INTEGER := 0;
+             procedure READ_BY_KEY (FILE       : in  FILE_TYPE;
+                                    KEY        : in  KEY_TYPE;
+***************
+*** 122,128 ****
+             LAYOUT_ERROR	    : exception renames IO_EXCEPTIONS.LAYOUT_ERROR;
+  
+          private
+-            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE => 2);
+  
+             type FILE_TYPE is 
+                 record
+--- 123,128 ----
+$ gnudiff -c sys$common:[syslib.adalib]relative_io_.adc dec-relative_io.ads
+*** sys$common:[syslib.adalib]relative_io_.adc	Tue Dec 10 07:46:07 1996
+--- dec-relative_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 17,25 ****
+          with IO_EXCEPTIONS;
+          with AUX_IO_EXCEPTIONS;
+          generic
+!            type ELEMENT_TYPE is private;
+          package DEC.RELATIVE_IO is
+  
+             type    FILE_TYPE       is limited private;
+             type    FILE_MODE       is (IN_FILE, INOUT_FILE, OUT_FILE);
+             type    COUNT       is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+--- 17,26 ----
+          with IO_EXCEPTIONS;
+          with AUX_IO_EXCEPTIONS;
+          generic
+!            type ELEMENT_TYPE(<>) is private;
+          package DEC.RELATIVE_IO is
+  
+             type    FILE_TYPE       is limited private;
+             type    FILE_MODE       is (IN_FILE, INOUT_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE =>2);
+             type    COUNT       is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+***************
+*** 99,107 ****
+  
+          private
+  
+!            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE =>2);
+! 
+!            type FILE_TYPE is 
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+--- 101,107 ----
+  
+          private
+  
+!            type FILE_TYPE is
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+$ gnudiff -c sys$common:[syslib.adalib]relative_mixed_io_.adc dec-relative_mixed_io.ads
+*** sys$common:[syslib.adalib]relative_mixed_io_.adc	Tue Dec 10 07:46:07 1996
+--- dec-relative_mixed_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 16,21 ****
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
+  
+             type COUNT is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+--- 16,22 ----
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, INOUT_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE =>2);
+  
+             type COUNT is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+***************
+*** 123,131 ****
+  
+          private
+  
+!            for FILE_MODE use (IN_FILE => 0, INOUT_FILE => 1, OUT_FILE =>2);
+! 
+!            type FILE_TYPE is 
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+--- 124,130 ----
+  
+          private
+  
+!            type FILE_TYPE is
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+$ gnudiff -c sys$common:[syslib.adalib]sequential_io_.adc dec-sequential_io.ads
+*** sys$common:[syslib.adalib]sequential_io_.adc	Tue Dec 10 07:46:08 1996
+--- dec-sequential_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 4,15 ****
+  
+          with IO_EXCEPTIONS;
+          generic
+!            type ELEMENT_TYPE is private;
+          package DEC.SEQUENTIAL_IO is
+  
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, OUT_FILE);
+  
+             -- File management
+  
+--- 4,16 ----
+  
+          with IO_EXCEPTIONS;
+          generic
+!            type ELEMENT_TYPE(<>) is private;
+          package DEC.SEQUENTIAL_IO is
+  
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, OUT_FILE =>2);
+  
+             -- File management
+  
+***************
+*** 52,59 ****
+             DATA_ERROR   : exception renames IO_EXCEPTIONS.DATA_ERROR;
+  
+          private
+-            for FILE_MODE use (IN_FILE => 0, OUT_FILE =>2);
+- 
+             type FILE_TYPE is 
+                 record
+  
+--- 53,58 ----
+$ gnudiff -c sys$common:[syslib.adalib]sequential_mixed_io_.adc dec-sequential_mixed_io.ads
+*** sys$common:[syslib.adalib]sequential_mixed_io_.adc	Tue Dec 10 07:46:08 1996
+--- dec-sequential_mixed_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 20,30 ****
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, OUT_FILE);
+  
+             type COUNT is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+  
+ 
+             -- File management
+  
+             procedure CREATE(FILE : in out FILE_TYPE;
+--- 20,31 ----
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, OUT_FILE => 2);
+  
+             type COUNT is range 0 .. 2**31 - 1;  for COUNT'SIZE use 32;
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+  
+ 
+             -- File management
+  
+             procedure CREATE(FILE : in out FILE_TYPE;
+***************
+*** 52,58 ****
+             -- Item input and output operations
+  
+             generic
+!               type ITEM_TYPE is private;
+             procedure GET_ITEM(FILE : in FILE_TYPE; ITEM : out ITEM_TYPE);
+  
+             generic
+--- 52,58 ----
+             -- Item input and output operations
+  
+             generic
+!               type ITEM_TYPE(<>) is private;
+             procedure GET_ITEM(FILE : in FILE_TYPE; ITEM : out ITEM_TYPE);
+  
+             generic
+***************
+*** 64,70 ****
+                                 LAST  : out INDEX);
+  
+             generic
+!               type ITEM_TYPE is private;
+             procedure PUT_ITEM(FILE : in FILE_TYPE; ITEM : in ITEM_TYPE);
+  
+             function END_OF_BUFFER(FILE : in FILE_TYPE) return BOOLEAN;
+--- 64,70 ----
+                                 LAST  : out INDEX);
+  
+             generic
+!               type ITEM_TYPE(<>) is private;
+             procedure PUT_ITEM(FILE : in FILE_TYPE; ITEM : in ITEM_TYPE);
+  
+             function END_OF_BUFFER(FILE : in FILE_TYPE) return BOOLEAN;
+***************
+*** 96,104 ****
+             LAYOUT_ERROR : exception renames IO_EXCEPTIONS.LAYOUT_ERROR;
+  
+          private
+-            for FILE_MODE use (IN_FILE => 0, OUT_FILE =>2);
+  
+!            type FILE_TYPE is 
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+--- 96,103 ----
+             LAYOUT_ERROR : exception renames IO_EXCEPTIONS.LAYOUT_ERROR;
+  
+          private
+  
+!            type FILE_TYPE is
+                 record
+  
+                  FCB : INTEGER   := 0;   -- Temporary
+$ gnudiff -c sys$common:[syslib.adalib]synchronize_nonreentrant_access_.adc synchronize_nonreentrant_access.ads
+*** sys$common:[syslib.adalib]synchronize_nonreentrant_access_.adc	Tue Dec 10 07:46:08 1996
+--- synchronize_nonreentrant_access.ads	Tue Aug  5 14:59:47 1997
+***************
+*** 86,101 ****
+     procedure GLOBAL_UNLOCK;
+  
+- 
+- private
+- 
+-    pragma INTERFACE (C, GLOBAL_LOCK);
+-    pragma IMPORT_PROCEDURE (
+-       INTERNAL => GLOBAL_LOCK,
+-       EXTERNAL => "ada$lock_global");
+- 
+-    pragma INTERFACE (C, GLOBAL_UNLOCK);
+-    pragma IMPORT_PROCEDURE (
+-       INTERNAL => GLOBAL_UNLOCK,
+-       EXTERNAL => "ada$unlock_global");
+- 
+  end SYNCHRONIZE_NONREENTRANT_ACCESS;
+--- 86,88 ----
+     procedure GLOBAL_UNLOCK;
+  
+  end SYNCHRONIZE_NONREENTRANT_ACCESS;
+$ gnudiff -c sys$common:[syslib.adalib]system_runtime_tuning_.adc system_runtime_tuning.ads
+*** sys$common:[syslib.adalib]system_runtime_tuning_.adc	Tue Dec 10 07:46:08 1996
+--- system_runtime_tuning.ads	Tue Aug  5 13:41:33 1997
+***************
+*** 31,36 ****
+--- 31,38 ----
+  	ACTUAL_NUMBER		: out NATURAL;
+  	TOTAL_NUMBER		: out NATURAL);
+  
++     -- GNAT requires static allocation
++ 
+      -- FUNCTIONAL DESCRIPTION
+      --
+      --	This routine adds more AST packets to the pool of packets used
+***************
+*** 151,158 ****
+      --	is raised, a chained condition indicates a detailed reason for
+      --	the failure.  Other exceptions may be raised as well.
+  
+-     pragma INTERFACE(RTL, REQUEST_TIME_SLICE);
+-     pragma IMPORT_PROCEDURE(REQUEST_TIME_SLICE,
+- 	"GNAT$SET_TIME_SLICE");
+- 
+  end SYSTEM_RUNTIME_TUNING;
+--- 153,156 ----
+      --	is raised, a chained condition indicates a detailed reason for
+      --	the failure.  Other exceptions may be raised as well.
+  
+  end SYSTEM_RUNTIME_TUNING;
+$ gnudiff -c sys$common:[syslib.adalib]text_io_.adc dec-text_io.ads
+*** sys$common:[syslib.adalib]text_io_.adc	Tue Dec 10 07:46:09 1996
+--- dec-text_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 8,13 ****
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, OUT_FILE);
+  
+             type COUNT is range 0 .. INTEGER'LAST;  
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+--- 8,14 ----
+             type FILE_TYPE is limited private;
+  
+             type FILE_MODE is (IN_FILE, OUT_FILE);
++            for FILE_MODE use (IN_FILE => 0, OUT_FILE => 2);
+  
+             type COUNT is range 0 .. INTEGER'LAST;  
+             subtype POSITIVE_COUNT is COUNT range 1 .. COUNT'LAST;
+***************
+*** 266,273 ****
+  
+          private
+  
+-            for FILE_MODE use (IN_FILE => 0, OUT_FILE =>2);
+- 
+             type FILE_TYPE is 
+                 record
+  
+--- 265,270 ----
+$ gnudiff -c NLA0:[000000] directio.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:09 1997
+--- directio.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Direct_IO;
++ generic package Direct_IO renames DEC.Direct_IO;
+$ gnudiff -c NLA0:[000000] direct_mixed_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:09 1997
+--- direct_mixed_io.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Direct_Mixed_IO;
++ package Direct_Mixed_IO renames DEC.Direct_Mixed_IO;
+$ gnudiff -c NLA0:[000000] generic_complex_types.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:09 1997
+--- generic_complex_types.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 0 ****
+--- 1,10 ----
++ 
++ --  This implements the DEC package of this name. The declaration is identical
++ --  to that of the Ada95 predefined library.
++ 
++ pragma Warnings (Off);
++ with DEC;
++ pragma Warnings (Off);
++ with Ada.Numerics.Generic_Complex_types;
++ generic package Generic_Complex_Types renames
++     Ada.Numerics.Generic_Complex_Types;
+$ gnudiff -c NLA0:[000000] generic_elementary_functions.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:09 1997
+--- generic_elementary_functions.ads	Tue Aug  5 11:55:42 1997
+***************
+*** 0 ****
+--- 1,6 ----
++ pragma Warnings (Off);
++ with DEC;
++ pragma Warnings (Off);
++ with Ada.Numerics.Generic_Elementary_Functions;
++ generic package GENERIC_ELEMENTARY_FUNCTIONS renames
++    Ada.Numerics.Generic_Elementary_Functions;
+$ gnudiff -c NLA0:[000000] indexed_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:09 1997
+--- indexed_io.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Indexed_IO;
++ generic package Indexed_IO renames DEC.Indexed_IO;
+$ gnudiff -c NLA0:[000000] indexed_mixed_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:10 1997
+--- indexed_mixed_io.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Indexed_Mixed_IO;
++ package Indexed_Mixed_IO renames DEC.Indexed_Mixed_IO;
+$ gnudiff -c NLA0:[000000] relative_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:10 1997
+--- relative_io.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Relative_IO;
++ generic package Relative_IO renames DEC.Relative_IO;
+$ gnudiff -c NLA0:[000000] relative_mixed_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:10 1997
+--- relative_mixed_io.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Relative_Mixed_IO;
++ package Relative_Mixed_IO renames DEC.Relative_Mixed_IO;
+$ gnudiff -c NLA0:[000000] sequenio.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:10 1997
+--- sequenio.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Sequential_IO;
++ generic package Sequential_IO renames DEC.Sequential_IO;
+$ gnudiff -c NLA0:[000000] sequential_mixed_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:10 1997
+--- sequential_mixed_io.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Sequential_Mixed_IO;
++ package Sequential_Mixed_IO renames DEC.Sequential_Mixed_IO;
+$ gnudiff -c NLA0:[000000] text_io.ads
+*** NLA0:[000000]000000.DIR.1	Tue Aug  5 15:02:10 1997
+--- text_io.ads	Tue Aug  5 11:55:43 1997
+***************
+*** 0 ****
+--- 1,2 ----
++ with DEC.Text_Io;
++ package Text_IO renames DEC.Text_IO;
+*** NLA0:[000000]000000.DIR.1	Mon Sep  8 18:14:56 1997
+--- complex_fast_elementary_functions.ads	Mon Sep  8 18:14:29 1997
+***************
+*** 0 ****
+--- 1,11 ----
++ --  This package is for Open/VMS.
++ --  It replaces the DEC package of the same name.
++ --
++ pragma Warnings (Off);
++ with DEC;
++ pragma Warnings (Off);
++ with Complex_Types;
++ with Ada.Numerics.Generic_Complex_Elementary_Functions;
++ pragma Elaborate (Ada.Numerics.Generic_Complex_Elementary_Functions);
++ package Complex_Fast_Elementary_Functions is
++     new Ada.Numerics.Generic_Complex_Elementary_Functions (Complex_Types);
+*** NLA0:[000000]000000.DIR.1	Mon Sep  8 18:14:47 1997
+--- long_complex_fast_elementary_functions.ads	Mon Sep  8 18:14:00 1997
+***************
+*** 0 ****
+--- 1,11 ----
++ --  This package is for Open/VMS.
++ --  It replaces the DEC package of the same name.
++ --
++ pragma Warnings (Off);
++ with DEC;
++ pragma Warnings (Off);
++ with Long_Complex_Types;
++ with Ada.Numerics.Generic_Complex_Elementary_Functions;
++ pragma Elaborate (Ada.Numerics.Generic_Complex_Elementary_Functions);
++ package Long_Complex_Fast_Elementary_Functions is
++     new Ada.Numerics.Generic_Complex_Elementary_Functions (Long_Complex_Types);
+*** xt.adb	Tue Jan 20 14:32:46 1998
+--- xt.adb	Tue Jan 20 15:21:38 1998
+***************
+*** 96,107 ****
+--- 100,115 ----
+          type INT32 is range 0 .. 2**31-1;
+              for INT32'size use 32;
+  
++         pragma Warnings (Off); -- GNAT
+          function TO_INT8 is new UNCHECKED_CONVERSION(VALUE_TYPE, INT8);
+          function TO_INT16 is new UNCHECKED_CONVERSION(VALUE_TYPE, INT16);
++         pragma Warnings (On); -- GNAT
+          function TO_INT32 is new UNCHECKED_CONVERSION(VALUE_TYPE, INT32);
+  
++         pragma Warnings (Off); -- GNAT
+          function TO_INT8 is new UNCHECKED_CONVERSION(ARG_VALUE_TYPE, INT8);
+          function TO_INT16 is new UNCHECKED_CONVERSION(ARG_VALUE_TYPE, INT16);
++         pragma Warnings (On); -- GNAT
+          function TO_INT32 is new UNCHECKED_CONVERSION(ARG_VALUE_TYPE, INT32);
+  
+          function TO_ARG_VALUE_TYPE (
+***************
+*** 164,174 ****
+--- 172,184 ----
+          function TO_POINTER is new
+              UNCHECKED_CONVERSION(VALUE_TYPE, POINTER_TYPE);
+  
++         pragma Warnings (Off); -- GNAT
+          function TO_INT8 is new
+              UNCHECKED_CONVERSION(VALUE_TYPE, INT8);
+  
+          function TO_INT16 is new
+              UNCHECKED_CONVERSION(VALUE_TYPE, INT16);
++         pragma Warnings (On); -- GNAT
+  
+          function TO_INT32 is new
+              UNCHECKED_CONVERSION(VALUE_TYPE, INT32);
+***************
+*** 467,472 ****
+--- 477,483 ----
+          ARGS2		: in ARG_LIST_TYPE)
+  	return ACCESS_ARG_LIST_TYPE
+      is
++         pragma Warnings (Off); -- GNAT
+          function MERGE_ARG_LISTS (
+  	    ARGS1	: in SYSTEM.ADDRESS;
+              NUM_ARGS1	: in CARDINAL_TYPE;
+***************
+*** 476,481 ****
+--- 487,493 ----
+  
+  	    pragma INTERFACE (C, MERGE_ARG_LISTS);
+  	    pragma INTERFACE_NAME (MERGE_ARG_LISTS, "XtMergeArgLists");
++         pragma Warnings (On); -- GNAT
+      begin
+          return MERGE_ARG_LISTS (
+  	    ARGS1'address, ARGS1'LENGTH, ARGS2'address, ARGS2'LENGTH);
+*** x_lib.adb	Tue Jan 20 14:32:46 1998
+--- x_lib.adb	Tue Jan 20 15:24:26 1998
+***************
+*** 4671,4677 ****
+  	    pragma INTERFACE(C, PARSE_COLOR);
+  	    pragma INTERFACE_NAME(PARSE_COLOR, "XParseColor");
+  
+! 	COLOR_OUT : COLOR_TYPE;
+  
+      begin
+  	SUCCEEDED := TO_BOOLEAN(
+--- 4671,4677 ----
+  	    pragma INTERFACE(C, PARSE_COLOR);
+  	    pragma INTERFACE_NAME(PARSE_COLOR, "XParseColor");
+  
+! 	-- GNAT (unused) COLOR_OUT : COLOR_TYPE;
+  
+      begin
+  	SUCCEEDED := TO_BOOLEAN(
+*** x_lib_support.adb	Tue Jan 20 14:32:46 1998
+--- x_lib_support.adb	Tue Jan 20 14:34:45 1998
+***************
+*** 87,92 ****
+--- 87,93 ----
+  			return A(A'first..LAST);
+  		    end if;
+  		end loop;
++ 		return (1..1=>NUL); -- GNAT
+  	    end if;
+  	end;
+  
+***************
+*** 115,120 ****
+--- 116,122 ----
+  			return LAST-1;
+  		    end if;
+  		end loop;
++ 		return 0;
+  	    end if;
+  	end;
+  
+*** xt.ads	Tue Jan 20 14:32:46 1998
+--- xt.ads	Tue Jan 20 15:21:18 1998
+***************
+*** 772,778 ****
+      type ARG_LIST_TYPE is array (CARDINAL_TYPE range <>) of ARG_TYPE;
+  
+      type ACCESS_ARG_LIST_TYPE is access ARG_LIST_TYPE;
+!     for ACCESS_ARG_LIST_TYPE'STORAGE_SIZE use 0;
+  
+  -- 5.4 Mapping a Pop-Up Widget
+  --
+--- 772,779 ----
+      type ARG_LIST_TYPE is array (CARDINAL_TYPE range <>) of ARG_TYPE;
+  
+      type ACCESS_ARG_LIST_TYPE is access ARG_LIST_TYPE;
+! -- GNAT   for ACCESS_ARG_LIST_TYPE'STORAGE_SIZE use 0;
+!     for ACCESS_ARG_LIST_TYPE'STORAGE_SIZE use Standard'Address_Size; -- GNAT
+  
+  -- 5.4 Mapping a Pop-Up Widget
+  --
+*** condition_handling.adb	Tue Jan 20 11:18:20 1998
+--- condition_handling.adb	Tue Jan 20 16:32:57 1998
+***************
+*** 87,94 ****
+--- 87,96 ----
+      function TO_STS_TYPE is new UNCHECKED_CONVERSION (
+  	UNSIGNED_LONGWORD, STS_TYPE);
+
++     pragma Warnings (Off);
+      function TO_STSDEF_BITS1_TYPE is new UNCHECKED_CONVERSION (
+  	UNSIGNED_LONGWORD, STSDEF_BITS1_TYPE);
++     pragma Warnings (On);
+
+      function TO_STSDEF_BITS2_TYPE is new UNCHECKED_CONVERSION (
+  	UNSIGNED_LONGWORD, STSDEF_BITS2_TYPE);
+*** xt.ads.2	Wed Jan 21 10:55:44 1998
+--- xt.ads	Sat Jan 31 19:18:58 1998
+***************
+*** 2016,2028 ****
+  	APP_CONTEXT : in APP_CONTEXT_TYPE)
+  	return INPUT_MASK_TYPE;
+  
+!         pragma INTERFACE (C, APP_PENDING);
+! 	pragma Import_Function (APP_PENDING, "XtAppPending",
+!             parameter_types => (XT.APP_CONTEXT_TYPE),
+!             result_type => XT.INPUT_MASK_TYPE,
+!             mechanism => (value),
+!             result_mechanism => value); -- Unsigned long returned by value
+!                                         -- by the C function.
+  
+      procedure APP_PEEK_EVENT (				-- 753
+  	RESULT		: out BOOLEAN;
+--- 2016,2022 ----
+  	APP_CONTEXT : in APP_CONTEXT_TYPE)
+  	return INPUT_MASK_TYPE;
+  
+!         pragma INLINE (APP_PENDING);
+  
+      procedure APP_PEEK_EVENT (				-- 753
+  	RESULT		: out BOOLEAN;
+***************
+*** 2156,2169 ****
+  	W	: in WIDGET_TYPE)
+  	return X_LIB.EVENT_MASK_TYPE;
+  
+!         pragma INTERFACE (C, BUILD_EVENT_MASK);
+! 	pragma Import_Function (BUILD_EVENT_MASK, "XtBuildEventMask",
+!             parameter_types => ( WIDGET_TYPE),
+!             result_type => X_LIB.EVENT_MASK_TYPE,
+!             mechanism => (value),
+!             result_mechanism => value); -- Unsigned long returned by value
+!                                         -- by the C function.
+! 
+  
+  -- 8.3 Adding Callback Procedures
+  --
+--- 2150,2156 ----
+  	W	: in WIDGET_TYPE)
+  	return X_LIB.EVENT_MASK_TYPE;
+  
+!         pragma INLINE (BUILD_EVENT_MASK);
+  
+  -- 8.3 Adding Callback Procedures
+  --
+*** xt.adb.2	Wed Jan 21 10:55:44 1998
+--- xt.adb	Sat Jan 31 19:17:47 1998
+***************
+*** 1069,1074 ****
+--- 1069,1091 ----
+          RESULT := CALL_ACCEPT_FOCUS (W, TIME'address) /= 0;
+      end CALL_ACCEPT_FOCUS;
+  
++     function APP_PENDING (				-- 753
++ 	APP_CONTEXT : in APP_CONTEXT_TYPE)
++ 	return INPUT_MASK_TYPE is
++ 
++         function APP_PENDING (
++ 	    APP_CONTEXT : in APP_CONTEXT_TYPE)
++ 	    return X_TYPES.X_INT;
++ 
++             pragma INTERFACE (C, APP_PENDING);
++             pragma INTERFACE_NAME (APP_PENDING, "XtAppPending");
++ 
++         function TO_INPUT_MASK_TYPE is new 
++ 	    UNCHECKED_CONVERSION (X_TYPES.X_INT, INPUT_MASK_TYPE);
++     begin
++         return TO_INPUT_MASK_TYPE (APP_PENDING (APP_CONTEXT));
++     end APP_PENDING;
++ 
+      procedure APP_PEEK_EVENT (				-- 753
+  	RESULT		: out BOOLEAN;
+  	APP_CONTEXT	: in APP_CONTEXT_TYPE;
+***************
+*** 1289,1294 ****
+--- 1306,1328 ----
+          INSERT_RAW_EVENT_HANDLER (W, TO_X_LONG(EVENT_MASK),
+  		X_TYPES.TO_X_BOOL(NONMASKABLE), PROC, CLIENT_DATA, POSITION);
+      end INSERT_RAW_EVENT_HANDLER;
++ 
++     function BUILD_EVENT_MASK (
++ 	W	: in WIDGET_TYPE)
++ 	return X_LIB.EVENT_MASK_TYPE
++     is
++         function BUILD_EVENT_MASK (
++ 	    W	: in WIDGET_TYPE)
++ 	    return X_TYPES.X_LONG;
++ 
++             pragma INTERFACE (C, BUILD_EVENT_MASK);
++ 	    pragma INTERFACE_NAME (BUILD_EVENT_MASK, "XtBuildEventMask");
++ 
++         function TO_EVENT_MASK_TYPE is new 
++ 	    UNCHECKED_CONVERSION (X_TYPES.X_LONG, EVENT_MASK_TYPE);
++     begin
++         return TO_EVENT_MASK_TYPE (BUILD_EVENT_MASK (W));
++     end BUILD_EVENT_MASK;
+  
+      procedure ADD_CALLBACK (
+  	W             : in WIDGET_TYPE;
+*** starlet.ads	Sat Aug  8 20:24:58 1998
+--- starlet.ads	Sun Aug  9 21:16:06 1998
+***************
+*** 3954,3959 ****
+--- 3954,3960 ----
+  	    READONLY	: BOOLEAN;					--  Channel to be assigned to mailbox is READ ONLY.
+  	    WRITEONLY	: BOOLEAN;					--  Channel to be assigned to mailbox is WRITE ONLY.
+  	    FILLER_1	: UNSIGNED_30;
++ 	    FILLER_2	: UNSIGNED_32;
+  	end record;
+   
+  	    for CMB_TYPE use 
+***************
+*** 3961,3973 ****
+  		    READONLY	at 0 range 0 .. 0;
+  		    WRITEONLY	at 0 range 1 .. 1;
+  		    FILLER_1	at 0 range 2 .. 31;
+  		end record;
+! 	    for CMB_TYPE'SIZE use 32;
+   
+      CMB_TYPE_INIT : constant CMB_TYPE := 
+  	    (READONLY	=> FALSE,
+  	    WRITEONLY	=> FALSE,
+! 	    FILLER_1	=> 0);
+  
+  --  module $CRDEF
+   
+--- 3962,3976 ----
+  		    READONLY	at 0 range 0 .. 0;
+  		    WRITEONLY	at 0 range 1 .. 1;
+  		    FILLER_1	at 0 range 2 .. 31;
++ 		    FILLER_2	at 0 range 32 .. 63;
+  		end record;
+! 	    for CMB_TYPE'SIZE use 64;
+   
+      CMB_TYPE_INIT : constant CMB_TYPE := 
+  	    (READONLY	=> FALSE,
+  	    WRITEONLY	=> FALSE,
+! 	    FILLER_1	=> 0,
+! 	    FILLER_2	=> 0);
+  
+  --  module $CRDEF
+   
+*** address_operations.ads	Tue Oct 27 14:12:10 1998
+--- address_operations.ads	Tue Oct 27 17:29:15 1998
+***************
+*** 19,19 ****
+--- 19,20 ----
+  package ADDRESS_OPERATIONS is
++    pragma Pure (ADDRESS_OPERATIONS);
+*** assert_exceptions.ads	Tue Oct 27 14:12:10 1998
+--- assert_exceptions.ads	Tue Oct 27 17:29:41 1998
+***************
+*** 15,15 ****
+--- 15,16 ----
+  package ASSERT_EXCEPTIONS is
++     pragma Pure (ASSERT_EXCEPTIONS);
+*** aux_io_exceptions.ads	Tue Oct 27 14:12:10 1998
+--- aux_io_exceptions.ads	Tue Oct 27 17:30:05 1998
+***************
+*** 15,15 ****
+--- 15,16 ----
+  package AUX_IO_EXCEPTIONS is
++     pragma Pure (AUX_IO_EXCEPTIONS);
+*** cdd_types.ads	Tue Oct 27 14:12:10 1998
+--- cdd_types.ads	Tue Oct 27 17:30:14 1998
+***************
+*** 16,16 ****
+--- 16,17 ----
+  package CDD_TYPES is
++     pragma Pure (CDD_TYPES);
+*** cli.ads	Tue Oct 27 14:12:10 1998
+--- cli.ads	Tue Oct 27 17:30:32 1998
+***************
+*** 35,35 ****
+--- 35,36 ----
+  package CLI is
++     pragma Preelaborate (CLI);
+*** condition_handling.ads	Tue Oct 27 14:12:11 1998
+--- condition_handling.ads	Tue Oct 27 17:31:04 1998
+***************
+*** 16,16 ****
+--- 16,17 ----
+  package CONDITION_HANDLING is
++    pragma Preelaborate (CONDITION_HANDLING);
+*** digitaequipmcorporaxpspecifimiscbuiltin.ads	Tue Oct 27 14:12:13 1998
+--- digitaequipmcorporaxpspecifimiscbuiltin.ads	Tue Oct 27 17:34:34 1998
+***************
+*** 23,24 ****
+--- 23,25 ----
+  is
++     pragma Pure (Digital_Equipment_Corporation_AXP_Specific_Misc_Builtins);
+  
+*** elementary_functions_exceptions.ads	Tue Oct 27 14:12:14 1998
+--- elementary_functions_exceptions.ads	Tue Oct 27 17:34:58 1998
+***************
+*** 2,2 ****
+--- 2,3 ----
+  package ELEMENTARY_FUNCTIONS_EXCEPTIONS is
++    pragma Pure (ELEMENTARY_FUNCTIONS_EXCEPTIONS);
+*** generic_fast_elementary_functions.ads	Tue Oct 27 14:12:15 1998
+--- generic_fast_elementary_functions.ads	Tue Oct 27 17:36:00 1998
+***************
+*** 22,22 ****
+--- 22,23 ----
+  package GENERIC_FAST_ELEMENTARY_FUNCTIONS is
++    pragma Pure (GENERIC_FAST_ELEMENTARY_FUNCTIONS);
+*** generic_primitive_functions.ads	Tue Oct 27 14:12:15 1998
+--- generic_primitive_functions.ads	Tue Oct 27 17:36:16 1998
+***************
+*** 13,13 ****
+--- 13,14 ----
+  package Generic_Primitive_Functions is
++     pragma Pure (Generic_Primitive_Functions);
+*** math_lib.ads	Tue Oct 27 14:12:17 1998
+--- math_lib.ads	Tue Oct 27 17:36:37 1998
+***************
+*** 27,27 ****
+--- 27,28 ----
+  package MATH_LIB is
++    pragma Pure (MATH_LIB);
+*** mth.ads	Tue Oct 27 14:12:17 1998
+--- mth.ads	Tue Oct 27 17:36:50 1998
+***************
+*** 35,35 ****
+--- 35,36 ----
+  package MTH is
++     pragma Pure (MTH);
+*** ncs.ads	Tue Oct 27 14:12:17 1998
+--- ncs.ads	Tue Oct 27 17:37:01 1998
+***************
+*** 42,42 ****
+--- 42,43 ----
+  package NCS is
++     pragma Preelaborate (NCS);
+*** synchronize_nonreentrant_access.ads	Tue Oct 27 14:12:21 1998
+--- synchronize_nonreentrant_access.ads	Tue Oct 27 17:37:37 1998
+***************
+*** 15,15 ****
+--- 15,16 ----
+  package SYNCHRONIZE_NONREENTRANT_ACCESS is
++    pragma Preelaborate (SYNCHRONIZE_NONREENTRANT_ACCESS);
+*** x_atom.ads	Tue Oct 27 14:12:24 1998
+--- x_atom.ads	Tue Oct 27 17:40:19 1998
+***************
+*** 39,39 ****
+--- 39,40 ----
+  package X_ATOM is
++    pragma Preelaborate (X_ATOM);
+*** x_foreign_bodies.ads	Tue Oct 27 14:12:24 1998
+--- x_foreign_bodies.ads	Tue Oct 27 17:39:07 1998
+***************
+*** 15,15 ****
+--- 15,16 ----
+  package X_FOREIGN_BODIES is
++     pragma Pure (X_FOREIGN_BODIES);
+*** dec-direct_mixed_io.adb.2	Fri Mar  5 17:33:26 1999
+--- dec-direct_mixed_io.adb	Fri Mar  5 17:58:39 1999
+***************
+*** 227,233 ****
+--- 227,235 ----
+  		-- Any other type: Pass the item by address, bit offset and
+  		-- size.  
+  		--
++ 		pragma Warnings (Off);
+  		GET_2 (FILE, ITEM'ADDRESS, ITEM'BIT, ITEM_TYPE'MACHINE_SIZE);
++ 		pragma Warnings (On);
+  
+  	end case;
+  
+***************
+*** 309,315 ****
+--- 311,319 ----
+  		PUT (FILE, ITEM'ADDRESS, ITEM'BIT, ITEM'SIZE);
+  
+  	    when others =>
++ 		pragma Warnings (Off);
+  		PUT (FILE, ITEM'ADDRESS, ITEM'BIT, ITEM_TYPE'MACHINE_SIZE);
++ 		pragma Warnings (On);
+  
+  	end case;
+  
+*** dec-sequential_mixed_io.adb.2	Fri Mar  5 17:33:27 1999
+--- dec-sequential_mixed_io.adb	Fri Mar  5 17:50:48 1999
+***************
+*** 229,235 ****
+--- 229,237 ----
+  		-- Any other type: Pass the item by address, bit offset and
+  		-- size.  
+  		--
++ 		pragma Warnings (Off);
+  		GET_2 (FILE, ITEM'ADDRESS, ITEM'BIT, ITEM_TYPE'MACHINE_SIZE);
++ 		pragma Warnings (On);
+  
+  	end case;
+  
+***************
+*** 311,317 ****
+--- 313,321 ----
+  		PUT (FILE, ITEM'ADDRESS, ITEM'BIT, ITEM'SIZE);
+  
+  	    when others =>
++ 		pragma Warnings (Off);
+  		PUT (FILE, ITEM'ADDRESS, ITEM'BIT, ITEM_TYPE'MACHINE_SIZE);
++ 		pragma Warnings (On);
+  
+  	end case;
+  
+*** starlet.ads.2	Wed May  5 00:32:49 1999
+--- starlet.ads	Fri May  7 21:13:02 1999
+***************
+*** 17630,17635 ****
+--- 17630,17637 ----
+  	    SUBSYSTEM	: BOOLEAN;					--  inherit protected subsystem identifiers 
+  	    TCB		: BOOLEAN;					--  process is part of TCB
+  	    FILLER_1	: UNSIGNED_6;
++ 	    FILLER_2	: UNSIGNED_8;
++ 	    FILLER_3	: UNSIGNED_32;
+   
+  	    ----Component(s) below are defined as comments since they
+  	    ----overlap other fields
+***************
+*** 17659,17664 ****
+--- 17661,17668 ----
+  		    SUBSYSTEM	at 2 range 0 .. 0;
+  		    TCB		at 2 range 1 .. 1;
+  		    FILLER_1	at 2 range 2 .. 7;
++ 		    FILLER_2	at 3 range 0 .. 7;
++ 		    FILLER_3	at 4 range 0 .. 31;
+   
+  		    ----Component representation spec(s) below are defined as
+  		    ----comments since they overlap other fields
+***************
+*** 17666,17672 ****
+  		    ----PRCDEF_OBSOLETE	at 0 range 0 .. 7;
+   
+  		end record;
+! 	    for PRC_TYPE'SIZE use 24;
+   
+      PRC_TYPE_INIT : constant PRC_TYPE := 
+  	    (SSRWAIT	=> FALSE,
+--- 17670,17676 ----
+  		    ----PRCDEF_OBSOLETE	at 0 range 0 .. 7;
+   
+  		end record;
+! 	    for PRC_TYPE'SIZE use 64;
+   
+      PRC_TYPE_INIT : constant PRC_TYPE := 
+  	    (SSRWAIT	=> FALSE,
+***************
+*** 17687,17693 ****
+  	    DBGTRU	=> FALSE,
+  	    SUBSYSTEM	=> FALSE,
+  	    TCB		=> FALSE,
+! 	    FILLER_1	=> 0);
+  
+      subtype PRCDEF_BITS_TYPE is PRC_TYPE;
+   
+--- 17691,17699 ----
+  	    DBGTRU	=> FALSE,
+  	    SUBSYSTEM	=> FALSE,
+  	    TCB		=> FALSE,
+! 	    FILLER_1	=> 0,
+! 	    FILLER_2	=> 0,
+! 	    FILLER_3	=> 0);
+  
+      subtype PRCDEF_BITS_TYPE is PRC_TYPE;
+   
+*** dec-direct_io.ads	Thu Dec  9 19:21:17 1999
+--- dec-direct_io.ads	Sat May  6 20:33:51 2000
+***************
+*** 86,91 ****
+--- 86,102 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+             -- The following file management subprograms and subprograms SET_INDEX, 
+             -- INDEX, SIZE and END_OF_FILE are all imported
+  
+*** dec-direct_mixed_io.ads	Thu Dec  9 19:21:17 1999
+--- dec-direct_mixed_io.ads	Sat May  6 20:33:52 2000
+***************
+*** 119,124 ****
+--- 119,135 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+             -- The following file management subprograms are imported.
+  
+             pragma INTERFACE (ADARTL, CLOSE);
+*** dec-indexed_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-indexed_io.ads	Sat May  6 20:33:52 2000
+***************
+*** 106,111 ****
+--- 106,121 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
+  
+             -- The following file management subprograms and END_OF_FILE are imported.
+  
+*** dec-indexed_mixed_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-indexed_mixed_io.ads	Sat May  6 20:33:53 2000
+***************
+*** 133,138 ****
+--- 133,149 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+  
+             -- The following file management subprograms are imported.
+  
+*** dec-relative_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-relative_io.ads	Sat May  6 20:33:53 2000
+***************
+*** 109,114 ****
+--- 109,125 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+             -- The following file management subprograms and subprograms SET_INDEX, 
+             -- INDEX, UNLOCK, DELETE_ELEMENT and END_OF_FILE are imported.
+  
+*** dec-relative_mixed_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-relative_mixed_io.ads	Sat May  6 20:33:54 2000
+***************
+*** 133,138 ****
+--- 133,149 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+             -- The following file management subprograms are imported.
+  
+             pragma INTERFACE (ADARTL, CLOSE);
+*** dec-sequential_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-sequential_io.ads	Sat May  6 20:33:54 2000
+***************
+*** 62,67 ****
+--- 62,78 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+  
+             -- The following file management subprograms and END_OF_FILE are imported.
+  
+*** dec-sequential_mixed_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-sequential_mixed_io.ads	Sat May  6 20:33:55 2000
+***************
+*** 107,112 ****
+--- 107,123 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+  
+             -- The following file management subprograms are imported.
+  
+*** dec-text_io.ads	Thu Dec  9 19:21:18 1999
+--- dec-text_io.ads	Sat May  6 20:33:56 2000
+***************
+*** 276,281 ****
+--- 276,292 ----
+  
+                 end record;
+  
++            for FILE_TYPE'Size use 64;
++            for FILE_TYPE'Alignment use 8;
++ 
++            for FILE_TYPE use
++                record
++ 
++                 FCB at 0 range 0 .. 31;
++                 SEQ at 4 range 0 .. 31;
++ 
++                end record;
++ 
+             -- Inlining
+  
+             pragma INLINE(CREATE, OPEN, GET, PUT, GET_LINE, PUT_LINE);
+
+*** ada$predefined:tasking_services.adc	Tue Dec 10 07:46:08 1996
+--- tasking_services.adb	Fri May 12 22:21:26 2000
+***************
+*** 19,74 ****
+  with SYSTEM; use SYSTEM;
+  with CONDITION_HANDLING; use CONDITION_HANDLING;
+  with UNCHECKED_CONVERSION;
+  package body TASKING_SERVICES is
+      pragma IDENT ("VAX Ada V2.3");
+  
+      -- function that returns the value to be used as AST parameter.
+      --
+!     function ME return UNSIGNED_LONGWORD;
+!     pragma INTERFACE (ADARTL, ME);
+!     pragma IMPORT_FUNCTION (ME, "GNAT$AST_PARAMETER");
+!     --
+!     -- *** WARNING *** Routine ADA$AST_PARAMETER is not intended for use
+!     --		       outside of VAX Ada supplied software (for example,
+!     --		       this package body).  In particular, it is not
+!     --		       recommended for use by VAX Ada users.  There are
+!     --		       implicit assumptions that must be true in order for
+!     --		       this routine to execute properly.  Furthermore,
+!     --		       this interface is subject to change in a future
+!     --		       release of VAX Ada.
+  
+-  
+      -- AST handler to use for the non-RMS system services.
+      --
+!     procedure TASK_AST_HANDLER;
+!     pragma INTERFACE (ADARTL, TASK_AST_HANDLER);
+!     pragma IMPORT_PROCEDURE (TASK_AST_HANDLER, "GNAT$AST_HANDLER");
+!     --
+!     -- *** WARNING *** Routine ADA$AST_HANDLER is not intended for use
+!     --		       outside of VAX Ada supplied software (for example,
+!     --		       this package body).  In particular, it is not
+!     --		       recommended for use by VAX Ada users.  There are
+!     --		       implicit assumptions that must be true in order for
+!     --		       this routine to execute properly.  Furthermore,
+!     --		       this interface is subject to change in a future
+!     --		       release of VAX Ada.
+   
+      -- A synchronizer that allows the system service to be process asynchronous
+      -- but task synchrnous.
+      --
+!     procedure TASK_SYNCH;
+!     pragma INTERFACE (ADARTL, TASK_SYNCH);
+!     pragma IMPORT_PROCEDURE (TASK_SYNCH, "GNAT$$TASK_SYNCH");
+!     --
+!     -- *** WARNING *** Routine ADA$TASK_SYNCH is not intended for use
+!     --		       outside of VAX Ada supplied software (for example,
+!     --		       this package body).  In particular, it is not
+!     --		       recommended for use by VAX Ada users.  There are
+!     --		       implicit assumptions that must be true in order for
+!     --		       this routine to execute properly.  Furthermore,
+!     --		       this interface is subject to change in a future
+!     --		       release of VAX Ada.
+! 
+  
+      function TO_AST_HANDLER is new UNCHECKED_CONVERSION (ADDRESS, AST_HANDLER);
+  
+--- 19,43 ----
+  with SYSTEM; use SYSTEM;
+  with CONDITION_HANDLING; use CONDITION_HANDLING;
+  with UNCHECKED_CONVERSION;
++ with System.Task_Primitives.Operations.DEC;
+  package body TASKING_SERVICES is
+      pragma IDENT ("VAX Ada V2.3");
+  
+      -- function that returns the value to be used as AST parameter.
+      --
+!     function ME return UNSIGNED_LONGWORD renames
+!       System.Task_Primitives.Operations.DEC.Self;
+  
+      -- AST handler to use for the non-RMS system services.
+      --
+!     procedure TASK_AST_HANDLER (ID : Address) renames
+!       System.Task_Primitives.Operations.DEC.Starlet_AST_Handler;
+   
+      -- A synchronizer that allows the system service to be process asynchronous
+      -- but task synchrnous.
+      --
+!     procedure TASK_SYNCH renames
+!       System.Task_Primitives.Operations.DEC.Task_Synch;
+  
+      function TO_AST_HANDLER is new UNCHECKED_CONVERSION (ADDRESS, AST_HANDLER);
+  
+*** ada$predefined:rms_asynch_operations.adc	Tue Dec 10 07:46:07 1996
+--- rms_asynch_operations.adb	Fri May 12 22:26:57 2000
+***************
+*** 19,74 ****
+  with CONDITION_HANDLING; use CONDITION_HANDLING;
+  with SYSTEM; use SYSTEM;
+  with UNCHECKED_CONVERSION;
+  package body RMS_ASYNCH_OPERATIONS is
+  
+      -- function that returns the value to be used as AST parameter.
+      --
+!     function ME return UNSIGNED_LONGWORD;
+!     pragma INTERFACE (ADARTL, ME);
+!     pragma IMPORT_FUNCTION (ME, "GNAT$AST_PARAMETER");
+!     --
+!     -- *** WARNING *** Routine ADA$AST_PARAMETER is not intended for use
+!     --		       outside of VAX Ada supplied software (for example,
+!     --		       this package body).  In particular, it is not
+!     --		       recommended for use by VAX Ada users.  There are
+!     --		       implicit assumptions that must be true in order for
+!     --		       this routine to execute properly.  Furthermore,
+!     --		       this interface is subject to change in a future
+!     --		       release of VAX Ada.
+! 
+   
+      -- AST handler to use for the RMS system services.
+      --
+!     procedure TASK_RMS_AST_HANDLER;
+!     pragma INTERFACE (ADARTL, TASK_RMS_AST_HANDLER);
+!     pragma IMPORT_PROCEDURE (TASK_RMS_AST_HANDLER, "GNAT$$RMS_AST_HANDLER");
+!     --
+!     -- *** WARNING *** Routine ADA$RMS_AST_HANDLER is not intended for use
+!     --		       outside of VAX Ada supplied software (for example,
+!     --		       this package body).  In particular, it is not
+!     --		       recommended for use by VAX Ada users.  There are
+!     --		       implicit assumptions that must be true in order for
+!     --		       this routine to execute properly.  Furthermore,
+!     --		       this interface is subject to change in a future
+!     --		       release of VAX Ada.
+! 
+  
+      -- A synchronizer that allows the system service to be process asynchronous
+      -- but task synchrnous.
+      --
+!     procedure TASK_SYNCH;
+!     pragma INTERFACE (ADARTL, TASK_SYNCH);
+!     pragma IMPORT_PROCEDURE (TASK_SYNCH, "GNAT$$TASK_SYNCH");
+!     --
+!     -- *** WARNING *** Routine ADA$TASK_SYNCH is not intended for use
+!     --		       outside of VAX Ada supplied software (for example,
+!     --		       this package body).  In particular, it is not
+!     --		       recommended for use by VAX Ada users.  There are
+!     --		       implicit assumptions that must be true in order for
+!     --		       this routine to execute properly.  Furthermore,
+!     --		       this interface is subject to change in a future
+!     --		       release of VAX Ada.
+! 
+  
+      function TO_AST_HANDLER is new UNCHECKED_CONVERSION (ADDRESS, AST_HANDLER);
+  
+--- 19,42 ----
+  with CONDITION_HANDLING; use CONDITION_HANDLING;
+  with SYSTEM; use SYSTEM;
+  with UNCHECKED_CONVERSION;
++ with System.Task_Primitives.Operations.DEC;
+  package body RMS_ASYNCH_OPERATIONS is
+  
+      -- function that returns the value to be used as AST parameter.
+      --
+!     function ME return UNSIGNED_LONGWORD renames
+!       System.Task_Primitives.Operations.DEC.Self;
+   
+      -- AST handler to use for the RMS system services.
+      --
+!     procedure TASK_RMS_AST_HANDLER (ID : Address) renames
+!       System.Task_Primitives.Operations.DEC.RMS_AST_Handler;
+  
+      -- A synchronizer that allows the system service to be process asynchronous
+      -- but task synchrnous.
+      --
+!     procedure TASK_SYNCH renames
+!       System.Task_Primitives.Operations.DEC.Task_Synch;
+  
+      function TO_AST_HANDLER is new UNCHECKED_CONVERSION (ADDRESS, AST_HANDLER);
+  
+*** tasking_services.ads.1	Mon Sep  3 10:15:14 2001
+--- tasking_services.ads	Mon Sep  3 10:21:39 2001
+***************
+*** 20,24 ****
+--- 20,25 ----
+  with SYSTEM; use SYSTEM;
+  with CONDITION_HANDLING; use CONDITION_HANDLING;
+  with RMS_ASYNCH_OPERATIONS; use RMS_ASYNCH_OPERATIONS;
++ pragma Elaborate_All (RMS_ASYNCH_OPERATIONS);
+  package TASKING_SERVICES is

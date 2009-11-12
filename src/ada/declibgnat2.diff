@@ -1,0 +1,171 @@
+This file contains a patch to revert the DEC Ada 3.5 changes to lib which
+are clearly incorrect.
+
+	* lib.ads: Specify F_FLOAT on CVTF_{TO,FROM}_INTERNAL_TIME,
+	EMODF, POLYF, MULTF_DELTA_TIME, and WAIT.
+
+*** lib.ads.1	Mon May 30 09:57:03 2005
+--- lib.ads	Wed Jun  1 05:42:33 2005
+***************
+*** 110,116 ****
+  with STARLET; 
+  with CONDITION_HANDLING; 
+  package LIB is
+-    pragma Elaborate_Body;
+      pragma IDENT ("DEC Ada V3.5");
+   
+  --
+--- 110,115 ----
+***************
+*** 1558,1566 ****
+      procedure CVTF_FROM_INTERNAL_TIME (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+  	OPERATION	: in  FUNCTION_CODE_TYPE;
+! 	RESULTANT_TIME	: out FLOAT;
+  	INPUT_TIME	: in  DATE_TIME_TYPE);
+!     -- body in package body
+   
+  --    LIB$CVT_FROM_INTERNAL_TIME
+  --    
+--- 1557,1570 ----
+      procedure CVTF_FROM_INTERNAL_TIME (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+  	OPERATION	: in  FUNCTION_CODE_TYPE;
+! 	RESULTANT_TIME	: out F_FLOAT;
+  	INPUT_TIME	: in  DATE_TIME_TYPE);
+! 
+!     pragma INTERFACE (EXTERNAL, CVTF_FROM_INTERNAL_TIME);
+!     pragma IMPORT_VALUED_PROCEDURE (CVTF_FROM_INTERNAL_TIME, "LIB$CVTF_FROM_INTERNAL_TIME",
+!         (COND_VALUE_TYPE, FUNCTION_CODE_TYPE, F_FLOAT, DATE_TIME_TYPE),
+!         (VALUE, REFERENCE, REFERENCE, REFERENCE));
+! 
+   
+  --    LIB$CVT_FROM_INTERNAL_TIME
+  --    
+***************
+*** 1595,1603 ****
+      procedure CVTF_TO_INTERNAL_TIME (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+  	OPERATION	: in  FUNCTION_CODE_TYPE;
+! 	INPUT_TIME	: in  FLOAT;
+  	RESULTANT_TIME	: out DATE_TIME_TYPE);
+!     -- body in package body
+   
+  --    LIB$CVT_TO_INTERNAL_TIME
+  --    
+--- 1599,1611 ----
+      procedure CVTF_TO_INTERNAL_TIME (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+  	OPERATION	: in  FUNCTION_CODE_TYPE;
+! 	INPUT_TIME	: in  F_FLOAT;
+  	RESULTANT_TIME	: out DATE_TIME_TYPE);
+!     pragma INTERFACE (EXTERNAL, CVTF_TO_INTERNAL_TIME);
+!     pragma IMPORT_VALUED_PROCEDURE (CVTF_TO_INTERNAL_TIME, "LIB$CVTF_TO_INTERNAL_TIME",
+!         (COND_VALUE_TYPE, FUNCTION_CODE_TYPE, F_FLOAT, DATE_TIME_TYPE),
+!         (VALUE, REFERENCE, REFERENCE, REFERENCE));
+! 
+   
+  --    LIB$CVT_TO_INTERNAL_TIME
+  --    
+***************
+*** 2187,2198 ****
+   
+      procedure EMODF (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	FLOATING_POINT_MULTIPLIER	: in  FLOAT;
+  	MULTIPLIER_EXTENSION	: in  UNSIGNED_BYTE;
+! 	FLOATING_POINT_MULTIPLICAND	: in  FLOAT;
+  	INTEGER_PORTION	: out INTEGER;
+! 	FRACTIONAL_PORTION	: out FLOAT);
+!     -- body in package body
+  
+  --    LIB$EMODG
+  --    
+--- 2195,2209 ----
+   
+      procedure EMODF (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	FLOATING_POINT_MULTIPLIER	: in  F_FLOAT;
+  	MULTIPLIER_EXTENSION	: in  UNSIGNED_BYTE;
+! 	FLOATING_POINT_MULTIPLICAND	: in  F_FLOAT;
+  	INTEGER_PORTION	: out INTEGER;
+! 	FRACTIONAL_PORTION	: out F_FLOAT);
+!     pragma INTERFACE (EXTERNAL, EMODF);
+!     pragma IMPORT_VALUED_PROCEDURE (EMODF, "LIB$EMODF",
+!         (COND_VALUE_TYPE, F_FLOAT, UNSIGNED_BYTE, F_FLOAT, INTEGER, F_FLOAT),
+!         (VALUE, REFERENCE, REFERENCE, REFERENCE, REFERENCE, REFERENCE));
+  
+  --    LIB$EMODG
+  --    
+***************
+*** 4669,4677 ****
+   
+      procedure MULTF_DELTA_TIME (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	MULTIPLIER	: in  FLOAT;
+  	DELTA_TIME	: in out DATE_TIME_TYPE);
+!     -- Body in package body
+   
+  --    LIB$PAUSE
+  --    
+--- 4680,4691 ----
+   
+      procedure MULTF_DELTA_TIME (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	MULTIPLIER	: in  F_FLOAT;
+  	DELTA_TIME	: in out DATE_TIME_TYPE);
+!     pragma INTERFACE (EXTERNAL, MULTF_DELTA_TIME);
+!     pragma IMPORT_VALUED_PROCEDURE (MULTF_DELTA_TIME, "LIB$MULTF_DELTA_TIME",
+!         (COND_VALUE_TYPE, F_FLOAT, DATE_TIME_TYPE),
+!         (VALUE, REFERENCE, REFERENCE));
+   
+  --    LIB$PAUSE
+  --    
+***************
+*** 4721,4731 ****
+   
+      procedure POLYF (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	POLYNOMIAL_ARGUMENT	: in  FLOAT;
+  	DEGREE		: in  SHORT_INTEGER;
+! 	COEFFICIENT	: in  FLOAT;
+! 	FLOATING_POINT_RESULT	: out FLOAT);
+!     -- Body in package body
+   
+  --    LIB$POLYG
+  --    
+--- 4735,4748 ----
+   
+      procedure POLYF (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	POLYNOMIAL_ARGUMENT	: in  F_FLOAT;
+  	DEGREE		: in  SHORT_INTEGER;
+! 	COEFFICIENT	: in  F_FLOAT;
+! 	FLOATING_POINT_RESULT	: out F_FLOAT);
+!     pragma INTERFACE (EXTERNAL, POLYF);
+!     pragma IMPORT_VALUED_PROCEDURE (POLYF, "LIB$POLYF",
+!         (COND_VALUE_TYPE, F_FLOAT, SHORT_INTEGER, F_FLOAT, F_FLOAT),
+!         (VALUE, REFERENCE, REFERENCE, REFERENCE, REFERENCE));
+   
+  --    LIB$POLYG
+  --    
+***************
+*** 6281,6287 ****
+   
+      procedure WAIT (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	SECONDS		: in  FLOAT);
+!     -- Body in package body
+   
+  end LIB;
+--- 6298,6307 ----
+   
+      procedure WAIT (
+  	STATUS		: out COND_VALUE_TYPE;				-- return value
+! 	SECONDS		: in  F_FLOAT);
+!     pragma INTERFACE (EXTERNAL, WAIT);
+!     pragma IMPORT_VALUED_PROCEDURE (WAIT, "LIB$WAIT",
+!         (COND_VALUE_TYPE, F_FLOAT),
+!         (VALUE, REFERENCE));
+   
+  end LIB;

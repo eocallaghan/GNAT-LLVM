@@ -1,0 +1,76 @@
+*** config.sub.old	2004-09-02 19:56:02.000000000 +0200
+--- config.sub	2004-09-07 16:09:51.000000000 +0200
+***************
+*** 231,236 ****
+--- 231,237 ----
+  	| arc | arm | arm[bl]e | arme[lb] | armv[2345] | armv[345][lb] | avr \
+  	| c4x | clipper \
+  	| d10v | d30v | dlx | dsp16xx \
++ 	| erc32 | leon \
+  	| fr30 | frv \
+  	| h8300 | h8500 | hppa | hppa1.[01] | hppa2.0 | hppa2.0[nw] | hppa64 \
+  	| i370 | i860 | i960 | ia64 \
+***************
+*** 300,305 ****
+--- 301,307 ----
+  	| clipper-* | cydra-* \
+  	| d10v-* | d30v-* | dlx-* \
+  	| elxsi-* \
++ 	| erc32-* | leon-* \
+  	| f30[01]-* | f700-* | fr30-* | frv-* | fx80-* \
+  	| h8300-* | h8500-* \
+  	| hppa-* | hppa1.[01]-* | hppa2.0-* | hppa2.0[nw]-* | hppa64-* \
+*** configure.old	2004-09-02 19:56:11.000000000 +0200
+--- configure	2004-09-02 19:55:27.000000000 +0200
+***************
+*** 1435,1441 ****
+    sh64-*-*)
+      noconfigdirs="$noconfigdirs target-libgloss ${libgcj}"
+      ;;
+!   sparc-*-elf*)
+      noconfigdirs="$noconfigdirs ${libgcj}"
+      ;;
+    sparc64-*-elf*)
+--- 1435,1441 ----
+    sh64-*-*)
+      noconfigdirs="$noconfigdirs target-libgloss ${libgcj}"
+      ;;
+!   sparc-*-elf* | erc32-*-elf* | leon-*-elf*)
+      noconfigdirs="$noconfigdirs ${libgcj}"
+      ;;
+    sparc64-*-elf*)
+*** configure.in.old	2004-09-02 19:56:16.000000000 +0200
+--- configure.in	2004-09-02 19:55:27.000000000 +0200
+***************
+*** 674,680 ****
+    sh64-*-*)
+      noconfigdirs="$noconfigdirs target-libgloss ${libgcj}"
+      ;;
+!   sparc-*-elf*)
+      noconfigdirs="$noconfigdirs ${libgcj}"
+      ;;
+    sparc64-*-elf*)
+--- 674,680 ----
+    sh64-*-*)
+      noconfigdirs="$noconfigdirs target-libgloss ${libgcj}"
+      ;;
+!   sparc-*-elf* | erc32-*-elf* | leon-*-elf*)
+      noconfigdirs="$noconfigdirs ${libgcj}"
+      ;;
+    sparc64-*-elf*)
+*** newlib/configure.host.old	2004-09-02 19:56:37.000000000 +0200
+--- newlib/configure.host	2004-09-02 19:55:27.000000000 +0200
+***************
+*** 97,102 ****
+--- 97,107 ----
+    ep9312)
+  	machine_dir=arm
+  	;;
++   erc32 | leon)
++         machine_dir=sparc
++         # FIXME: Might wish to make MALLOC_ALIGNMENT more generic.
++         newlib_cflags="${newlib_cflags} -DMALLOC_ALIGNMENT=8"
++         ;;
+    fr30)
+  	machine_dir=fr30
+  	;;
