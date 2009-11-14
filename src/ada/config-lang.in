@@ -18,10 +18,10 @@
 #<http://www.gnu.org/licenses/>.
 
 language="ada"
-gcc_subdir="ada/gcc-interface"
+gcc_subdir="ada/llvm-interface"
 
 if [ -f ${srcdir}/gcc/ada/gcc-interface/config-lang.in ]; then
    . ${srcdir}/gcc/ada/gcc-interface/config-lang.in
 else
-   . ${srcdir}/ada/gcc-interface/config-lang.in
+   . ${srcdir}/ada/llvm-interface/config-lang.in
 fi
