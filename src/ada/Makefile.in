@@ -1,5 +1,4 @@
-# All makefile fragments assume that $(srcdir) points to the gcc
-# directory, not the language subdir
+# All makefile fragments assume that $(srcdir) points to the backend directory, not the language subdir
 srcdir = @top_srcdir@
 -include ./llvm-interface/Makefile
 -include ../llvm-interface/Makefile
